@@ -1,10 +1,17 @@
+import { User } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import prisma from 'utils/prisma';
 
-type Data = {
-  result: string;
-};
-
-export default (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  console.log(req.body);
-  res.status(200).json({ result: "BESERK" })
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  const response = JSON.parse(req.body);
+  const { user: username, info, name, description } = response;
+  await prisma.churchInfo.create({
+    data: {
+      churchName: name,
+      churchDescription: description,
+      churchType: info,
+      editedBy: username,
+    },
+  });
+  res.status(200).send('SUCCESS');
 };

@@ -1,50 +1,29 @@
+import { modal$, showLoading$, ids } from 'lib/modal';
+import { useState, useEffect, useRef } from 'react';
+
 import modal from './modal.module.css';
 import TypewriterComponent from 'typewriter-effect';
-import finishType from 'lib/finishType';
-import { useState, useEffect, useRef } from 'react';
-import { debounceTime, tap } from 'rxjs';
 import Field from './Field/Field';
 import StatusIcon from './StatusIcon/StatusIcon';
 import { IoIosClose } from 'react-icons/io';
-import modal$ from 'lib/modal';
 import Button from './Button/Button';
-
-export const ids = ['info', 'name', 'descriptions'];
+import Loading from 'components/Loading/Loading';
+import ImageSupplier from './ImageSupplier/ImageSupplier';
 
 const Modal = () => {
-  const [status, setStatus] = useState<{
-    demo: boolean;
-    descriptionField: boolean;
-    infoField: boolean;
-    nameField: boolean;
-    pictures: boolean;
-  }>({
-    demo: false,
-    descriptionField: false,
-    infoField: false,
-    nameField: false,
-    pictures: false,
-  });
+  const [loading, setLoading] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const obs = finishType
-      .pipe(
-        debounceTime(700),
-        tap((value) =>
-          setStatus({
-            ...status,
-            demo: value,
-          })
-        )
-      )
-      .subscribe();
+    const show = showLoading$.subscribe(setLoading);
     return () => {
-      obs.unsubscribe();
+      console.log('UNMOUTED');
+      show.unsubscribe();
     };
   }, []);
   return (
     <>
       <div ref={containerRef} className={modal.container}>
+        {loading ? <Loading></Loading> : null}
         <div className={modal.header}>
           <div className={modal.title}>
             <div className={modal.typewtitter}>
@@ -52,18 +31,9 @@ const Modal = () => {
                 onInit={(typewriter) => {
                   typewriter
                     .typeString('Sugerati o modificare . . .')
-                    .callFunction(() => {
-                      finishType.next(true);
-                    })
                     .pauseFor(400)
-                    .callFunction(() => {
-                      finishType.next(false);
-                    })
                     .deleteChars(16)
                     .typeString('schimbare . . . ')
-                    .callFunction(() => {
-                      finishType.next(true);
-                    })
                     .start();
                 }}
                 options={{
@@ -94,6 +64,7 @@ const Modal = () => {
               </Field>
             );
           })}
+          <ImageSupplier />
         </div>
         <div className={modal.button__container}>
           <div className={modal.button__content}>

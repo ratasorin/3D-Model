@@ -1,9 +1,9 @@
-import input from 'lib/inputValue';
+import { input$ } from 'lib/modal';
 import { useEffect, useState } from 'react';
 import { debounceTime, from, mergeMap, tap, map } from 'rxjs';
 import searchResults from './searchResults.module.css';
 import { chruches } from 'components/Map/featureLayer';
-import Card from '../../Card/Card';
+import Card from './Card/Card';
 
 export interface Church {
   name: string;
@@ -14,7 +14,8 @@ const Searchbar = () => {
   const [inputValue, setInputValue] = useState<Church[]>([]);
   useEffect(() => {
     const data$ = from(chruches);
-    const obs = input
+    chruches.then((allChurches) => setInputValue(allChurches));
+    const obs = input$
       .pipe(
         mergeMap((inputedValue: string) => {
           return data$.pipe(
@@ -31,7 +32,7 @@ const Searchbar = () => {
     () => obs.unsubscribe();
   }, []);
   return (
-    <div className={searchResults.pannel}>
+    <div className={searchResults.panel}>
       <div className={searchResults.cards__container}>
         {inputValue?.map((value) => {
           const { lat, long } = value;
