@@ -1,6 +1,6 @@
 .panel {
   width: 100%;
-  margin-top: var(--gap_x);
+  margin-top: 2em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,7 +17,7 @@
 
 /* scrollbar customizations */
 .cards__container::-webkit-scrollbar {
-  width: 15px;
+  width: 10px;
 }
 
 .cards__container::-webkit-scrollbar-track {
