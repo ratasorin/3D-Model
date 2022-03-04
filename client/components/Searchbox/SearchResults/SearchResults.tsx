@@ -2,7 +2,7 @@ import { input$ } from 'lib/modal';
 import { useEffect, useState } from 'react';
 import { debounceTime, from, mergeMap, tap, map } from 'rxjs';
 import searchResults from './searchResults.module.css';
-import { chruches } from 'components/Map/featureLayer';
+import { chruches as churches } from 'components/Map/featureLayer';
 import Card from './Card/Card';
 
 export interface Church {
@@ -13,23 +13,26 @@ export interface Church {
 const Searchbar = () => {
   const [inputValue, setInputValue] = useState<Church[]>([]);
   useEffect(() => {
-    const data$ = from(chruches);
-    chruches.then((allChurches) => setInputValue(allChurches));
+    const data$ = from(churches);
+    churches.then((allChurches) => setInputValue(allChurches));
+
     const obs = input$
       .pipe(
-        mergeMap((inputedValue: string) => {
+        mergeMap((inputValue: string) => {
           return data$.pipe(
-            map((data) =>
-              data.filter((data) => data.name.includes(inputedValue))
-            )
+            map((data) => data.filter((data) => data.name.includes(inputValue)))
           );
         }),
         debounceTime(500),
-        tap((church) => (church ? setInputValue(church) : 0))
+        tap((church) => {
+          return church ? setInputValue(church) : 0;
+        })
       )
       .subscribe();
 
-    () => obs.unsubscribe();
+    return () => {
+      obs.unsubscribe();
+    };
   }, []);
   return (
     <div className={searchResults.panel}>

@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+.container {
+  width: 100%;
+  padding: 1em 2em;
+  height: auto;
+  overflow-y: auto;
+}
+
+.terminal {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: Ubuntu;
+  font-weight: 700;
+  font-size: 1em;
+  max-height: 100%;
+  overflow-y: hidden;
+}
+
+.name {
+  background-color: #c6c7d2;
+  height: auto;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em 1em;
+}
+
+.name__status {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input {
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #444c53;
+  padding: 0.5em 1em;
+}
+
+.fieldName {
+  color: white;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.fieldInput {
+  width: 100%;
+  color: white;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  overflow-y: auto;
+}
+
+.textarea {
+  color: white;
+  background: transparent;
+  font-family: Ubuntu;
+  font-weight: 700;
+  width: 100%;
+  padding: 0.5em 1em;
+  resize: none;
+  border: none;
+  overflow-y: hidden;
+  transition: height 0.5s ease-in-out;
+}
+
+.textarea::placeholder {
+  color: #797979;
+}
+.textarea:focus {
+  outline: none;
+  border-left: 3px solid white;
+}

@@ -1,0 +1,77 @@
+.container {
+  position: relative;
+  width: 30em;
+  height: auto;
+  max-height: 40rem;
+  background-color: rgb(255, 255, 255);
+  font-family: Ubuntu;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navigation {
+  padding: 0 2em;
+  margin-top: 2em;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  white-space: wrap;
+  font-size: 1.5em;
+}
+
+.subtitle {
+  margin-top: 0.5em;
+  font-size: 0.9em;
+  color: #acacac;
+  font-weight: 400;
+}
+
+.close {
+  position: relative;
+  color: grey;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+.closeIcon {
+  border-radius: 50%;
+  font-size: 4em;
+}
+
+.closeIcon:hover {
+  background-color: rgb(236, 236, 236);
+}
+
+.cursor {
+  margin: 5px;
+  position: relative;
+  animation: animate 0.8s alternate-reverse infinite;
+}
+
+.modal__container {
+  position: absolute;
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(36, 36, 36, 0.678);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

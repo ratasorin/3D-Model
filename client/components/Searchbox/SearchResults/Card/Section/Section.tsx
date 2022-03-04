@@ -8,11 +8,11 @@ interface CreateSection {
     element: JSX.Element;
     position: 'first' | 'last' | 'middle';
     iconAlign: 'top' | 'center';
-    sideEffects: (() => void) | undefined;
+    sideEffects: () => void;
   };
   iconContent: {
     element: JSX.Element;
-    size: 'tiny' | 'small' | 'large';
+    size: 'x-tiny' | 'tiny' | 'small' | 'medium' | 'large' | 'x-large';
   };
 }
 
@@ -38,7 +38,7 @@ const Section: FC<CreateSection> = ({
   );
 
   return isNavigable ? (
-    <ClickOverlay>
+    <ClickOverlay sideEffects={mainContent.sideEffects}>
       <div
         className={`${section_style.content__container} ${
           section_style[mainContent.position]
