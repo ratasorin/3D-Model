@@ -8,11 +8,10 @@ import { write } from './typewriter';
 import Loading from 'components/Loading/Loading';
 import ModalTemplate from '../Modals';
 import { indexOf } from 'store/widgets/widgets-actions';
-import { selectFrom } from 'store/widgets/actions/modals-actions';
+import { openModal, selectFrom } from 'store/widgets/actions/modals-actions';
 const Modal = () => {
   const { name, visible } = selectFrom<{ name: string }>('modify-modal');
   const zIndex = indexOf('modify-modal');
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
