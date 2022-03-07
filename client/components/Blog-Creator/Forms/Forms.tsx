@@ -1,9 +1,10 @@
 import form__style from './forms.module.css';
-import Title from './Title/Title';
+import Content from './Content/Content';
+
 const Forms = () => {
   return (
     <div className={form__style.container}>
-      <Title></Title>
+      <Content></Content>
     </div>
   );
 };

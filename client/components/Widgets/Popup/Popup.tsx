@@ -7,29 +7,41 @@ const Popup: FC<{
   zIndex: number;
   payload: JSX.Element | string | undefined;
   Icon: IconType;
-}> = ({ zIndex, Icon, payload }) => {
+  positions?: { x: number; y: number };
+}> = ({ zIndex, Icon, payload, positions }) => {
   return (
-    <motion.div
-      style={{
-        zIndex,
-      }}
-      initial={{
-        opacity: 0,
-        x: -200,
-      }}
-      animate={{
-        opacity: 1,
-        x: 0,
-      }}
-      exit={{
-        opacity: 0,
-        x: 200,
-      }}
-      className={actionStyle.container}
-    >
-      {payload ? <div className={actionStyle.text}>{payload}</div> : null}
-      <Icon className={actionStyle.icon} />
-    </motion.div>
+    <>
+      <motion.div
+        style={
+          positions
+            ? {
+                top: positions.y,
+                left: positions.x,
+                zIndex,
+              }
+            : {
+                zIndex,
+              }
+        }
+        // initial={{
+        //   opacity: 0,
+        //   x: -200,
+        // }}
+        // animate={{
+        //   opacity: 1,
+        //   x: 0,
+        // }}
+        // exit={{
+        //   opacity: 0,
+        //   x: 200,
+        // }}
+        className={actionStyle.container}
+      >
+        {payload ? <div className={actionStyle.text}>{payload}</div> : null}
+        <Icon className={actionStyle.icon} />
+      </motion.div>
+      <div className={actionStyle.point}></div>
+    </>
   );
 };
 

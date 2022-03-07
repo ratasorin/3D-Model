@@ -1,7 +1,5 @@
 .container {
   position: absolute;
-  bottom: 40px;
-  left: 40px;
   font-size: clamp(14px, calc(14 / 350 * var(--modal__width)), 16px);
   width: fit-content;
   background-color: whitesmoke;
@@ -12,12 +10,22 @@
   justify-content: center;
   font-weight: 600;
   color: black;
-  margin-left: 20px;
+  transform: translate(-50%, -100%);
+}
+
+.point {
+  position: absolute;
+  z-index: 1000000;
+  background-color: red;
+  top: 100px;
+  left: 100px;
+  width: 3px;
+  height: 3px;
 }
 
 .text {
   width: fit-content;
-  height: auto;
+  height: fit-content;
   display: inline-block;
   white-space: nowrap;
   margin: 0 10px;

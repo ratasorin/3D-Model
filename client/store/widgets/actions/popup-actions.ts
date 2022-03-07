@@ -5,7 +5,7 @@ import { store } from 'store/store';
 
 export const openPopup = (
   popup: supportedPopup,
-  payload: PopupBuilder | undefined = undefined
+  payload: { x: number; y: number } | PopupBuilder | undefined = undefined
 ) => {
   store.dispatch(addWidget(popup));
   store.dispatch({
