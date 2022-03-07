@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { ContentBlock, ContentState } from 'draft-js';
 import 'draft-js/dist/Draft.css';
+import { styles } from '../Content/style';
 
 function mediaBlockRenderer(block: ContentBlock) {
   if (block.getType() === 'atomic') {
@@ -13,16 +14,8 @@ function mediaBlockRenderer(block: ContentBlock) {
   return null;
 }
 
-const Audio: FC<{ src: string }> = ({ src }) => {
-  return <audio controls src={src} style={styles.media} />;
-};
-
 const Image: FC<{ src: string }> = ({ src }) => {
   return <img src={src} style={styles.media} />;
-};
-
-const Video: FC<{ src: string }> = ({ src }) => {
-  return <video controls src={src} style={styles.media} />;
 };
 
 const Media: FC<{ block: ContentBlock; contentState: ContentState }> = ({
@@ -30,18 +23,19 @@ const Media: FC<{ block: ContentBlock; contentState: ContentState }> = ({
   contentState,
 }) => {
   const entity = contentState.getEntity(block.getEntityAt(0));
-  const { src } = entity.getData();
-  const type = entity.getType();
+  const { src: url, filename } = entity.getData();
+  const [src, setSrc] = useState('');
+  useEffect(() => {
+    fetch(`/api/images/${url}`).then(async (r) => {
+      const file = (await r.json()) as { fileSRC: string; filename: string }[];
+      const fileSrc = file.find((retrievedFilename) => {
+        return retrievedFilename.filename === filename;
+      });
+      fileSrc ? setSrc(fileSrc.fileSRC) : null;
+    });
+  }, []);
 
-  let media = null;
-  if (type === 'audio') {
-    media = <Audio src={src} />;
-  } else if (type === 'image') {
-    media = <Image src={src} />;
-  } else if (type === 'video') {
-    media = <Video src={src} />;
-  }
-  return media;
+  return <Image src={src} />;
 };
 
 export default mediaBlockRenderer;

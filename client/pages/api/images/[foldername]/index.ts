@@ -7,11 +7,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { church } = req.query as { [key: string]: string };
+  const { foldername } = req.query as { [key: string]: string };
   const destinationFolder = path.join(
     process.cwd(),
     'uploads',
-    slugify(church, {
+    slugify(foldername, {
       lower: true,
       replacement: '_',
     })
@@ -19,10 +19,14 @@ export default async function handler(
   try {
     const fileNames = await fs.readdir(destinationFolder);
     const files = await Promise.all(
-      fileNames.map(
-        async (filename) =>
-          await fs.readFile(path.join(destinationFolder, filename), 'base64')
-      )
+      fileNames.map(async (filename) => {
+        const image = await fs.readFile(
+          path.join(destinationFolder, filename),
+          'base64'
+        );
+        const finalImage = 'data:image/png;base64,' + image;
+        return { fileSRC: finalImage, filename };
+      })
     );
     res.json(files);
   } catch (e) {

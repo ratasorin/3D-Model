@@ -20,6 +20,7 @@ export const styles = {
     cursor: 'text',
     minHeight: 80,
     padding: 10,
+    overflowY: 'scroll',
   },
   button: {
     marginTop: 10,

@@ -1,7 +1,6 @@
 import { debounceTime, fromEvent, Subscription, tap } from 'rxjs';
 import { FC, useEffect, useRef, useState } from 'react';
 import click_style from './clickoverlay.module.css';
-import { securePipe } from 'lib/safeObservable';
 
 const ClickOverlay: FC<{ sideEffects: () => void }> = ({
   children,
@@ -11,19 +10,17 @@ const ClickOverlay: FC<{ sideEffects: () => void }> = ({
   const [overlays, setOverlays] = useState<JSX.Element[]>([]);
   useEffect(() => {
     let subscription: Subscription | undefined;
-    const { piper, stop } = securePipe(
-      debounceTime(2000),
-      tap(() => {
-        setOverlays([]);
-      })
-    );
     if (buttonRef.current)
       subscription = fromEvent(buttonRef.current, 'click')
-        .pipe(piper)
+        .pipe(
+          debounceTime(2000),
+          tap(() => {
+            setOverlays([]);
+          })
+        )
         .subscribe();
     return () => {
-      stop.next(true);
-      subscription ? subscription.unsubscribe() : 0;
+      subscription ? subscription.unsubscribe() : null;
     };
   }, []);
 

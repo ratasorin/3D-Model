@@ -44,7 +44,6 @@ async function imagesHandler(req: NextApiRequest, res: NextApiResponse) {
       Buffer.from(name, 'latin1').toString('utf8')
     );
 
-    console.log(folderName);
     const pathToFolder = path.join(process.cwd(), 'uploads', folderName);
     const pathToFile = path.join(pathToFolder, info.filename);
 

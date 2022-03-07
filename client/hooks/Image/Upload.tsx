@@ -1,18 +1,19 @@
-import { FC, useEffect, useRef } from 'react';
+import { ChangeEvent, FC, RefObject, useEffect, useRef } from 'react';
 import { debounceTime, fromEvent, Subscription, tap } from 'rxjs';
 
-type handler = (...args: any[]) => unknown;
+type handler = (event: ChangeEvent<HTMLInputElement>) => unknown;
 
-const Uploader: FC<{ handler: handler; trigger: HTMLElement | null }> = ({
-  handler,
-  trigger,
-}) => {
+const Uploader: FC<{
+  handler: handler;
+  trigger: RefObject<HTMLElement | null>;
+}> = ({ handler, trigger }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     let subscription: Subscription;
-    trigger
-      ? (subscription = fromEvent(trigger, 'click')
+    console.log(trigger.current);
+    trigger.current
+      ? (subscription = fromEvent(trigger.current, 'click')
           .pipe(
             debounceTime(200),
             tap(() => {
@@ -21,10 +22,11 @@ const Uploader: FC<{ handler: handler; trigger: HTMLElement | null }> = ({
           )
           .subscribe())
       : null;
+
     return () => {
       subscription?.unsubscribe();
     };
-  }, []);
+  }, [trigger.current]);
 
   const Input = (
     <input
@@ -37,7 +39,7 @@ const Uploader: FC<{ handler: handler; trigger: HTMLElement | null }> = ({
       onChange={handler}
     />
   );
-  return <>{Input}</>;
+  return Input;
 };
 
 export default Uploader;

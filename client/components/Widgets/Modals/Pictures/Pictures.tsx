@@ -29,7 +29,7 @@ export default function Pictures() {
         title: 'Adaugati o fotografie',
       }}
     >
-      <Uploader handler={addPhoto} trigger={buttonRef.current} />
+      <Uploader handler={addPhoto} trigger={buttonRef} />
       <div className={imageSupplierStyle.container}>
         <motion.button
           layout
