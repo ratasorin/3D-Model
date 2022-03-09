@@ -19,15 +19,9 @@ const sendNewInfo = (
   state$: StateObservable<RootState>
 ) =>
   action$.pipe(
-    tap((e) => {
-      console.log(e);
-    }),
     ofType('change-info/processUserInput'),
     debounceTime(1000),
     withLatestFrom(state$),
-    tap(([action, state]) => {
-      console.log(action, state);
-    }),
     switchMap(([_, state]) =>
       iif(
         () => state.info.currentUserInfo === state.info.lastUpdatedInfo,

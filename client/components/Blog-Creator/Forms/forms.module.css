@@ -15,3 +15,7 @@
   background-color: #60676d;
   border-radius: 20px;
 }
+
+.editor_container {
+  padding-left: 2em;
+}

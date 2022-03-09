@@ -29,7 +29,8 @@ const Carousel = ({ church }: { church: string }) => {
       if (!base64Images.error)
         return base64Images.map((base64Image) => {
           const image = new Image();
-          image.src = 'data:image/png;base64,' + base64Image;
+          console.log(base64Image);
+          image.src = base64Image.fileSRC;
           return image;
         });
       else return [];

@@ -6,15 +6,22 @@ import mediaBlockRenderer from '../Media/Media';
 import url$ from 'lib/text-editor-image-uploader';
 import showStyleForText from './utils/editor-style-options';
 import confirmMedia from './utils/create-image';
+import content__style from './content.module.css';
 
 function MediaEditor() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const editorRef = useRef<Editor>(null);
+  const [file, setFile] = useState<File>({} as File);
+
   useEffect(() => {
-    url$.subscribe(async ({ url, filename }) => {
-      confirmMedia(url, filename, editorState, setEditorState);
-    });
-  });
+    url$.subscribe(setFile);
+  }, []);
+
+  useEffect(() => {
+    file.name
+      ? confirmMedia(editorState, setEditorState, file, 'user-draft01')
+      : null;
+  }, [file]);
 
   const onChange = (newEditorState: EditorState) => {
     showStyleForText(newEditorState, setEditorState);
@@ -34,18 +41,16 @@ function MediaEditor() {
   };
 
   return (
-    <>
-      <div style={styles.editor} onClick={focus}>
-        <Editor
-          blockRendererFn={mediaBlockRenderer}
-          editorState={editorState}
-          handleKeyCommand={handleKeyCommand}
-          onChange={onChange}
-          placeholder="Enter some text..."
-          ref={editorRef}
-        />
-      </div>
-    </>
+    <div className={content__style.editor} onClick={focus}>
+      <Editor
+        blockRendererFn={mediaBlockRenderer}
+        editorState={editorState}
+        handleKeyCommand={handleKeyCommand}
+        onChange={onChange}
+        placeholder="Enter some text..."
+        ref={editorRef}
+      />
+    </div>
   );
 }
 

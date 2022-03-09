@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs';
 
-const url$ = new Subject<{ filename: string; url: string }>();
+const url$ = new Subject<File>();
 
 export default url$;

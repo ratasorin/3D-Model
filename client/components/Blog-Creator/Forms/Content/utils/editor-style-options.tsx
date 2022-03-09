@@ -24,6 +24,7 @@ const showStyleForText = (
         openPopup('simple-popup', {
           x: left + width / 2,
           y: top - height / 2,
+          jsonContent: JSON.stringify(<button> BOLD </button>),
         });
     }
   } else closePopup('simple-popup');

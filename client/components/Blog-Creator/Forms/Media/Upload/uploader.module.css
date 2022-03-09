@@ -1,0 +1,27 @@
+.option {
+  border: none;
+  background-color: transparent;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.option:hover {
+  background-color: rgb(177, 177, 177);
+}
+
+.options {
+  background-color: rgb(243, 243, 243);
+  max-width: fit-content;
+  border-radius: 50%;
+}
+
+.icon {
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

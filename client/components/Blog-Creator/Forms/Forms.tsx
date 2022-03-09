@@ -4,8 +4,10 @@ import Upload from './Media/Upload/Uploader';
 const Forms = () => {
   return (
     <div className={form__style.container}>
-      <Upload />
-      <Content></Content>
+      <div className={form__style.editor_container}>
+        <Upload />
+        <Content></Content>
+      </div>
     </div>
   );
 };

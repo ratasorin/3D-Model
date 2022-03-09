@@ -1,12 +1,16 @@
 import Popup from '../Popup';
-import { FaAdn } from 'react-icons/fa';
 import { useAppSelector } from 'hooks/redux-hooks';
 import { indexOf } from 'store/widgets/widgets-actions';
 import { useEffect } from 'react';
+import { deserialize } from 'utils/elements-serializer';
 const Simple = () => {
-  const { visible, x, y } = useAppSelector(
+  const { visible, x, y, jsonContent } = useAppSelector(
     ({ simplePopupReducer }) => simplePopupReducer
   );
+
+  const content = jsonContent !== '' ? deserialize(jsonContent) : <div />;
+  console.log(content);
+  console.log(<button> Bold </button>);
   const zIndex = indexOf('simple-popup');
   useEffect(() => {
     console.log(zIndex);
@@ -18,8 +22,8 @@ const Simple = () => {
         y,
       }}
       zIndex={zIndex}
-      Icon={FaAdn}
-      payload="HELLO WORLD"
+      payload={content}
+      Icon={undefined}
     ></Popup>
   ) : null;
 };
