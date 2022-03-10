@@ -36,12 +36,8 @@ function MediaEditor() {
     return 'not-handled';
   };
 
-  const focus = () => {
-    editorRef.current?.focus();
-  };
-
   return (
-    <div className={content__style.editor} onClick={focus}>
+    <div className={content__style.editor}>
       <Editor
         blockRendererFn={mediaBlockRenderer}
         editorState={editorState}

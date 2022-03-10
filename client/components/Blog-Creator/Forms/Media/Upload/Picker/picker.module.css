@@ -1,0 +1,33 @@
+.container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+}
+
+.menu_opener {
+  border: none;
+  background-color: #444c53;
+  color: white;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  max-height: 100%;
+  box-sizing: content-box;
+}
+
+.icon {
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rotate {
+  transform: rotate(45deg);
+}

@@ -4,18 +4,5 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-}
-.container::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 5px;
-  background-color: #60676d;
-  border-radius: 20px;
-}
-
-.editor_container {
-  padding-left: 2em;
+  overflow-y: scroll;
 }

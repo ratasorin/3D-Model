@@ -67,8 +67,8 @@
   --modal__height: 650px;
   --scrollbar_width: 7px;
   --scrollbar_height: 3px;
-  --scrollbar__bg_color: #8b8b8b;
-  --scrollbar__scroll_color: #cfcfcf;
+  --scrollbar__scroll_color: #8b8b8b;
+  --scrollbar__bg_color: #cfcfcf;
   box-sizing: border-box;
 }
 

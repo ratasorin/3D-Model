@@ -1,13 +1,11 @@
 import form__style from './forms.module.css';
 import Content from './Content/Content';
-import Upload from './Media/Upload/Uploader';
+import Picker from './Media/Upload/Picker/Picker';
 const Forms = () => {
   return (
     <div className={form__style.container}>
-      <div className={form__style.editor_container}>
-        <Upload />
-        <Content></Content>
-      </div>
+      <Picker></Picker>
+      <Content></Content>
     </div>
   );
 };

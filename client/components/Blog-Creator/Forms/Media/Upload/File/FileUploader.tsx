@@ -1,9 +1,9 @@
 import Uploader from 'hooks/Image/Upload';
 import { ChangeEvent, useRef } from 'react';
 import url$ from 'lib/text-editor-image-uploader';
-import uploader__style from './uploader.module.css';
-
+import uploader__style from './file-uploader.module.css';
 import { BsPlusLg } from 'react-icons/bs';
+
 const Upload = () => {
   const button = useRef<HTMLButtonElement>(null);
 
