@@ -8,9 +8,6 @@ const Simple = () => {
     ({ simplePopupReducer }) => simplePopupReducer
   );
 
-  const content = jsonContent !== '' ? deserialize(jsonContent) : <div />;
-  console.log(content);
-  console.log(<button> Bold </button>);
   const zIndex = indexOf('simple-popup');
   useEffect(() => {
     console.log(zIndex);
@@ -22,7 +19,7 @@ const Simple = () => {
         y,
       }}
       zIndex={zIndex}
-      payload={content}
+      payload={jsonContent}
       Icon={undefined}
     ></Popup>
   ) : null;

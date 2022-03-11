@@ -18,8 +18,8 @@ const Picker = () => {
         <AnimateSharedLayout>
           {open ? (
             <motion.div
-              animate={{ rotate: 0 }}
-              exit={{ rotate: 45 }}
+              animate={{ rotate: 45 }}
+              exit={{ rotate: 0 }}
               layoutId="rotate"
               className={picker__styles.icon}
             >
@@ -27,8 +27,8 @@ const Picker = () => {
             </motion.div>
           ) : (
             <motion.div
-              animate={{ rotate: 45 }}
-              exit={{ rotate: 0 }}
+              animate={{ rotate: 0 }}
+              exit={{ rotate: 45 }}
               layoutId="rotate"
               className={picker__styles.icon}
             >

@@ -1,6 +1,14 @@
-import { EditorState, getVisibleSelectionRect } from 'draft-js';
+import {
+  ContentState,
+  EditorState,
+  getVisibleSelectionRect,
+  RichUtils,
+} from 'draft-js';
 import { Dispatch, SetStateAction } from 'react';
+import { Subject } from 'rxjs';
 import { closePopup, openPopup } from 'store/widgets/actions/popup-actions';
+
+export const style$ = new Subject<string>();
 
 const SelectedText = (newEditorState: EditorState) => {
   const selectionState = newEditorState.getSelection();
@@ -24,7 +32,17 @@ const showStyleForText = (
         openPopup('simple-popup', {
           x: left + width / 2,
           y: top - height / 2,
-          jsonContent: JSON.stringify(<button> BOLD </button>),
+          jsonContent: (
+            <button
+              onMouseDown={(e) => {
+                e.preventDefault();
+                const content = newEditorState.getCurrentContent();
+                style$.next('HIGHLIGHT');
+              }}
+            >
+              BOLD
+            </button>
+          ),
         });
     }
   } else closePopup('simple-popup');

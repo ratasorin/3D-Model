@@ -7,12 +7,12 @@ const simplePopup = createSlice({
     visible: false,
     x: 0,
     y: 0,
-    jsonContent: JSON.stringify(''),
+    jsonContent: {} as JSX.Element,
   },
   reducers: {
     open(
       _,
-      action: PayloadAction<{ x: number; y: number; jsonContent: string }>
+      action: PayloadAction<{ x: number; y: number; jsonContent: JSX.Element }>
     ) {
       return {
         visible: true,
@@ -26,7 +26,7 @@ const simplePopup = createSlice({
         visible: false,
         x: 0,
         y: 0,
-        jsonContent: JSON.stringify(''),
+        jsonContent: {} as JSX.Element,
       };
     },
   },

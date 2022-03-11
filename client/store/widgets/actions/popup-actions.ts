@@ -6,7 +6,7 @@ import { store } from 'store/store';
 export const openPopup = (
   popup: supportedPopup,
   payload:
-    | { x: number; y: number; jsonContent: string }
+    | { x: number; y: number; jsonContent: JSX.Element }
     | PopupBuilder
     | undefined = undefined
 ) => {
