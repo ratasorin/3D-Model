@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.hamburger__icon {
+  color: white;
+  font-size: 1.75em;
+}
+
+.filter {
+  width: 3.5em;
+  height: 3.5em;
+  border-radius: 50%;
+  background-color: #444c53;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.filter__container {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+}
+.filter_options__container {
+  position: absolute;
+  z-index: 9999;
+  left: 3.5em;
+  margin-left: 3em;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(249, 254, 255);
+  box-shadow: 0px 1px 22px -6px rgba(0, 0, 0, 0.47);
+  border-radius: 2em;
+  padding: 1em 0;
+}
+
+.filter_option {
+  padding: 0.5em 2em;
+  font-family: 'Roboto';
+  font-weight: 800;
+  font-size: 1em;
+}
+.filter_option:hover {
+  cursor: pointer;
+  font-size: 1.1em;
+}
+
+.filter:hover {
+  cursor: pointer;
+}

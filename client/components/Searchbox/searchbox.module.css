@@ -15,3 +15,16 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+@media screen and (max-width: 600px) and (min-width: 500px) {
+  .container {
+    height: 60em;
+  }
+}
+
+@media screen and (max-width: 499px) {
+  .container {
+    height: 65em;
+    width: 20rem;
+  }
+}

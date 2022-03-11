@@ -15,3 +15,15 @@
   width: 100vw;
   height: 100vh;
 }
+
+@media screen and (max-width: 600px) and (min-width: 500px) {
+  .app__container {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 499px) {
+  .app__container {
+    font-size: 9px;
+  }
+}
