@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { ContentBlock, ContentState } from 'draft-js';
 import 'draft-js/dist/Draft.css';
-import { styles } from '../Content/style';
+import { styles } from '../style';
 
 function mediaBlockRenderer(block: ContentBlock) {
   if (block.getType() === 'atomic') {

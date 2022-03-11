@@ -7,7 +7,6 @@ import React, {
   useState,
 } from 'react';
 import {
-  AtomicBlockUtils,
   CompositeDecorator,
   ContentBlock,
   Editor,
@@ -15,7 +14,7 @@ import {
   RichUtils,
 } from 'draft-js';
 import 'draft-js/dist/Draft.css';
-import mediaBlockRenderer from '../Media/Media';
+import mediaBlockRenderer from './Media/Media';
 import url$ from 'lib/text-editor-image-uploader';
 import showStyleForText from './utils/editor-style-options';
 import confirmMedia from './utils/create-image';
