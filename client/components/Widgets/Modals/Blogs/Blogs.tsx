@@ -1,14 +1,14 @@
 import { selectFrom } from 'store/widgets/actions/modals-actions';
 import ModalTemplate from '../Modals';
 import blogs__styles from './blogs.module.css';
-import Card from './Card/Card';
 import Dispatch from 'components/Widgets/Button/Dispatch/Dispatch';
 import { useRouter } from 'next/router';
 import Filter from './Filter/Filter';
+import dynamic from 'next/dynamic';
+const Card = dynamic(() => import('./Card/Card'));
 
 const Blogs = () => {
   const router = useRouter();
-
   const { name, visible } = selectFrom<{ name: string }>('blogs-modal');
   return visible ? (
     <ModalTemplate

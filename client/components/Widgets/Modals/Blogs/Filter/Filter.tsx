@@ -1,6 +1,7 @@
 import filter__styles from './filter.module.css';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { RefObject, useEffect, useRef, useState } from 'react';
+
 function useOnClickOutside(
   dropdown: RefObject<HTMLElement>,
   menu: RefObject<HTMLElement>,
@@ -50,7 +51,8 @@ const Filter = () => {
   });
   return (
     <div className={filter__styles.filter__container}>
-      <div ref={menu} className={filter__styles.filter} onClick={openMenu}>
+      <div className={filter__styles.filter} onClick={openMenu}>
+        {/* script bloating comes from this icon ! */}
         <GiHamburgerMenu className={filter__styles.hamburger__icon} />
       </div>
       {open ? (
