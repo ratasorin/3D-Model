@@ -8,12 +8,11 @@ import {
   Observable,
   of,
   switchMap,
-  tap,
   withLatestFrom,
 } from 'rxjs';
 import { update } from '../../components/Widgets/Modals/Modify/Field/info-slice';
 import { RootState } from 'store/store';
-import { churchInfoApi } from 'lib/church-info-fetcher';
+import { churchInfoApi } from 'store/redux-caching/church-info-cache';
 const sendNewInfo = (
   action$: Observable<Action<string>>,
   state$: StateObservable<RootState>
@@ -24,13 +23,14 @@ const sendNewInfo = (
     withLatestFrom(state$),
     switchMap(([_, state]) =>
       iif(
-        () => state.info.currentUserInfo === state.info.lastUpdatedInfo,
+        () =>
+          state.changeInfo.currentUserInfo === state.changeInfo.lastUpdatedInfo,
         of({ type: 'none/none' }),
         from(
-          fetch(`/api/church-info/${state.info.churchName}`, {
+          fetch(`/api/church-info/${state.changeInfo.churchName}`, {
             body: JSON.stringify({
-              churchDescription: state.info.currentUserInfo,
-              churchName: state.info.churchName,
+              churchDescription: state.changeInfo.currentUserInfo,
+              churchName: state.changeInfo.churchName,
               editedBy: 'ANONIM',
             }),
             method: 'POST',
@@ -38,15 +38,15 @@ const sendNewInfo = (
         ).pipe(
           mergeMap(() =>
             from([
-              update(state.info.currentUserInfo),
+              update(state.changeInfo.currentUserInfo),
               { type: 'icon/success' },
               churchInfoApi.util.updateQueryData(
                 'getChurchInfo',
-                `${state.info.churchName}`,
+                `${state.changeInfo.churchName}`,
                 (draft) => {
                   draft.churchInfo = {
-                    churchDescription: state.info.currentUserInfo,
-                    churchName: state.info.churchName,
+                    churchDescription: state.changeInfo.currentUserInfo,
+                    churchName: state.changeInfo.churchName,
                     editedBy: 'ANONIM',
                   };
                 }

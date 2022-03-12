@@ -5,7 +5,7 @@ const Profile = () => {
       <div className={profile__styles.icon}></div>
       <div className={profile__styles.user_profile}>
         <div className={profile__styles.user_name}>
-          JFSLKDJFLKJLSKDJFLJSDLKFJLKSDJFLKJDFLKJSDFLKJDSLFKJLSDJFLKSDJFLKSDJFLKJSDLKFJSDLKFJLKDSJFLKJDFLKJSDLKFJLKSDJFLKSDJFLKJSD
+          LLoyd Garmadon The Golden Ninja
         </div>
         <div className={profile__styles.user_navigate}>Profilul meu</div>
       </div>

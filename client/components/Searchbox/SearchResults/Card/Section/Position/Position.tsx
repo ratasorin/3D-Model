@@ -11,6 +11,9 @@ const Position: FC<{ x: number; y: number }> = ({ x, y }) => {
         size: 'small',
       }}
       mainContent={{
+        sideEffects: () => {
+          //
+        },
         element: (
           <>
             <div className={position_style.coordinates}>

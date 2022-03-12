@@ -1,5 +1,5 @@
-import { church$, imagesFrom, imageSupplier$ } from 'lib/modal';
-import { ChangeEvent, useEffect, useReducer, useRef, useState } from 'react';
+import { imagesFrom } from 'lib/modal';
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import useToggle from 'hooks/useToggle';
 import { CgCloseO } from 'react-icons/cg';

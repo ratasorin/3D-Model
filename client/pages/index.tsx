@@ -1,7 +1,8 @@
 import modalStyle from './main.module.css';
-import Navbar from 'components/Navbar/Navbar';
 import { useAppSelector } from 'hooks/redux-hooks';
 import dynamic from 'next/dynamic';
+
+import Navbar from 'components/Navbar/Navbar';
 
 const Searchbox = dynamic(() => import('components/Searchbox/Searchbox'), {
   ssr: false,
