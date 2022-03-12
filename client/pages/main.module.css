@@ -31,6 +31,12 @@
   animation: spinner 2s linear infinite;
 }
 
+@media screen and (max-width: 600px) {
+  .app__container {
+    font-size: 9px;
+  }
+}
+
 @keyframes spinner {
   0% {
     transform: rotate(0deg);
