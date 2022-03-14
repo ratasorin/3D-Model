@@ -14,12 +14,12 @@ import Uploader from 'hooks/Image/Upload';
 export default function Pictures() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { state: show, toggle } = useToggle();
-  const { visible } = selectFrom<{ name: string }>('picture-modal');
+  const { visible, name } = selectFrom<{ name: string }>('picture-modal');
   const { addPhoto, removePhoto, photos } = usePhotos();
 
   return visible ? (
     <ModalTemplate
-      modalToClose="picture-modal"
+      modal="picture-modal"
       header={{
         subtitle: (
           <div className={imageSupplierStyle.subtitle}>
@@ -29,7 +29,7 @@ export default function Pictures() {
         title: 'Adaugati o fotografie',
       }}
     >
-      <Uploader handler={addPhoto} trigger={buttonRef} />
+      <Uploader handleFile={addPhoto} trigger={buttonRef} />
       <div className={imageSupplierStyle.container}>
         <motion.button
           layout
@@ -82,7 +82,7 @@ export default function Pictures() {
         </div>
       </div>
       <Submit
-        data={imagesFrom}
+        data={imagesFrom(name)}
         path={'/api/images/images'}
         payload={'Salvati fotografiile'}
       />

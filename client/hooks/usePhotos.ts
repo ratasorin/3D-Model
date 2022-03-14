@@ -1,6 +1,13 @@
-import { imageSupplier$ } from 'lib/modal';
-import { ChangeEvent, useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer } from 'react';
+import { ReplaySubject } from 'rxjs';
 
+/**
+ * Push any set of files (that resulted from the user deleting or adding them) to the component that
+ * will eventually post them. Because processing the payload may not be done when the data is emitted,
+ * we will keep the latest set of data memoized inside **imageSupplier$**. This way, the data is only
+ * retrieved and processed before it is posted.
+ */
+export const imageSupplier$ = new ReplaySubject<File[]>(1);
 export interface PhotoActions {
   type: 'REMOVE' | 'ADD';
   src: string;
@@ -37,21 +44,19 @@ const usePhotos = () => {
   useEffect(() => {
     imageSupplier$.next(photos.map((photo) => photo.file));
   }, [photos]);
-  const addPhoto = (event: ChangeEvent<HTMLInputElement>) => {
+  const addPhoto = (file: File) => {
     /**
      * when the input receives images, it will store them (along with some details about the files)
      * inside **photos**. The metadata, will help display the thumbnail (through the **src**), avoid
      * duplicates (as the **name** will become the React key at display -keys must be unique so two images
      * with the same name won't meet the criteria-) and post the images to the backend (through the **file**)
      */
-    if (event.target.files && event.target.files[0]) {
-      dispatchPhotos({
-        type: 'ADD',
-        src: URL.createObjectURL(event.target.files[0]),
-        name: event.target.files[0].name,
-        file: event.target.files[0],
-      });
-    }
+    dispatchPhotos({
+      type: 'ADD',
+      src: URL.createObjectURL(file),
+      name: file.name,
+      file,
+    });
   };
   const removePhoto = (src: string, name: string, file: File) =>
     dispatchPhotos({

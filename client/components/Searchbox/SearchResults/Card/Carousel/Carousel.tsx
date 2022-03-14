@@ -80,7 +80,11 @@ const Carousel = ({ church }: { church: string }) => {
   return (
     <div className={carouselStyles.container}>
       {true ? (
-        <Slider {...settings}>
+        <Slider
+          {...settings}
+          adaptiveHeight={true}
+          className={carouselStyles.slider}
+        >
           {photos.map((img, index) => (
             <div key={index} className={carouselStyles.slide}>
               <img src={img?.src} alt={'alt'} />

@@ -1,5 +1,4 @@
 import { AtomicBlockUtils, EditorState } from 'draft-js';
-import { Dispatch, SetStateAction } from 'react';
 
 const srcFromFile = (file: File) =>
   new Promise<string>((resolve, reject) => {
@@ -11,12 +10,11 @@ const srcFromFile = (file: File) =>
     reader.readAsDataURL(file);
   });
 
-const confirmMedia = async (
+export async function* createMedia(
   editorState: EditorState,
-  setEditorState: Dispatch<SetStateAction<EditorState>>,
   file: File,
   base_url: string
-) => {
+) {
   const contentState = editorState.getCurrentContent();
   const src = await srcFromFile(file);
   const contentStateWithEntity = contentState.createEntity(
@@ -35,7 +33,7 @@ const confirmMedia = async (
     ' '
   );
 
-  setEditorState(stateWithAtomicBlock);
+  yield stateWithAtomicBlock;
 
   const form = new FormData();
 
@@ -55,7 +53,5 @@ const confirmMedia = async (
   const newEditorState = EditorState.set(stateWithAtomicBlock, {
     currentContent: renewedEntity,
   });
-  setEditorState(newEditorState);
-};
-
-export default confirmMedia;
+  yield newEditorState;
+}

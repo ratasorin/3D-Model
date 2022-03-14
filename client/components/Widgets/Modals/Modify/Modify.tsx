@@ -1,25 +1,12 @@
-import { showLoading$ } from 'lib/modal';
-import { useState, useEffect } from 'react';
 import modal from './modal.module.css';
 import TypewriterComponent from 'typewriter-effect';
 import Field from './Field/Field';
 import StatusIcon from './StatusIcon/StatusIcon';
 import { write } from './typewriter';
-import Loading from 'components/Loading/Loading';
 import ModalTemplate from '../Modals';
-import { indexOf } from 'store/widgets/widgets-actions';
-import { openModal, selectFrom } from 'store/widgets/actions/modals-actions';
+import { selectFrom } from 'store/widgets/actions/modals-actions';
 const Modal = () => {
   const { name, visible } = selectFrom<{ name: string }>('modify-modal');
-  const zIndex = indexOf('modify-modal');
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const subscription = showLoading$.subscribe(setLoading);
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
 
   const typewriter = (
     <TypewriterComponent
@@ -33,14 +20,13 @@ const Modal = () => {
 
   return visible ? (
     <ModalTemplate
-      modalToClose="modify-modal"
+      modal="modify-modal"
       header={{
         title: typewriter,
         subtitle:
           'Pentru a imbunatatii calitatea informatiilor sugerati o modificare',
       }}
     >
-      {loading ? <Loading></Loading> : null}
       <Field name={name} id="description">
         <StatusIcon id="description"></StatusIcon>
       </Field>

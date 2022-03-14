@@ -15,17 +15,15 @@ import {
 } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import mediaBlockRenderer from './Media/Media';
-import url$ from 'lib/text-editor-image-uploader';
 import showStyleForText from './utils/editor-style-options';
-import confirmMedia from './utils/create-image';
+import { createMedia } from './utils/create-image';
 import content__style from './content.module.css';
-import { useObservable } from 'observable-hooks';
+import { useObservable, useObservableGetState } from 'observable-hooks';
 import { map, Observable, withLatestFrom } from 'rxjs';
-
 import { style$ } from './utils/editor-style-options';
+import { file$ } from './Media/Upload/File/FileUploader';
 
 const HASHTAG_REGEX = /#[\w\u0590-\u05ff]+/g;
-
 function findWithRegex(
   regex: RegExp,
   contentBlock: ContentBlock,
@@ -94,19 +92,21 @@ function MediaEditor() {
     EditorState.createEmpty(compositeDecoration)
   );
   const editorRef = useRef<Editor>(null);
-  const [file, setFile] = useState<File>({} as File);
-
   const editorState$ = useObservable((input$) => input$, [editorState]);
   composeStyles(style$, editorState$, setEditorState);
 
-  useEffect(() => {
-    url$.subscribe(setFile);
-  }, []);
+  const file = useObservableGetState(file$, {} as File);
+  const addFile = async () => {
+    const stateWithMedia = createMedia(editorState, file, 'user-draft01');
+    for await (const newEditorState of stateWithMedia) {
+      setEditorState(newEditorState);
+    }
+  };
 
   useEffect(() => {
-    file.name
-      ? confirmMedia(editorState, setEditorState, file, 'user-draft01')
-      : null;
+    if (file.name) {
+      addFile();
+    }
   }, [file]);
 
   const onChange = (newEditorState: EditorState) => {

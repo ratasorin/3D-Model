@@ -16,7 +16,7 @@ const Blogs = () => {
         subtitle: 'Arhiva culturala',
         title: name,
       }}
-      modalToClose="blogs-modal"
+      modal="blogs-modal"
     >
       <div className={blogs__styles.container}>
         <div className={blogs__styles.options__container}>

@@ -1,12 +1,16 @@
 import Uploader from 'hooks/Image/Upload';
-import { ChangeEvent, useRef } from 'react';
-import url$ from 'lib/text-editor-image-uploader';
+import { useRef } from 'react';
 import uploader__style from './file-uploader.module.css';
 import { BsPlusLg } from 'react-icons/bs';
+import { Subject } from 'rxjs';
+
+export const file$ = new Subject<File>();
 
 const Upload = () => {
   const button = useRef<HTMLButtonElement>(null);
-
+  const sendFile = (file: File) => {
+    file$.next(file);
+  };
   return (
     <div className={uploader__style.options}>
       <button
@@ -18,15 +22,7 @@ const Upload = () => {
       >
         <BsPlusLg className={uploader__style.icon} />
       </button>
-      <Uploader
-        handler={(event: ChangeEvent<HTMLInputElement>) => {
-          if (event.target.files && event.target.files[0]) {
-            const file = event.target.files[0];
-            url$.next(file);
-          }
-        }}
-        trigger={button}
-      />
+      <Uploader handleFile={sendFile} trigger={button} />
     </div>
   );
 };

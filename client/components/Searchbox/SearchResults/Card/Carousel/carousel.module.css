@@ -4,7 +4,9 @@
   padding: 0.5em;
   background-color: #d2d6d9;
   border-radius: 1em;
+  height: auto;
 }
+
 .slide {
   position: relative;
   left: 50%;
@@ -15,6 +17,7 @@
   border-radius: 1em;
   transform: translateX(1em);
   max-width: calc(100% - 2em);
+  height: auto;
 }
 
 .arrow {

@@ -15,7 +15,7 @@ const Info = () => {
 
   return visible ? (
     <ModalTemplate
-      modalToClose="info-modal"
+      modal="info-modal"
       header={{
         title: name,
         subtitle: `Aflati mai multe informatii despre ${name}`,

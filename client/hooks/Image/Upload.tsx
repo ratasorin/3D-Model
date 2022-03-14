@@ -1,12 +1,12 @@
-import { ChangeEvent, FC, RefObject, useEffect, useRef } from 'react';
+import { FC, RefObject, useEffect, useRef } from 'react';
 import { debounceTime, fromEvent, Subscription, tap } from 'rxjs';
 
-type handler = (event: ChangeEvent<HTMLInputElement>) => unknown;
+type handleFile = (file: File) => unknown;
 
 const Uploader: FC<{
-  handler: handler;
+  handleFile: handleFile;
   trigger: RefObject<HTMLElement | null>;
-}> = ({ handler, trigger }) => {
+}> = ({ handleFile, trigger }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -36,7 +36,9 @@ const Uploader: FC<{
       style={{
         display: 'none',
       }}
-      onChange={handler}
+      onChange={(e) => {
+        e.currentTarget.files ? handleFile(e.currentTarget.files[0]) : null;
+      }}
     />
   );
   return Input;

@@ -2,9 +2,7 @@ import { createModalSlice } from 'store/widgets/widgets-creators';
 
 const blogSlice = createModalSlice<'blogs-modal', { name: string }>(
   'blogs-modal',
-  {
-    name: '',
-  }
+  { name: '' }
 );
 
 export const name = blogSlice.name;

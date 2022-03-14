@@ -3,26 +3,18 @@ import modal__style from './modal.module.css';
 import { IoIosClose } from 'react-icons/io';
 import { closeModal } from 'store/widgets/actions/modals-actions';
 import type { supportedModals } from 'store/widgets/widgets-available';
-import Loading from 'components/Loading/Loading';
 import { indexOf } from 'store/widgets/widgets-actions';
 interface ModalComponents {
-  modalToClose: supportedModals;
+  modal: supportedModals;
   header: {
     title: JSX.Element | string;
     subtitle: JSX.Element | string;
   };
-  loading: boolean;
 }
-const ModalTemplate: FC<ModalComponents> = ({
-  children,
-  modalToClose,
-  header,
-  loading,
-}) => {
-  const zIndex = indexOf(modalToClose);
-  return loading ? (
-    <Loading></Loading>
-  ) : (
+const ModalTemplate: FC<ModalComponents> = ({ children, modal, header }) => {
+  const zIndex = indexOf(modal);
+
+  return (
     <div
       className={modal__style.modal__container}
       style={{
@@ -39,7 +31,7 @@ const ModalTemplate: FC<ModalComponents> = ({
               <IoIosClose
                 className={modal__style.closeIcon}
                 onClick={() => {
-                  closeModal(modalToClose);
+                  closeModal(modal);
                 }}
               />
             </div>

@@ -4,9 +4,11 @@ const pictureChangeModalSlice = createModalSlice<
   'picture-change-name-modal',
   {
     oldFilename: string;
+    name: string;
   }
 >('picture-change-name-modal', {
   oldFilename: '',
+  name: '',
 });
 
 export const { open, close } = pictureChangeModalSlice.actions;

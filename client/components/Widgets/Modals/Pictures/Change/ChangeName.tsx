@@ -1,7 +1,5 @@
-import { church$ } from 'lib/modal';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { selectFrom } from 'store/widgets/actions/modals-actions';
-import { indexOf } from 'store/widgets/widgets-actions';
 import ModalTemplate from '../../Modals';
 
 export interface pathToFile {
@@ -11,15 +9,12 @@ export interface pathToFile {
 }
 
 const ChangeName = () => {
-  const zIndex = indexOf('picture-change-name-modal');
   const [newFilename, setNewFilename] = useState('');
-  const [church, setChurch] = useState('');
-  const { visible, oldFilename } = selectFrom<{ oldFilename: string }>(
-    'picture-change-name-modal'
-  );
-  useEffect(() => {
-    church$.subscribe(setChurch);
-  });
+  const { visible, oldFilename, name } = selectFrom<{
+    oldFilename: string;
+    name: string;
+  }>('picture-change-name-modal');
+
   return visible ? (
     <ModalTemplate
       header={{
@@ -27,7 +22,7 @@ const ChangeName = () => {
         subtitle:
           'Acest fisier exista deja in baza noastra de date. Verificati continutul pentru a evita duplicarile, si incercati sa schimbati denumirea fisierului',
       }}
-      modalToClose="picture-change-name-modal"
+      modal="picture-change-name-modal"
     >
       <input
         type="text"
@@ -42,7 +37,7 @@ const ChangeName = () => {
             method: 'POST',
             body: JSON.stringify({
               newFilename,
-              church,
+              church: name,
               oldFilename,
             } as pathToFile),
           });
