@@ -12,7 +12,6 @@ import showStyleForText from './utils/editor-style-options';
 import { createMedia } from './utils/create-image';
 import content__style from './content.module.css';
 import { useObservable, useObservableState } from 'observable-hooks';
-import { map, Observable, withLatestFrom } from 'rxjs';
 
 import { file$ } from './Media/Upload/File/FileUploader';
 import { composeStyle } from 'lib/edit-text';

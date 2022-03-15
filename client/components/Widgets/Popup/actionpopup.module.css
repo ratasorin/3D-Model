@@ -11,6 +11,7 @@
   font-weight: 600;
   color: black;
   transform: translate(-50%, -100%);
+  bottom: 2em;
 }
 
 .point {

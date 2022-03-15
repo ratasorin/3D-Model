@@ -1,6 +1,9 @@
 import menu__styles from './menu.module.css';
 import File from '../../File/FileUploader';
 import { motion } from 'framer-motion';
+import { BsImage, BsFileEarmarkPdfFill } from 'react-icons/bs';
+import { RiVideoAddFill } from 'react-icons/ri';
+import { MdAudiotrack } from 'react-icons/md';
 
 const Menu = () => {
   return (
@@ -17,10 +20,10 @@ const Menu = () => {
       }}
       className={menu__styles.container}
     >
-      <File></File>
-      <File></File>
-      <File></File>
-      <File></File>
+      <File type="image" Icon={BsImage}></File>
+      <File type="pdf" Icon={BsFileEarmarkPdfFill}></File>
+      <File type="video" Icon={RiVideoAddFill}></File>
+      <File type="audio" Icon={MdAudiotrack}></File>
     </motion.div>
   );
 };

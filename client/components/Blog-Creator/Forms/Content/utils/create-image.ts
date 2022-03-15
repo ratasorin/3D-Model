@@ -1,23 +1,21 @@
 import { AtomicBlockUtils, EditorState } from 'draft-js';
-import {
-  fromEvent,
-  map,
-  throwError,
-  takeUntil,
-  switchMap,
-  concat,
-  mergeMap,
-  combineLatest,
-} from 'rxjs';
-import { fromFetch } from 'rxjs/fetch';
 
-const srcFromFile = (file: File) => {
-  const reader = new FileReader();
-  return fromEvent(reader, 'loadend', () => reader.result as string).pipe(
-    takeUntil(fromEvent(reader, 'error').pipe(switchMap(throwError)))
-  );
+const srcFromFile = (file: File) =>
+  new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      resolve(reader.result as string);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+
+const typeFromMime = (fileType: string) => {
+  console.log(fileType);
+  if (fileType.includes('pdf')) return 'pdf';
+  if (fileType.includes('image')) return 'image';
+  if (fileType.includes('video')) return 'video';
 };
-
 export async function* createMedia(
   editorState: EditorState,
   file: File,
@@ -28,7 +26,7 @@ export async function* createMedia(
   const contentStateWithEntity = contentState.createEntity(
     'image',
     'IMMUTABLE',
-    { src }
+    { src, type: typeFromMime(file.type) }
   );
   const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
   const stateWithEntity = EditorState.set(editorState, {
@@ -57,6 +55,7 @@ export async function* createMedia(
     .getCurrentContent()
     .replaceEntityData(entityKey, {
       src: url,
+      type: typeFromMime(file.type),
     });
   const newEditorState = EditorState.set(stateWithAtomicBlock, {
     currentContent: renewedEntity,

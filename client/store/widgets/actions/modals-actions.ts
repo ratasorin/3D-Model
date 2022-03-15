@@ -1,12 +1,12 @@
 import type { supportedModals } from '../widgets-available';
-import type { supportedActions } from '../widgets-actions';
+import type { supportedModalActions } from '../widgets-actions';
 import { store } from 'store/store';
 import { addWidget, removeWidget } from 'components/Widgets/stack-slice';
 import { useAppSelector } from 'hooks/redux-hooks';
 
 export const openModal = (
   modal: supportedModals,
-  payload: supportedActions
+  payload: supportedModalActions
 ) => {
   console.log(store.dispatch(addWidget(modal)));
   store.dispatch({
@@ -24,11 +24,11 @@ export const closeModal = (modal: supportedModals) => {
 type Key<T> = T extends { [key: string]: unknown } ? keyof T : never;
 
 export const selectFrom = <
-  T extends { [key in Key<supportedActions>]?: unknown }
+  T extends { [key in Key<supportedModalActions>]?: unknown }
 >(
   modal: supportedModals
 ) => {
-  type correctType = Extract<supportedActions, T>;
+  type correctType = Extract<supportedModalActions, T>;
   const payload = useAppSelector(
     (appState) => appState[modal] as correctType & { visible: boolean }
   );

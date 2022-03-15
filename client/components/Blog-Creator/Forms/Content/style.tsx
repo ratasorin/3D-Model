@@ -26,10 +26,4 @@ export const styles = {
     marginTop: 10,
     textAlign: 'center',
   },
-  media: {
-    width: '100%',
-    // Fix an issue with Firefox rendering video controls
-    // with 'pre-wrap' white-space
-    whiteSpace: 'initial',
-  },
 };
