@@ -1,14 +1,11 @@
 import { supportedPopup } from '../widgets-available';
-import { PopupBuilder } from 'components/Widgets/Button/Submit/Submit';
 import { addWidget, removeWidget } from 'components/Widgets/stack-slice';
 import { store } from 'store/store';
+import { supportedPopupActions } from '../widgets-actions';
 
 export const openPopup = (
   popup: supportedPopup,
-  payload:
-    | { x: number; y: number; jsonContent: JSX.Element }
-    | PopupBuilder
-    | undefined = undefined
+  payload: supportedPopupActions | undefined = undefined
 ) => {
   store.dispatch(addWidget(popup));
   store.dispatch({

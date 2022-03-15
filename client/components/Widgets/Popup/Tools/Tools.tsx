@@ -2,9 +2,25 @@ import Popup from '../Popup';
 import { useAppSelector } from 'hooks/redux-hooks';
 import { indexOf } from 'store/widgets/widgets-actions';
 import { useEffect } from 'react';
-import { deserialize } from 'utils/elements-serializer';
+
+import Bold from './Options/Bold';
+import Italic from './Options/Italic';
+import Quotes from './Options/Quotes';
+import Underline from './Options/Underline';
+
+const Options = () => {
+  return (
+    <>
+      <Bold></Bold>
+      <Italic></Italic>
+      <Quotes></Quotes>
+      <Underline></Underline>
+    </>
+  );
+};
+
 const Simple = () => {
-  const { visible, x, y, jsonContent } = useAppSelector(
+  const { visible, x, y } = useAppSelector(
     ({ simplePopupReducer }) => simplePopupReducer
   );
 
@@ -19,7 +35,7 @@ const Simple = () => {
         y,
       }}
       zIndex={zIndex}
-      payload={jsonContent}
+      payload={<Options />}
       Icon={undefined}
     ></Popup>
   ) : null;

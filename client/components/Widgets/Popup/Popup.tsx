@@ -5,7 +5,7 @@ import { IconType } from 'react-icons/lib';
 
 const Popup: FC<{
   zIndex: number;
-  payload: JSX.Element | string | undefined;
+  payload: JSX.Element[] | JSX.Element | string | undefined;
   Icon?: IconType;
   positions?: { x: number; y: number };
 }> = ({ zIndex, Icon, payload, positions }) => {

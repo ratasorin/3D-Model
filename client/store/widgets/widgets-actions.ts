@@ -7,8 +7,9 @@ import { open as pictureOpen } from 'components/Widgets/Modals/Pictures/picture-
 import { open as authenticateOpen } from 'components/Widgets/Modals/Authenticate/authenticate-slice';
 import { open as blogsOpen } from 'components/Widgets/Modals/Blogs/blogs-slice';
 import { supportedModals, supportedPopup } from './widgets-available';
-
-const openActions = [
+import { open as SimplePopupOpen } from 'components/Widgets/Popup/Tools/tools-slice';
+import { open as SuccessPopupOpen } from 'components/Widgets/Popup/Success/success-slice';
+const modalsOpenActions = [
   modifyOpen,
   infoOpen,
   pictureOpen,
@@ -17,7 +18,15 @@ const openActions = [
   blogsOpen,
 ] as const;
 
-export type supportedActions = Parameters<typeof openActions[number]>[0];
+const popupOpenActions = [SimplePopupOpen, SuccessPopupOpen];
+
+export type supportedModalActions = Parameters<
+  typeof modalsOpenActions[number]
+>[0];
+
+export type supportedPopupActions = Parameters<
+  typeof popupOpenActions[number]
+>[0];
 
 export const indexOf = (widget: supportedModals | supportedPopup) => {
   const Index = useAppSelector(({ stackReducer }) => {

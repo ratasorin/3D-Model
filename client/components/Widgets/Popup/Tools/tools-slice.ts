@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createModalSlice } from 'store/widgets/widgets-creators';
 
 const simplePopup = createSlice({
   name: 'simple-popup',
@@ -7,18 +6,13 @@ const simplePopup = createSlice({
     visible: false,
     x: 0,
     y: 0,
-    jsonContent: {} as JSX.Element,
   },
   reducers: {
-    open(
-      _,
-      action: PayloadAction<{ x: number; y: number; jsonContent: JSX.Element }>
-    ) {
+    open(_, action: PayloadAction<{ x: number; y: number }>) {
       return {
         visible: true,
         x: action.payload.x,
         y: action.payload.y,
-        jsonContent: action.payload.jsonContent,
       };
     },
     close() {
@@ -26,7 +20,6 @@ const simplePopup = createSlice({
         visible: false,
         x: 0,
         y: 0,
-        jsonContent: {} as JSX.Element,
       };
     },
   },

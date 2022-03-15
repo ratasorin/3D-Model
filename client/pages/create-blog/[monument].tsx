@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Header from 'components/Blog-Creator/Header/Header';
 import monument_creator__style from './monument-creator.module.css';
 import dynamic from 'next/dynamic';
-import SimplePopup from 'components/Widgets/Popup/Simple/Simple';
+import Tools from 'components/Widgets/Popup/Tools/Tools';
 
 const Forms = dynamic(() => import('components/Blog-Creator/Forms/Forms'), {
   ssr: false,
@@ -13,7 +13,7 @@ const Monument = () => {
   console.log(monument);
   return (
     <div className={monument_creator__style.fullpage}>
-      <SimplePopup />
+      <Tools />
       <Header monument={monument} />
       <Forms />
     </div>

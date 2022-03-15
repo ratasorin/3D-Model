@@ -1,14 +1,22 @@
 import { AtomicBlockUtils, EditorState } from 'draft-js';
+import {
+  fromEvent,
+  map,
+  throwError,
+  takeUntil,
+  switchMap,
+  concat,
+  mergeMap,
+  combineLatest,
+} from 'rxjs';
+import { fromFetch } from 'rxjs/fetch';
 
-const srcFromFile = (file: File) =>
-  new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      resolve(reader.result as string);
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
+const srcFromFile = (file: File) => {
+  const reader = new FileReader();
+  return fromEvent(reader, 'loadend', () => reader.result as string).pipe(
+    takeUntil(fromEvent(reader, 'error').pipe(switchMap(throwError)))
+  );
+};
 
 export async function* createMedia(
   editorState: EditorState,

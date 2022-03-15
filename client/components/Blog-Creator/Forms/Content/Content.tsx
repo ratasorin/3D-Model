@@ -1,11 +1,4 @@
-import React, {
-  Dispatch,
-  FC,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import {
   CompositeDecorator,
   ContentBlock,
@@ -18,12 +11,14 @@ import mediaBlockRenderer from './Media/Media';
 import showStyleForText from './utils/editor-style-options';
 import { createMedia } from './utils/create-image';
 import content__style from './content.module.css';
-import { useObservable, useObservableGetState } from 'observable-hooks';
+import { useObservable, useObservableState } from 'observable-hooks';
 import { map, Observable, withLatestFrom } from 'rxjs';
-import { style$ } from './utils/editor-style-options';
+
 import { file$ } from './Media/Upload/File/FileUploader';
+import { composeStyle } from 'lib/edit-text';
 
 const HASHTAG_REGEX = /#[\w\u0590-\u05ff]+/g;
+
 function findWithRegex(
   regex: RegExp,
   contentBlock: ContentBlock,
@@ -43,26 +38,6 @@ function hashtagStrategy(
 ) {
   findWithRegex(HASHTAG_REGEX, contentBlock, callback);
 }
-
-const composeStyles = (
-  styless$: typeof style$,
-  editorState$: Observable<[EditorState]>,
-  setEditorState: Dispatch<SetStateAction<EditorState>>
-) => {
-  useEffect(() => {
-    const subscription = styless$
-      .pipe(
-        withLatestFrom(editorState$),
-        map(([style, [editorState]]) => {
-          return RichUtils.toggleInlineStyle(editorState, style);
-        })
-      )
-      .subscribe(setEditorState);
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
-};
 
 const HandleSpan: FC<{ offsetKey: number }> = (props) => {
   return (
@@ -93,19 +68,24 @@ function MediaEditor() {
   );
   const editorRef = useRef<Editor>(null);
   const editorState$ = useObservable((input$) => input$, [editorState]);
-  composeStyles(style$, editorState$, setEditorState);
 
-  const file = useObservableGetState(file$, {} as File);
-  const addFile = async () => {
-    const stateWithMedia = createMedia(editorState, file, 'user-draft01');
-    for await (const newEditorState of stateWithMedia) {
+  useEffect(() => {
+    composeStyle(editorState$).subscribe(setEditorState);
+  }, []);
+
+  const file = useObservableState(file$);
+  const addImage = async (file: File) => {
+    for await (const newEditorState of createMedia(
+      editorState,
+      file,
+      'user-draft01'
+    )) {
       setEditorState(newEditorState);
     }
   };
-
   useEffect(() => {
-    if (file.name) {
-      addFile();
+    if (file?.name) {
+      addImage(file);
     }
   }, [file]);
 
@@ -131,7 +111,7 @@ function MediaEditor() {
         onChange={onChange}
         placeholder="Enter some text..."
         customStyleMap={{
-          HIGHLIGHT: {
+          QUOTE: {
             backgroundColor: 'red',
           },
         }}
