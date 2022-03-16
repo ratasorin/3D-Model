@@ -25,9 +25,6 @@ const Simple = () => {
   );
 
   const zIndex = indexOf('simple-popup');
-  useEffect(() => {
-    console.log(zIndex);
-  }, [zIndex]);
   return visible ? (
     <Popup
       positions={{
