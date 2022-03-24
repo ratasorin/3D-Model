@@ -2,9 +2,7 @@ import { createModalSlice } from 'store/widgets/widgets-creators';
 
 const infoModalSlice = createModalSlice<'info-modal', { name: string }>(
   'info-modal',
-  {
-    name: '',
-  }
+  { name: '' }
 );
 
 export const { close, open } = infoModalSlice.actions;

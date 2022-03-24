@@ -15,7 +15,7 @@ const Authenticate = () => {
 
   return visible ? (
     <ModalTemplate
-      modalToClose="authenticate-modal"
+      modal="authenticate-modal"
       header={{
         title: 'Alege o metoda de autentificare',
         subtitle: '',

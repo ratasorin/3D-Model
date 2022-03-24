@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 .app__container {
   position: absolute;
   width: 100vw;
@@ -5,6 +7,9 @@
   top: 0;
   right: 0;
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .app {
@@ -14,4 +19,29 @@
   z-index: 10;
   width: 100vw;
   height: 100vh;
+}
+
+.loader {
+  margin: auto;
+  border: 20px solid #ff84e0;
+  border-radius: 50%;
+  border-top: 20px solid #eb1aeb;
+  width: 200px;
+  height: 200px;
+  animation: spinner 2s linear infinite;
+}
+
+@media screen and (max-width: 600px) {
+  .app__container {
+    font-size: 9px;
+  }
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

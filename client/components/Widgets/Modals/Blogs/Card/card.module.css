@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 3em;
-  font-size: 14px;
+  font-size: 10px;
   font-weight: 800;
   color: white;
 }
@@ -44,7 +44,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 2em;
-  font-size: 1.2em;
+  font-size: 1.8em;
 }
 .icon {
   margin-right: 1.5em;
@@ -97,20 +97,13 @@
   }
 }
 
-@media screen and (max-width: 1000px) {
-  .golden_distinction {
-    font-size: 10px;
-  }
-}
-
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 500px) {
   .golden_distinction {
     font-size: 6px;
+    font-weight: 500;
   }
-}
 
-@media screen and (min-width: 500px) and (max-width: 600px) {
-  .golden_distinction {
-    font-size: 9px;
+  .subtitle {
+    font-weight: 300;
   }
 }

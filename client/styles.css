@@ -9,66 +9,10 @@
  */
 
 * {
-  --small__icon_size: 1.5rem;
-  --medium__icon_size: 2rem;
-  --big__icon_size: 2.5rem;
-
-  --small__font_size: 1rem;
-  --medium__font_size: 1.5rem;
-  --large__font_size: 2rem;
-
-  --button_space: 0.6rem;
-  --space: 2rem;
-
-  /* The width and height of the main search container */
-  --width: 350px;
-  --height: 600px;
-
-  /* the height of the search panel, based to the height of the main container,
-  button and some extra padding for evenly spreading components.
-  */
-  --panel_height: calc(var(--height) - 3 * var(--gap_y) - var(--button_height));
-  --carousel_height: calc(150 / 600 * var(--height));
-
-  /* The gap between elements */
-  --gap_x: 25px;
-  --gap_y: 25px;
-
-  /* The margin used to create inline animations */
-  --margin_x: calc(var(--gap_x) / 2);
-  --margin_y: calc(var(--gap_y) / 2);
-
-  /* ? */
-  --width_ratio: 1.2;
-
-  /* the height of the button */
-  --button_height: 50px;
-  /* search icons width */
-  --search__icon_width: 50px;
-  /* font-size of the input fields text */
-  --search__text_width: calc(5 / 3 * var(--button_height));
-  /* font-size of the church's name */
-  --card__header__text_size: clamp(18px, calc(18 / 350 * var(--width)), 64px);
-  --card__coordinates_text_size: clamp(
-    12px,
-    calc(12 / 350 * var(--width)),
-    16px
-  );
-  --card__coordinates_icon_size: clamp(
-    18px,
-    calc(12 / 350 * var(--width)),
-    24px
-  );
-  --card__info_text_size: clamp(16px, calc(16 / 350 * var(--width)), 18px);
-
-  --carousel__image_width: clamp(200px, calc(200 / 350 * var(--width)), 350px);
-
-  --modal__width: 450px;
-  --modal__height: 650px;
   --scrollbar_width: 7px;
   --scrollbar_height: 3px;
-  --scrollbar__bg_color: #8b8b8b;
-  --scrollbar__scroll_color: #cfcfcf;
+  --scrollbar__scroll_color: #8b8b8b;
+  --scrollbar__bg_color: #cfcfcf;
   box-sizing: border-box;
 }
 

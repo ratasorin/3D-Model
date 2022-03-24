@@ -1,9 +1,9 @@
-import { input$ } from 'lib/modal';
 import { useEffect, useState } from 'react';
 import { debounceTime, from, mergeMap, tap, map } from 'rxjs';
 import searchResults from './searchResults.module.css';
 import { chruches as churches } from 'components/Map/featureLayer';
 import Card from './Card/Card';
+import { searchQuery$ } from '../Searchbar/Searchbar';
 
 export interface Church {
   name: string;
@@ -16,7 +16,7 @@ const Searchbar = () => {
     const data$ = from(churches);
     churches.then((allChurches) => setInputValue(allChurches));
 
-    const obs = input$
+    const obs = searchQuery$
       .pipe(
         mergeMap((inputValue: string) => {
           return data$.pipe(

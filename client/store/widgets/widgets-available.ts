@@ -5,6 +5,7 @@ import { name as authenticateName } from 'components/Widgets/Modals/Authenticate
 import { name as pictureChangeName } from 'components/Widgets/Modals/Pictures/Change/change-slice';
 import { name as popupName } from 'components/Widgets/Popup/Success/success-slice';
 import { name as blogsName } from 'components/Widgets/Modals/Blogs/blogs-slice';
+import { name as simplePopupName } from 'components/Widgets/Popup/Tools/tools-slice';
 
 const modals = [
   modifyModalName,
@@ -15,7 +16,7 @@ const modals = [
   blogsName,
 ] as const;
 
-const popups = [popupName] as const;
+const popups = [popupName, simplePopupName] as const;
 
 export type supportedModals = typeof modals[number];
 export type supportedPopup = typeof popups[number];

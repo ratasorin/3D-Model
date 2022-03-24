@@ -1,7 +1,7 @@
 import ModalTemplate from '../Modals';
 import info__style from './info.module.css';
 import { openModal, selectFrom } from 'store/widgets/actions/modals-actions';
-import { useGetChurchInfoQuery } from 'lib/church-info-fetcher';
+import { useGetChurchInfoQuery } from 'store/redux-caching/church-info-cache';
 import Dispatch from '../../Button/Dispatch/Dispatch';
 const Info = () => {
   const { name, visible } = selectFrom<{ name: string }>('info-modal');
@@ -15,7 +15,7 @@ const Info = () => {
 
   return visible ? (
     <ModalTemplate
-      modalToClose="info-modal"
+      modal="info-modal"
       header={{
         title: name,
         subtitle: `Aflati mai multe informatii despre ${name}`,

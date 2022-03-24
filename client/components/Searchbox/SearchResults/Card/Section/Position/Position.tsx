@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import Section from '../Section';
 import { HiLocationMarker } from 'react-icons/hi';
 import position_style from './position.module.css';
+import { coordinates } from 'components/Map/Map';
 const Position: FC<{ x: number; y: number }> = ({ x, y }) => {
   return (
     <Section
@@ -11,6 +12,9 @@ const Position: FC<{ x: number; y: number }> = ({ x, y }) => {
         size: 'small',
       }}
       mainContent={{
+        sideEffects: () => {
+          coordinates.next([x, y]);
+        },
         element: (
           <>
             <div className={position_style.coordinates}>

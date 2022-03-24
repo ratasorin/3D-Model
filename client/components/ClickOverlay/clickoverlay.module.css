@@ -6,6 +6,7 @@
   text-align: left;
   border: none;
   transition: all 0.3s ease;
+  background-color: transparent;
 }
 
 .main__container::after {

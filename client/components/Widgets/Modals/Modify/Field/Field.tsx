@@ -1,7 +1,7 @@
 import { trigger$ } from 'lib/modal';
 import { FC, useRef, useEffect } from 'react';
 import fieldStyle from './field.module.css';
-import { useGetChurchInfoQuery } from 'lib/church-info-fetcher';
+import { useGetChurchInfoQuery } from 'store/redux-caching/church-info-cache';
 import { processUserInput } from 'components/Widgets/Modals/Modify/Field/info-slice';
 import { useAppDispatch } from 'hooks/redux-hooks';
 

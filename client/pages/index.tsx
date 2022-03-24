@@ -1,32 +1,81 @@
 import modalStyle from './main.module.css';
-import Navbar from 'components/Navbar/Navbar';
 import { useAppSelector } from 'hooks/redux-hooks';
-import Searchbox from 'components/Searchbox/Searchbox';
-import Modal from 'components/Widgets/Modals/Modify/Modify';
-import Info from 'components/Widgets/Modals/Info/Info';
 import dynamic from 'next/dynamic';
-import Pictures from 'components/Widgets/Modals/Pictures/Pictures';
-import Authenticate from 'components/Widgets/Modals/Authenticate/Authenticate';
-import SuccessPopup from 'components/Widgets/Popup/Success/Success';
-import ChangeName from 'components/Widgets/Modals/Pictures/Change/ChangeName';
-import Blogs from 'components/Widgets/Modals/Blogs/Blogs';
+
+import Navbar from 'components/Navbar/Navbar';
+
+const Searchbox = dynamic(() => import('components/Searchbox/Searchbox'), {
+  ssr: false,
+});
+
+const LazyInfo = dynamic(() => import('components/Widgets/Modals/Info/Info'), {
+  ssr: false,
+});
+
+const LazyModal = dynamic(
+  () => import('components/Widgets/Modals/Modify/Modify'),
+  {
+    ssr: false,
+  }
+);
+
+const LazyPictures = dynamic(
+  () => import('components/Widgets/Modals/Pictures/Pictures'),
+  {
+    ssr: false,
+  }
+);
+
+const LazySuccessPopup = dynamic(
+  () => import('components/Widgets/Popup/Success/Success'),
+  {
+    ssr: false,
+  }
+);
+
+const LazyAuthenticate = dynamic(
+  () => import('components/Widgets/Modals/Authenticate/Authenticate'),
+  {
+    ssr: false,
+  }
+);
+
+const LazyChangeName = dynamic(
+  () => import('components/Widgets/Modals/Pictures/Change/ChangeName'),
+  {
+    ssr: false,
+  }
+);
+
+const LazyBlogs = dynamic(import('components/Widgets/Modals/Blogs/Blogs'), {
+  ssr: false,
+});
+
 const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   ssr: false,
+  loading: () => {
+    return (
+      <>
+        <div className={modalStyle.loader}></div>
+      </>
+    );
+  },
 });
 
 const Main = () => {
   const searchVisible = useAppSelector(({ showSearch }) => showSearch);
+
   return (
     <div className={modalStyle.app__container}>
       <DynamicMap />
-      <Modal />
-      <Info />
       <Navbar />
-      <Pictures />
-      <Authenticate />
-      <SuccessPopup />
-      <ChangeName />
-      <Blogs />
+      <LazyBlogs />
+      <LazyInfo />
+      <LazyPictures />
+      <LazyModal />
+      <LazySuccessPopup />
+      <LazyAuthenticate />
+      <LazyChangeName />
       {searchVisible ? (
         <div className={modalStyle.app}>
           <Searchbox />

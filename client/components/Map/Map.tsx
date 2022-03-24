@@ -1,11 +1,13 @@
 import { NextPage } from 'next';
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import mapStyle from './Map.module.css';
 import SceneView from '@arcgis/core/views/SceneView';
 import '@arcgis/core/assets/esri/css/main.css';
 import getView from './view';
-import coordinates from 'lib/moveTo';
 import { tap } from 'rxjs';
+import { Subject } from 'rxjs';
+
+export const coordinates = new Subject<[number, number]>();
 
 const MapP: NextPage = () => {
   const divRef = useRef<HTMLDivElement>(null);

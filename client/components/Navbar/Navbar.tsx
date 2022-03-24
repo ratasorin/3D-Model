@@ -1,17 +1,18 @@
 import navbar_style from './navbar.module.css';
 import { HiMenu } from 'react-icons/hi';
-import { useAppDispatch } from 'hooks/redux-hooks';
-import { open } from 'components/Searchbox/search-slice';
+import { useAppDispatch, useAppSelector } from 'hooks/redux-hooks';
+import { open, close } from 'components/Searchbox/search-slice';
 const Navbar = () => {
   const dispatch = useAppDispatch();
-  const showSearch = () => {
-    dispatch(open());
+  const visible = useAppSelector(({ showSearch }) => showSearch);
+  const toggleSearch = () => {
+    !visible ? dispatch(open()) : dispatch(close());
   };
   return (
-    <div className={navbar_style.container} onClick={showSearch}>
-      <div className={navbar_style.icon}>
+    <div className={navbar_style.container}>
+      <button className={navbar_style.icon} onClick={toggleSearch}>
         <HiMenu />
-      </div>
+      </button>
     </div>
   );
 };

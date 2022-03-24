@@ -1,14 +1,20 @@
-import { input$ } from 'lib/modal';
 import { ChangeEvent } from 'react';
 import searchbarStyle from './searchbar.module.css';
 import { FaSearch } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io';
 import { useAppDispatch } from 'hooks/redux-hooks';
+import { Subject } from 'rxjs';
+
+/**
+ * **input$** sends the payload received from input form,
+ * to query the results (from the arcGIS external database)
+ */
+export const searchQuery$ = new Subject<string>();
 
 const Searchbar = () => {
-  const handler = (event: ChangeEvent<HTMLInputElement>) => {
+  const updateQuery = (event: ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value;
-    input$.next(query);
+    searchQuery$.next(query);
   };
   const dispatch = useAppDispatch();
   const closeSearch = () => {
@@ -32,7 +38,7 @@ const Searchbar = () => {
         <input
           type="text"
           className={searchbarStyle.search__bar}
-          onChange={handler}
+          onChange={updateQuery}
         />
       </div>
     </div>
