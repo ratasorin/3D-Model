@@ -5,11 +5,15 @@ import useToggle from 'hooks/useToggle';
 import { CgCloseO } from 'react-icons/cg';
 import { MdOutlinePhotoCamera } from 'react-icons/md';
 import imageSupplierStyle from './pictures.module.css';
-import Submit from '../../Button/Submit/Images/SubmitImages';
+import Submit from '../../Button/Submit/Submit';
 import ModalTemplate from '../Modals';
-import { selectFrom } from 'store/widgets/actions/modals-actions';
+import { openModal, selectFrom } from 'store/widgets/actions/modals-actions';
 import usePhotos from 'hooks/usePhotos';
 import Uploader from 'hooks/Image/Upload';
+import { delay, mergeMap, of, pipe, tap } from 'rxjs';
+import { closePopup, openPopup } from 'store/widgets/actions/popup-actions';
+import { FileUploadError, FileUploadSuccess } from 'pages/api/images/images';
+import { postPictureAndConfirm } from './post-picture';
 
 export default function Pictures() {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -82,9 +86,8 @@ export default function Pictures() {
         </div>
       </div>
       <Submit
-        data={imagesFrom(name)}
-        path={'/api/images/images'}
         payload={'Salvati fotografiile'}
+        onClick={postPictureAndConfirm(imagesFrom(name), '/api/images/images')}
       />
     </ModalTemplate>
   ) : null;
