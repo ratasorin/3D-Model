@@ -24,14 +24,13 @@ const Simple = () => {
     ({ simplePopupReducer }) => simplePopupReducer
   );
 
-  const zIndex = indexOf('simple-popup');
   return visible ? (
     <Popup
-      positions={{
-        x,
-        y,
+      style={{
+        top: y,
+        left: x,
       }}
-      zIndex={zIndex}
+      popup="simple-popup"
       payload={<Options />}
       Icon={undefined}
     ></Popup>

@@ -12,9 +12,9 @@ import showStyleForText from './utils/editor-style-options';
 import { createMedia } from './utils/create-image';
 import content__style from './content.module.css';
 import { useObservable, useObservableState } from 'observable-hooks';
-
 import { file$ } from './Media/Upload/File/FileUploader';
 import { composeStyle } from 'lib/edit-text';
+import { first, Subject } from 'rxjs';
 
 const HASHTAG_REGEX = /#[\w\u0590-\u05ff]+/g;
 
@@ -38,6 +38,7 @@ function hashtagStrategy(
   findWithRegex(HASHTAG_REGEX, contentBlock, callback);
 }
 
+export const editorState$ = new Subject<EditorState>();
 const HandleSpan: FC<{ offsetKey: number }> = (props) => {
   return (
     <span
@@ -66,10 +67,13 @@ function MediaEditor() {
     EditorState.createEmpty(compositeDecoration)
   );
   const editorRef = useRef<Editor>(null);
-  const editorState$ = useObservable((input$) => input$, [editorState]);
 
   useEffect(() => {
-    composeStyle(editorState$).subscribe(setEditorState);
+    editorState$.next(editorState);
+  }, [editorState]);
+
+  useEffect(() => {
+    composeStyle(editorState$.pipe(first())).subscribe(setEditorState);
   }, []);
 
   const file = useObservableState(file$);

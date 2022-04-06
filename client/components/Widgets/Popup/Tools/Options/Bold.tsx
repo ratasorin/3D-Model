@@ -1,5 +1,5 @@
 import { toggleStyle } from 'lib/edit-text';
-
+import option__style from './_option.module.css';
 const Bold = () => {
   return (
     <button
@@ -7,8 +7,9 @@ const Bold = () => {
         e.preventDefault();
         toggleStyle('BOLD');
       }}
+      className={option__style.button}
     >
-      BOLD
+      <b>B</b>
     </button>
   );
 };
