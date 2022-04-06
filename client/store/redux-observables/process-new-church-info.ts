@@ -10,13 +10,9 @@ import {
   switchMap,
   withLatestFrom,
 } from 'rxjs';
-import { update } from '../../components/Widgets/Modals/Modify/Field/info-slice';
 import { RootState } from 'store/store';
 import { churchInfoApi } from 'store/redux-caching/church-info-cache';
-import {
-  ChurchInfoSuccessResponse,
-  ChurchInfoUpdateResponse,
-} from 'pages/api/church-info/[church]';
+import { ChurchInfoSuccessResponse } from 'pages/api/church-info/[church]';
 const sendNewInfo = (
   action$: Observable<Action<string>>,
   state$: StateObservable<RootState>

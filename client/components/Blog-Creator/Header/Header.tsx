@@ -3,7 +3,7 @@ import header__style from './header.module.css';
 import Dispatch from 'components/Widgets/Button/Dispatch/Dispatch';
 import Submit from 'components/Widgets/Button/Submit/Submit';
 import { map, of } from 'rxjs';
-import { editorState$ } from '../Forms/Content/Content';
+import { editorState$ } from '../Forms/Editor/Editor';
 import { convertToRaw } from 'draft-js';
 import { submit } from 'lib/submit';
 

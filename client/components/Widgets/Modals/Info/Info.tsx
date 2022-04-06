@@ -7,7 +7,6 @@ import { ChurchInfoSuccessResponse } from 'pages/api/church-info/[church]';
 import { PopupBuilder } from 'store/widgets/widgets-actions';
 import { openPopup } from 'store/widgets/actions/popup-actions';
 import { useEffect, useState } from 'react';
-import { ChurchInfo } from '@prisma/client';
 
 const useData = (name: string) => {
   const data = useGetChurchInfoQuery(name).currentData;
