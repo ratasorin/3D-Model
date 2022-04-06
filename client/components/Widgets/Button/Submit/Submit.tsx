@@ -6,7 +6,6 @@ export interface Data {
   isFinish: boolean;
   response: Response;
 }
-
 export interface PopupBuilder {
   type: 'Error' | 'Success';
   payload: string | JSX.Element;

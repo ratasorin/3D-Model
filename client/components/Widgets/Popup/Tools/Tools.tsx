@@ -1,7 +1,5 @@
 import Popup from '../Popup';
 import { useAppSelector } from 'hooks/redux-hooks';
-import { indexOf } from 'store/widgets/widgets-actions';
-import { useEffect } from 'react';
 
 import Bold from './Options/Bold';
 import Italic from './Options/Italic';
