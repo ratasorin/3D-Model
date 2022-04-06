@@ -14,12 +14,7 @@ const Header: FC<{ monument: string }> = ({ monument }) => {
             }}
             payload="Salveaza"
           ></Dispatch>
-          <Dispatch
-            action={() => {
-              //
-            }}
-            payload="Posteaza"
-          ></Dispatch>
+          <Dispatch action={() => {}} payload="Posteaza"></Dispatch>
         </div>
       </div>
     </div>

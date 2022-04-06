@@ -1,22 +1,14 @@
 import { useSession } from 'next-auth/react';
 import { FC } from 'react';
 import { delay, mergeMap, Observable, of, tap } from 'rxjs';
-import {
-  closePopup,
-  openModal,
-  openPopup,
-} from 'store/widgets/widgets-reducers';
+import { closePopup, openPopup } from 'store/widgets/actions/popup-actions';
+import { openModal } from 'store/widgets/actions/modals-actions';
 import Button from '../Button';
 import type {
   FileUploadError,
   FileUploadSuccess,
 } from '../../../../pages/api/images/images';
 import { submit } from 'lib/submit';
-
-interface Data {
-  isFinish: boolean;
-  response: Response;
-}
 
 export interface PopupBuilder {
   type: 'Error' | 'Success';
@@ -68,7 +60,8 @@ const Dispatch: FC<{
                   <button
                     onClick={() => {
                       openModal('picture-change-name-modal', {
-                        picture: file,
+                        oldFilename: file,
+                        name: path,
                       });
                     }}
                   >
