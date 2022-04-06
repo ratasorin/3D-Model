@@ -20,6 +20,11 @@ const modalsOpenActions = [
 
 const popupOpenActions = [SimplePopupOpen, SuccessPopupOpen];
 
+export interface PopupBuilder {
+  type: 'Error' | 'Success';
+  payload: string | JSX.Element;
+}
+
 export type supportedModalActions = Parameters<
   typeof modalsOpenActions[number]
 >[0];

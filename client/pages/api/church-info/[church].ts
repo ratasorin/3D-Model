@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from 'utils/prisma';
 
 export interface ChurchInfo {
-  editedBy: string;
+  editedBy: string | null;
   churchDescription: string;
   churchName: string;
 }
@@ -11,6 +11,15 @@ export interface ChurchInfoSuccessResponse {
   error: false;
   churchInfo: ChurchInfo | null;
 }
+
+export interface ChurchInfoFailResponse {
+  error: true;
+  message: string;
+}
+
+export type ChurchInfoUpdateResponse =
+  | ChurchInfoSuccessResponse
+  | ChurchInfoFailResponse;
 
 const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
@@ -30,7 +39,6 @@ const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
           editedBy: churchInfo.editedBy || 'ANONIM',
         },
       });
-
       res.send({
         error: false,
         churchInfo: churchInfo,
@@ -40,7 +48,7 @@ const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
       res.send({
         error: true,
         message: 'Ups! Ceva nu a mers, incercati din nou mai tarziu',
-      });
+      } as ChurchInfoFailResponse);
     }
   } else {
     const churchName = req.query.church as string;
@@ -51,15 +59,22 @@ const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
           churchName,
         },
       });
-      res.send({
-        error: false,
-        churchInfo,
-      } as ChurchInfoSuccessResponse);
+      console.log(churchInfo);
+      if (churchInfo)
+        res.send({
+          error: false,
+          churchInfo,
+        } as ChurchInfoSuccessResponse);
+      else
+        res.send({
+          error: true,
+          message: `Se pare ca nimeni nu a mai incarcat o descriere pentru ${churchName}`,
+        } as ChurchInfoFailResponse);
     } catch (e) {
       res.send({
         error: true,
         message: 'Ups! Ceva nu a mers, incercati din nou mai tarziu',
-      });
+      } as ChurchInfoFailResponse);
     }
   }
 };

@@ -2,6 +2,7 @@
   position: absolute;
   font-size: clamp(14px, calc(14 / 350 * var(--modal__width)), 16px);
   width: fit-content;
+  max-height: fit-content;
   background-color: whitesmoke;
   padding: 10px;
   border: 2px solid black;

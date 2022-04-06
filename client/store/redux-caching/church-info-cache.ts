@@ -1,16 +1,18 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
   ChurchInfo,
-  ChurchInfoSuccessResponse,
+  ChurchInfoUpdateResponse,
 } from 'pages/api/church-info/[church]';
 
 export const churchInfoApi = createApi({
   reducerPath: 'churchInfo',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api/church-info' }),
+  baseQuery: fetchBaseQuery({ baseUrl: '/api/church-info/' }),
   endpoints: (builder) => ({
-    getChurchInfo: builder.query<ChurchInfoSuccessResponse, string>({
+    // cache the church information
+    getChurchInfo: builder.query<ChurchInfoUpdateResponse, string>({
       query: (churchName) => `${churchName}`,
     }),
+    // post input from user and invalidate cache through mutation
     postChurchInfo: builder.mutation<void, ChurchInfo>({
       query: (churchInfo) => ({
         url: `${churchInfo.churchName}`,
