@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { PopupBuilder } from 'components/Widgets/Button/Submit/Submit';
-import { createModalSlice } from 'store/widgets/widgets-creators';
+import type { PopupBuilder } from 'store/widgets/widgets-actions';
 
 export interface Popup {
   visible: boolean;

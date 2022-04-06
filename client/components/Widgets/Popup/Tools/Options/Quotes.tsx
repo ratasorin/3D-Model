@@ -1,4 +1,5 @@
 import { toggleStyle } from 'lib/edit-text';
+import option__style from './_option.module.css';
 
 const Quotes = () => {
   return (
@@ -7,8 +8,9 @@ const Quotes = () => {
         e.preventDefault();
         toggleStyle('QUOTE');
       }}
+      className={option__style.button}
     >
-      QUOTES
+      <code>"Q"</code>
     </button>
   );
 };

@@ -1,4 +1,5 @@
 import { toggleStyle } from 'lib/edit-text';
+import option__style from './_option.module.css';
 
 const Italic = () => {
   return (
@@ -7,8 +8,9 @@ const Italic = () => {
         e.preventDefault();
         toggleStyle('ITALIC');
       }}
+      className={option__style.button}
     >
-      ITALIC
+      <i>I</i>
     </button>
   );
 };

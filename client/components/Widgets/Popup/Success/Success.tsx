@@ -14,6 +14,24 @@ const Success = () => {
           popup="success-popup"
           Icon={FaExclamationTriangle}
           payload={popupMessage}
+          animations={{
+            initial: {
+              x: -200,
+              opacity: 0,
+            },
+            animate: {
+              x: 0,
+              opacity: 1,
+            },
+            exit: {
+              x: 200,
+              opacity: 0,
+            },
+          }}
+          style={{
+            bottom: '3em',
+            left: '3em',
+          }}
         ></Popup>
       ) : null}
     </AnimatePresence>

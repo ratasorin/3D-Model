@@ -1,4 +1,5 @@
 import { toggleStyle } from 'lib/edit-text';
+import option__style from './_option.module.css';
 
 const Underline = () => {
   return (
@@ -7,8 +8,9 @@ const Underline = () => {
         e.preventDefault();
         toggleStyle('UNDERLINE');
       }}
+      className={option__style.button}
     >
-      UNDERLINE
+      <u>U</u>
     </button>
   );
 };
