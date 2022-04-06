@@ -1,6 +1,6 @@
 import form__style from './forms.module.css';
-import Content from './Content/Content';
-import Picker from './Content/Media/Upload/Picker/Picker';
+import Content from './Editor/Editor';
+import Picker from './Editor/Media/Upload/Picker/Picker';
 import Title from './Title/Title';
 
 const Forms = () => {
