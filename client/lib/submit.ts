@@ -16,7 +16,7 @@ export const submit = <T>(
         return from(
           fetch(path, {
             method: 'POST',
-            body: stringify ? JSON.stringify(payload) : payload,
+            body: (stringify ? JSON.stringify(payload) : payload) as BodyInit,
           })
         );
       }),

@@ -72,7 +72,7 @@ model Blogs {
   content   String
   title     String
   likes     Int
-  createdAt DateTime
+  createdAt DateTime @default(now())
 
   @@id([userId, title, createdAt])
 }
