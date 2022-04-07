@@ -1,5 +1,3 @@
-import { useAppDispatch, useAppSelector } from 'hooks/redux-hooks';
-import { indexOf } from 'store/widgets/widgets-actions';
 import ModalTemplate from '../Modals';
 import authenticate__style from './authenticate.module.css';
 import { signIn } from 'next-auth/react';

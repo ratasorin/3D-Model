@@ -1,6 +1,6 @@
 import actionStyle from './actionpopup.module.css';
 import { motion, TargetAndTransition } from 'framer-motion';
-import { CSSProperties, FC, useEffect } from 'react';
+import { CSSProperties, FC } from 'react';
 import { IconType } from 'react-icons/lib';
 import { indexOf } from 'store/widgets/widgets-actions';
 import { supportedPopup } from 'store/widgets/widgets-available';

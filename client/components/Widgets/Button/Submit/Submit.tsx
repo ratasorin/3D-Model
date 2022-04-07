@@ -1,7 +1,9 @@
-import { FC } from 'react';
+import { submit } from 'lib/submit';
+import { useSession } from 'next-auth/react';
+import { FC, useCallback } from 'react';
 import { Observable } from 'rxjs';
+import { openModal } from 'store/widgets/actions/modals-actions';
 import Button from '../Button';
-
 export interface Data {
   isFinish: boolean;
   response: Response;
@@ -13,12 +15,17 @@ export interface PopupBuilder {
 
 const Submit: FC<{
   payload: string;
-  onClick: Observable<unknown>;
-}> = ({ payload, onClick }) => {
-  const handleClick = () => {
-    onClick.subscribe();
-  };
-  return <Button payload={payload} onClick={handleClick} />;
+  data: Observable<unknown>;
+  path: string;
+  stringify: boolean;
+}> = ({ payload, data, path, stringify }) => {
+  const user = useSession().data?.user;
+  const callback = useCallback(() => {
+    if (user) submit(data, path, stringify);
+    else openModal('authenticate-modal');
+  }, [user]);
+
+  return <Button payload={payload} onClick={callback} />;
 };
 
 export default Submit;

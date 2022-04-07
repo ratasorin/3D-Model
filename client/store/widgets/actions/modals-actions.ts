@@ -6,7 +6,7 @@ import { useAppSelector } from 'hooks/redux-hooks';
 
 export const openModal = (
   modal: supportedModals,
-  payload: supportedModalActions
+  payload?: supportedModalActions
 ) => {
   console.log(store.dispatch(addWidget(modal)));
   store.dispatch({

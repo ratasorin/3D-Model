@@ -1,31 +1,22 @@
-import { FC, useEffect, useRef } from 'react';
-import { debounceTime, fromEvent, tap } from 'rxjs';
+import { FC, useMemo, useRef } from 'react';
 import buttonStyle from './button.module.css';
+import debounce from 'lodash.debounce';
 
 const Button: FC<{ payload: string; onClick: () => unknown }> = ({
   payload,
   onClick,
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    if (buttonRef.current)
-      fromEvent(buttonRef.current, 'click')
-        .pipe(
-          debounceTime(500),
-          tap(() => {
-            onClick();
-          })
-        )
-        .subscribe();
-  }, []);
+  const debouncedClicks = useMemo(() => debounce(onClick, 500), [onClick]);
   return (
-    <button ref={buttonRef} className={buttonStyle.button}>
+    <button
+      ref={buttonRef}
+      onClick={debouncedClicks}
+      className={buttonStyle.button}
+    >
       {payload}
     </button>
   );
 };
-
-Button.displayName = 'Button';
 
 export default Button;

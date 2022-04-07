@@ -18,7 +18,7 @@ const useData = (name: string) => {
         type: 'Error',
       } as PopupBuilder);
     } else setInfo(data);
-  }, [data?.error]);
+  }, [data]);
 
   return info;
 };

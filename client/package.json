@@ -38,6 +38,7 @@
     "framer-motion": "^6.0.0",
     "google-map-react": "^2.1.10",
     "google-maps": "^4.3.3",
+    "lodash.debounce": "^4.0.8",
     "multer": "^1.4.4",
     "next": "12.0.3",
     "next-auth": "^4.1.2",

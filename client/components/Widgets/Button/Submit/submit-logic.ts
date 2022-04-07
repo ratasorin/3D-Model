@@ -1,9 +1,7 @@
-import { catchError, map, Observable, of, tap, UnaryFunction } from 'rxjs';
-import { Data } from './Submit';
+import { catchError, map, mergeMap, Observable, of, UnaryFunction } from 'rxjs';
 
-export const handleClick = (
-  onBeforeRequest: () => void,
-  sendData: UnaryFunction<Observable<unknown>, Observable<Data>>,
+export const handleClick = <T extends Response>(
+  data: Observable<T>,
   onSuccess: (
     response: Response,
     path: string
@@ -11,12 +9,12 @@ export const handleClick = (
   onError: (error: Error) => Observable<Error>,
   path: string
 ) => {
-  return of(true).pipe(
-    tap(() => {
-      onBeforeRequest();
-    }),
-    sendData,
-    map((response: any) => onSuccess(response.response, path)),
-    catchError((error) => onError(error))
-  );
+  return () =>
+    of(true)
+      .pipe(
+        mergeMap(() => data),
+        map((response) => onSuccess(response, path)),
+        catchError((error) => onError(error))
+      )
+      .subscribe();
 };

@@ -7,13 +7,9 @@ import { MdOutlinePhotoCamera } from 'react-icons/md';
 import imageSupplierStyle from './pictures.module.css';
 import Submit from '../../Button/Submit/Submit';
 import ModalTemplate from '../Modals';
-import { openModal, selectFrom } from 'store/widgets/actions/modals-actions';
+import { selectFrom } from 'store/widgets/actions/modals-actions';
 import usePhotos from 'hooks/usePhotos';
 import Uploader from 'hooks/Image/Upload';
-import { delay, mergeMap, of, pipe, tap } from 'rxjs';
-import { closePopup, openPopup } from 'store/widgets/actions/popup-actions';
-import { FileUploadError, FileUploadSuccess } from 'pages/api/images/images';
-import { postPictureAndConfirm } from './post-picture';
 
 export default function Pictures() {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -87,7 +83,9 @@ export default function Pictures() {
       </div>
       <Submit
         payload={'Salvati fotografiile'}
-        onClick={postPictureAndConfirm(imagesFrom(name), '/api/images/images')}
+        data={imagesFrom(name)}
+        path={'/api/images/images'}
+        stringify={false}
       />
     </ModalTemplate>
   ) : null;

@@ -3,6 +3,7 @@ import { useAppSelector } from 'hooks/redux-hooks';
 import dynamic from 'next/dynamic';
 
 import Navbar from 'components/Navbar/Navbar';
+import { useUser } from 'lib/user';
 
 const Searchbox = dynamic(() => import('components/Searchbox/Searchbox'), {
   ssr: false,
@@ -64,7 +65,7 @@ const DynamicMap = dynamic(() => import('../components/Map/Map'), {
 
 const Main = () => {
   const searchVisible = useAppSelector(({ showSearch }) => showSearch);
-
+  useUser();
   return (
     <div className={modalStyle.app__container}>
       <DynamicMap />

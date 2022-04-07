@@ -4,7 +4,7 @@ import monument_creator__style from './monument-creator.module.css';
 import dynamic from 'next/dynamic';
 import Tools from 'components/Widgets/Popup/Tools/Tools';
 import Success from 'components/Widgets/Popup/Success/Success';
-
+import Authenticate from 'components/Widgets/Modals/Authenticate/Authenticate';
 const Forms = dynamic(() => import('components/Blog-Creator/Forms/Forms'), {
   ssr: false,
 });
@@ -19,6 +19,7 @@ const Monument = () => {
       <Header monument={monument} />
       <Forms />
       <Success></Success>
+      <Authenticate></Authenticate>
     </div>
   );
 };
