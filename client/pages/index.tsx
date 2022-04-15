@@ -1,4 +1,4 @@
-import modalStyle from './main.module.css';
+import main__style from './main.module.css';
 import { useAppSelector } from 'hooks/redux-hooks';
 import dynamic from 'next/dynamic';
 
@@ -57,7 +57,7 @@ const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   loading: () => {
     return (
       <>
-        <div className={modalStyle.loader}></div>
+        <div className={main__style.loader}></div>
       </>
     );
   },
@@ -67,7 +67,7 @@ const Main = () => {
   const searchVisible = useAppSelector(({ showSearch }) => showSearch);
   useUser();
   return (
-    <div className={modalStyle.app__container}>
+    <div className={main__style.app__container}>
       <DynamicMap />
       <Navbar />
       <LazyBlogs />
@@ -78,7 +78,7 @@ const Main = () => {
       <LazyAuthenticate />
       <LazyChangeName />
       {searchVisible ? (
-        <div className={modalStyle.app}>
+        <div className={main__style.app}>
           <Searchbox />
         </div>
       ) : null}

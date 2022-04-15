@@ -73,6 +73,8 @@ model Blogs {
   title     String
   likes     Int
   createdAt DateTime @default(now())
+  blogId    String
+  monument  String
 
-  @@id([userId, title, createdAt])
+  @@id([blogId, userId, title, createdAt, monument])
 }

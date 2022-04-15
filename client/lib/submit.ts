@@ -1,6 +1,6 @@
-import { catchError, first, from, Observable, switchMap } from 'rxjs';
+import { catchError, first, from, map, Observable, switchMap } from 'rxjs';
 // import { useSession } from 'next-auth/react';
-import { openPopup } from 'store/widgets/actions/popup-actions';
+import { closePopup, openPopup } from 'store/widgets/actions/popup-actions';
 import { PopupBuilder } from 'store/widgets/widgets-actions';
 
 export const submit = <T>(
@@ -20,11 +20,16 @@ export const submit = <T>(
           })
         );
       }),
-      catchError(async (err: Error) =>
+      catchError(async (err: Error) => {
+        closePopup('success-popup');
         openPopup('success-popup', {
           payload: err.message,
           type: 'Error',
-        } as PopupBuilder)
-      )
+        } as PopupBuilder);
+        setTimeout(() => {
+          closePopup('success-popup');
+          console.log('close');
+        }, 4000);
+      })
     )
     .subscribe() as unknown as void;

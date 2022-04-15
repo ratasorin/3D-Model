@@ -12,7 +12,6 @@ const Forms = dynamic(() => import('components/Blog-Creator/Forms/Forms'), {
 const Monument = () => {
   const router = useRouter();
   const monument = (router.query.monument as string) || '';
-  console.log(monument);
   return (
     <div className={monument_creator__style.fullpage}>
       <Tools />

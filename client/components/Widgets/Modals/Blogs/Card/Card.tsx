@@ -2,9 +2,15 @@ import card__styles from './card.module.css';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { FC } from 'react';
 import { FaCrown } from 'react-icons/fa';
+import { convertFromRaw, RawDraftContentState } from 'draft-js';
 const Card: FC<{
   golden?: boolean;
-}> = ({ golden = false }) => {
+  author: string;
+  rawContent: string;
+  likes: number;
+  date: Date;
+  title: string;
+}> = ({ golden = false, author, date, likes, rawContent, title }) => {
   const Award = (
     <>
       {golden ? (
@@ -23,17 +29,21 @@ const Card: FC<{
       <div className={card__styles.container}>
         <div className={card__styles.author__info}>
           <div className={card__styles.icon}></div>
-          Alt Nume de Utilizator
+          {author}
         </div>
-        <div className={card__styles.title}>
-          Un titlu foarte lung care contine inofrmatii reprezentative pentru
-          articol
+        <div className={card__styles.title}>{title}</div>
+        <div className={card__styles.subtitle}>
+          {convertFromRaw(
+            JSON.parse(rawContent) as RawDraftContentState
+          ).getPlainText()}
         </div>
-        <div className={card__styles.subtitle}>Subtitlul pentru articol</div>
         <div className={card__styles.more__info}>
-          <div className={card__styles.info__text}>23 Feb</div>
           <div className={card__styles.info__text}>
-            23 <AiOutlineHeart className={card__styles.like_button} />
+            {new Date(date).toLocaleDateString()}
+          </div>
+          <div className={card__styles.info__text}>
+            {likes}
+            <AiOutlineHeart className={card__styles.like_button} />
           </div>
           <div className={card__styles.subtitle}>Categorie</div>
         </div>

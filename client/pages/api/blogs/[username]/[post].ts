@@ -1,11 +1,19 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ChurchInfoFailResponse } from 'pages/api/church-info/[church]';
+import { FailResponse } from 'pages/api/church-info/[church]';
+import parse from 'utils/parse';
 import prisma from 'utils/prisma';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { username, post } = req.query as { username: string; post: string };
-    const blog = req.body as string;
+    const { username, post } = req.query as {
+      username: string;
+      post: string;
+    };
+    const blog = JSON.parse(req.body) as {
+      content: string;
+      id: string;
+      monument: string;
+    };
     const user = await prisma.user.findFirst({
       where: {
         name: username,
@@ -15,17 +23,19 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     if (user)
       await prisma.blogs.create({
         data: {
-          content: blog,
+          content: blog.content,
           likes: 0,
-          title: post,
+          title: parse(post),
           userId: user.id,
+          blogId: blog.id,
+          monument: parse(blog.monument),
         },
       });
     else {
       res.send({
         error: true,
         message: 'Trebuie sa fii logat ca sa poti posta ',
-      } as ChurchInfoFailResponse);
+      } as FailResponse);
       return;
     }
 
@@ -33,6 +43,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       error: false,
       message: 'Totul este perfect !',
     });
-    console.log(username, post, 'POST');
+    console.log(username, parse(post), 'POST', parse(blog.monument));
   }
 }

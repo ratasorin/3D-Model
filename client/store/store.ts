@@ -7,8 +7,8 @@ import { churchInfoApi } from 'store/redux-caching/church-info-cache';
 
 const reducer = combineReducers({
   ...userInteractionReducers,
-  [churchInfoApi.reducerPath]: churchInfoApi.reducer,
   ...widgets,
+  [churchInfoApi.reducerPath]: churchInfoApi.reducer,
 });
 
 export type RootState = ReturnType<typeof reducer>;

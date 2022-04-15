@@ -21,6 +21,7 @@ export async function* createMedia(
   file: File,
   base_url: string
 ) {
+  console.log('THE BASE URL IS:', base_url);
   const contentState = editorState.getCurrentContent();
   const src = await srcFromFile(file);
   const contentStateWithEntity = contentState.createEntity(

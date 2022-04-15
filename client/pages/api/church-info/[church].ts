@@ -7,19 +7,17 @@ export interface ChurchInfo {
   churchName: string;
 }
 
-export interface ChurchInfoSuccessResponse {
+export interface SuccessResponse<T> {
   error: false;
-  churchInfo: ChurchInfo | null;
+  payload: T | null;
 }
 
-export interface ChurchInfoFailResponse {
+export interface FailResponse {
   error: true;
-  message: string;
+  payload: string;
 }
 
-export type ChurchInfoUpdateResponse =
-  | ChurchInfoSuccessResponse
-  | ChurchInfoFailResponse;
+export type ChurchInfoUpdateResponse<T> = SuccessResponse<T> | FailResponse;
 
 const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
@@ -41,14 +39,14 @@ const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
       });
       res.send({
         error: false,
-        churchInfo: churchInfo,
-      } as ChurchInfoSuccessResponse);
+        payload: churchInfo,
+      } as SuccessResponse<ChurchInfo>);
     } catch (e) {
       console.log(e);
       res.send({
         error: true,
-        message: 'Ups! Ceva nu a mers, incercati din nou mai tarziu',
-      } as ChurchInfoFailResponse);
+        payload: 'Ups! Ceva nu a mers, incercati din nou mai tarziu',
+      } as FailResponse);
     }
   } else {
     const churchName = req.query.church as string;
@@ -63,18 +61,18 @@ const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
       if (churchInfo)
         res.send({
           error: false,
-          churchInfo,
-        } as ChurchInfoSuccessResponse);
+          payload: churchInfo,
+        } as SuccessResponse<ChurchInfo>);
       else
         res.send({
           error: true,
-          message: `Se pare ca nimeni nu a mai incarcat o descriere pentru ${churchName}`,
-        } as ChurchInfoFailResponse);
+          payload: `Se pare ca nimeni nu a mai incarcat o descriere pentru ${churchName}`,
+        } as FailResponse);
     } catch (e) {
       res.send({
         error: true,
-        message: 'Ups! Ceva nu a mers, incercati din nou mai tarziu',
-      } as ChurchInfoFailResponse);
+        payload: 'Ups! Ceva nu a mers, incercati din nou mai tarziu',
+      } as FailResponse);
     }
   }
 };

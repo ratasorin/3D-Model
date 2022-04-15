@@ -9,10 +9,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
   color: black;
   transform: translate(-50%, -100%);
   bottom: 2em;
+  font-family: 'Roboto';
+  font-weight: 900;
+  font-style: italic;
 }
 
 .point {

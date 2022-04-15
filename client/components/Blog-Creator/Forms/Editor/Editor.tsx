@@ -15,6 +15,7 @@ import { useObservableState } from 'observable-hooks';
 import { file$ } from './Media/Upload/File/FileUploader';
 import { composeStyle } from 'lib/edit-text';
 import { ReplaySubject, Subject } from 'rxjs';
+import { useAppSelector } from 'hooks/redux-hooks';
 
 const HASHTAG_REGEX = /#[\w\u0590-\u05ff]+/g;
 
@@ -63,6 +64,7 @@ const compositeDecoration = new CompositeDecorator([
 ]);
 
 function MediaEditor() {
+  const blogID = useAppSelector(({ title }) => title.postHash);
   const [editorState, setEditorState] = useState(
     EditorState.createEmpty(compositeDecoration)
   );
@@ -78,11 +80,7 @@ function MediaEditor() {
 
   const file = useObservableState(file$);
   const addImage = async (file: File) => {
-    for await (const newEditorState of createMedia(
-      editorState,
-      file,
-      'user-draft01'
-    )) {
+    for await (const newEditorState of createMedia(editorState, file, blogID)) {
       setEditorState(newEditorState);
     }
   };

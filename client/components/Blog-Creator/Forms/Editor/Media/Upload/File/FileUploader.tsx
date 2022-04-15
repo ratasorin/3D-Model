@@ -9,8 +9,8 @@ export const file$ = new Subject<File>();
 
 const Upload: FC<{ type: string; Icon: IconType }> = ({ type, Icon }) => {
   const button = useRef<HTMLButtonElement>(null);
-  const sendFile = (file: File) => {
-    if (file.type.includes(type)) file$.next(file);
+  const sendFile = (file?: File) => {
+    if (file?.type.includes(type)) file$.next(file);
     else
       openPopup('success-popup', {
         payload: `Fisierul nu este de tip ${type}`,
