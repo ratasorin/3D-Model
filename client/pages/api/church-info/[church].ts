@@ -17,7 +17,7 @@ export interface FailResponse {
   payload: string;
 }
 
-export type ChurchInfoUpdateResponse<T> = SuccessResponse<T> | FailResponse;
+export type RequestResponse<T> = SuccessResponse<T> | FailResponse;
 
 const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {

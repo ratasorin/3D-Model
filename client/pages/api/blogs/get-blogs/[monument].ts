@@ -15,6 +15,9 @@ export default async function getBlogs(
       where: {
         monument,
       },
+      orderBy: {
+        likes: 'desc',
+      },
     });
 
     res.send({

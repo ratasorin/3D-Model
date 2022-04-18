@@ -76,5 +76,5 @@ model Blogs {
   blogId    String
   monument  String
 
-  @@id([blogId, userId, title, createdAt, monument])
+  @@id([blogId, userId, monument])
 }

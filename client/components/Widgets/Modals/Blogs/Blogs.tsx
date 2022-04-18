@@ -22,7 +22,6 @@ const Blog = () => {
       const fetchedBlogs = (await response.json()) as
         | SuccessResponse<Blogs[]>
         | FailResponse;
-
       if (fetchedBlogs.error)
         openPopup('success-popup', {
           payload: fetchedBlogs.payload,
@@ -30,8 +29,8 @@ const Blog = () => {
         } as PopupBuilder);
       else setBlogs(fetchedBlogs.payload);
     };
-    getBlogs();
-  }, [name]);
+    visible ? getBlogs() : null;
+  }, [visible]);
   return visible ? (
     <ModalTemplate
       header={{
@@ -55,11 +54,13 @@ const Blog = () => {
           <Card
             golden={index === 0}
             key={blog.blogId + blog.userId}
-            author={blog.userId}
+            authorID={blog.userId}
             date={blog.createdAt}
             likes={blog.likes}
             rawContent={blog.content}
             title={blog.title}
+            blogID={blog.blogId}
+            monument={name}
           />
         ))}
       </div>

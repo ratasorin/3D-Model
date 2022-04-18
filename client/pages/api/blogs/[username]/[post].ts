@@ -34,14 +34,14 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     else {
       res.send({
         error: true,
-        message: 'Trebuie sa fii logat ca sa poti posta ',
+        payload: 'Trebuie sa fii logat ca sa poti posta ',
       } as FailResponse);
       return;
     }
 
     res.send({
       error: false,
-      message: 'Totul este perfect !',
+      payload: 'Totul este perfect !',
     });
     console.log(username, parse(post), 'POST', parse(blog.monument));
   }

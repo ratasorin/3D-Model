@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import mapStyle from './Map.module.css';
 import SceneView from '@arcgis/core/views/SceneView';
 import '@arcgis/core/assets/esri/css/main.css';
