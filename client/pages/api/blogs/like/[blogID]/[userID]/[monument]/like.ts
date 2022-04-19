@@ -9,9 +9,12 @@ export default async function like(req: NextApiRequest, res: NextApiResponse) {
     monument: string;
   };
 
-  const likes = JSON.parse(req.body);
+  const { likes } = JSON.parse(req.body) as {
+    likes: number;
+  };
+
   console.log(blogID, userID, monument);
-  console.log(likes);
+
   const updateBlog = await prisma.blogs.update({
     where: {
       blogId_userId_monument: {
@@ -21,7 +24,23 @@ export default async function like(req: NextApiRequest, res: NextApiResponse) {
       },
     },
     data: {
-      likes,
+      likeCount: likes,
+      likes: {
+        upsert: {
+          where: {
+            userId_blogsBlogId: {
+              blogsBlogId: blogID,
+              userId: userID,
+            },
+          },
+          create: {
+            userId: userID,
+          },
+          update: {
+            userId: userID,
+          },
+        },
+      },
     },
   });
   res.send('ok');

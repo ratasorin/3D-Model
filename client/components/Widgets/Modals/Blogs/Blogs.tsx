@@ -36,7 +36,7 @@ const Blog = () => {
         } as PopupBuilder);
       else setBlogs(fetchedBlogs.payload);
     };
-    visible ? getBlogs() : null;
+    getBlogs();
   }, [visible]);
   return visible ? (
     <ModalTemplate
@@ -63,7 +63,7 @@ const Blog = () => {
             key={blog.blogId + blog.userId}
             authorID={blog.userId}
             date={blog.createdAt as unknown as string}
-            likes={blog.likes}
+            likes={blog.likeCount}
             content={contentFrom(blog.content)}
             title={blog.title}
             blogID={blog.blogId}

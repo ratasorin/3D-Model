@@ -16,7 +16,7 @@ export default async function getBlogs(
         monument,
       },
       orderBy: {
-        likes: 'desc',
+        likeCount: 'desc',
       },
     });
 

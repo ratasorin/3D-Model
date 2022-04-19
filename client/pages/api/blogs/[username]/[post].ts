@@ -24,7 +24,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       await prisma.blogs.create({
         data: {
           content: blog.content,
-          likes: 0,
           title: parse(post),
           userId: user.id,
           blogId: blog.id,

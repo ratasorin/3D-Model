@@ -1,6 +1,8 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import like__style from './likes.module.css';
+import throttle from 'lodash.throttle';
+import { RequestResponse } from 'pages/api/church-info/[church]';
 
 const Likes: FC<{
   likes: number;
@@ -10,6 +12,36 @@ const Likes: FC<{
 }> = ({ likes: initialLikes, authorID, blogID, monument }) => {
   const [likes, setLikes] = useState(initialLikes);
   const [liked, setLiked] = useState(false);
+  useEffect(() => {
+    const getUserLiked = async () => {
+      const response = (await fetch(
+        `/api/blogs/like/${blogID}/${authorID}/${monument}`
+      )) as Response;
+      const { payload } = (await response.json()) as RequestResponse<boolean>;
+      setLiked(!!payload);
+    };
+    getUserLiked();
+  }, []);
+  const facadeUpdateLikes = () => {
+    setLikes(likes + (!liked ? 1 : -1));
+    setLiked(!liked);
+  };
+  const updateLikes = (likes: number, liked: boolean) => {
+    fetch(
+      `/api/blogs/like/${blogID}/${authorID}/${monument}/${
+        !liked ? 'like' : 'dislike'
+      }`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          likes: likes + (!liked ? 1 : -1),
+          didLike: !liked,
+        }),
+      }
+    );
+  };
+  const throttledUpdateLikes = useRef(throttle(updateLikes, 2000));
+
   return (
     <div className={like__style.info__text}>
       {likes}
@@ -17,23 +49,16 @@ const Likes: FC<{
         <AiFillHeart
           className={like__style.like_button}
           onClick={() => {
-            setLikes(likes + 1);
-            fetch(`/api/blogs/like/${blogID}/${authorID}/${monument}`, {
-              method: 'POST',
-              body: likes + 1,
-            });
+            facadeUpdateLikes();
+            throttledUpdateLikes.current(likes, liked);
           }}
         />
       ) : (
         <AiOutlineHeart
           className={like__style.like_button}
           onClick={() => {
-            setLikes(likes + 1);
-            setLiked(true);
-            fetch(`/api/blogs/like/${blogID}/${authorID}/${monument}`, {
-              method: 'POST',
-              body: likes + 1,
-            });
+            facadeUpdateLikes();
+            throttledUpdateLikes.current(likes, liked);
           }}
         />
       )}
