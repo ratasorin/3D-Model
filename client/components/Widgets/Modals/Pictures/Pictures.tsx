@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import useToggle from 'hooks/useToggle';
 import { CgCloseO } from 'react-icons/cg';
 import { MdOutlinePhotoCamera } from 'react-icons/md';
-import imageSupplierStyle from './pictures.module.css';
+import image_supplier__style from './pictures.module.css';
 import Submit from '../../Button/Submit/Submit';
 import ModalTemplate from '../Modals';
 import { selectFrom } from 'store/widgets/actions/modals-actions';
@@ -22,7 +22,7 @@ export default function Pictures() {
       modal="picture-modal"
       header={{
         subtitle: (
-          <div className={imageSupplierStyle.subtitle}>
+          <div className={image_supplier__style.subtitle}>
             Fotografiile pot ajuta utilizatorii sa recunoasca mai usor locatia
           </div>
         ),
@@ -30,15 +30,18 @@ export default function Pictures() {
       }}
     >
       <Uploader handleFile={addPhoto} trigger={buttonRef} />
-      <div className={imageSupplierStyle.container}>
+      <div className={image_supplier__style.container}>
         <motion.button
           layout
           ref={buttonRef}
-          className={imageSupplierStyle.button}
+          className={image_supplier__style.button}
           onMouseEnter={toggle}
           onMouseLeave={toggle}
         >
-          <motion.div layoutId="Ceva" className={imageSupplierStyle.text}>
+          <motion.div
+            layoutId="button__animation"
+            className={image_supplier__style.text}
+          >
             Adauga fotografii
           </motion.div>
           {show ? (
@@ -46,14 +49,14 @@ export default function Pictures() {
               initial={{ opacity: 0, x: 200 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -200 }}
-              className={imageSupplierStyle.iconDiv}
+              className={image_supplier__style.iconDiv}
             >
-              <MdOutlinePhotoCamera className={imageSupplierStyle.icon} />
+              <MdOutlinePhotoCamera className={image_supplier__style.icon} />
             </motion.div>
           ) : null}
         </motion.button>
 
-        <div className={imageSupplierStyle.preview}>
+        <div className={image_supplier__style.preview}>
           {photos.map(({ src, file, name }) => (
             <button
               onKeyDown={(event) => {
@@ -61,14 +64,14 @@ export default function Pictures() {
                 event.key === 'Enter' ? removePhoto(src, name, file) : 0;
               }}
               key={name}
-              className={imageSupplierStyle.hideButton}
+              className={image_supplier__style.hideButton}
             >
-              <div className={imageSupplierStyle.thumbnail}>
+              <div className={image_supplier__style.thumbnail}>
                 <CgCloseO
                   onClick={() => {
                     removePhoto(src, name, file);
                   }}
-                  className={imageSupplierStyle.closeIcon}
+                  className={image_supplier__style.closeIcon}
                 />
                 <img
                   src={src}
@@ -81,12 +84,14 @@ export default function Pictures() {
           ))}
         </div>
       </div>
-      <Submit
-        payload={'Salvati fotografiile'}
-        data={imagesFrom(name)}
-        path={'/api/images/images'}
-        stringify={false}
-      />
+      <div className={image_supplier__style.save_button__container}>
+        <Submit
+          payload={'Salvati fotografiile'}
+          data={imagesFrom(name)}
+          path={'/api/images/images'}
+          stringify={false}
+        />
+      </div>
     </ModalTemplate>
   ) : null;
 }
