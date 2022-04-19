@@ -3,24 +3,33 @@ import info__style from './info.module.css';
 import { openModal, selectFrom } from 'store/widgets/actions/modals-actions';
 import { useGetChurchInfoQuery } from 'store/redux-caching/church-info-cache';
 import Dispatch from '../../Button/Dispatch/Dispatch';
-import { ChurchInfoSuccessResponse } from 'pages/api/church-info/[church]';
+import { ChurchInfo } from 'pages/api/church-info/[church]';
 import { PopupBuilder } from 'store/widgets/widgets-actions';
 import { openPopup } from 'store/widgets/actions/popup-actions';
 import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 const useData = (name: string) => {
   const data = useGetChurchInfoQuery(name).currentData;
-  const [info, setInfo] = useState<ChurchInfoSuccessResponse>();
+  const [info, setInfo] = useState<ChurchInfo | undefined | null>(undefined);
   useEffect(() => {
     if (data?.error) {
       openPopup('success-popup', {
-        payload: data.message,
+        payload: data.payload,
         type: 'Error',
       } as PopupBuilder);
-    } else setInfo(data);
+    } else setInfo(data?.payload);
   }, [data]);
 
+  useEffect(() => {
+    console.log('KEEPING TRACK OF THE NAME. THE CURRENT ONE IS:', name);
+  }, [name]);
+
   return info;
+};
+
+const openAuthenticationPanel = () => {
+  openModal('authenticate-modal');
 };
 
 const Info = () => {
@@ -32,6 +41,7 @@ const Info = () => {
   };
 
   const info = useData(name);
+  const user = useSession().data?.user;
 
   return visible ? (
     <ModalTemplate
@@ -42,11 +52,20 @@ const Info = () => {
       }}
     >
       <div className={info__style.container}>
-        <div className={info__style.description}>
-          {info?.churchInfo?.churchDescription}
-        </div>
+        <div className={info__style.description}>{info?.churchDescription}</div>
         <div className={info__style.button__wrapper}>
-          <Dispatch action={openModifyModal} payload="Sugerati o schimbare" />
+          <div className={info__style.editor__container}>
+            Editor:
+            <p className={info__style.editor}>{info?.editedBy}</p>
+          </div>
+          {user ? (
+            <Dispatch action={openModifyModal} payload="Sugerati o schimbare" />
+          ) : (
+            <Dispatch
+              action={openAuthenticationPanel}
+              payload="Autentifica-te"
+            />
+          )}
         </div>
       </div>
     </ModalTemplate>

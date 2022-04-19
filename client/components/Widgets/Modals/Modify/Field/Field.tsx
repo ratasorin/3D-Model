@@ -3,20 +3,22 @@ import fieldStyle from './field.module.css';
 import { useGetChurchInfoQuery } from 'store/redux-caching/church-info-cache';
 import { processUserInput } from 'components/Widgets/Modals/Modify/Field/info-slice';
 import { useAppDispatch } from 'hooks/redux-hooks';
+import { ChurchInfo } from 'pages/api/church-info/[church]';
+import { useSession } from 'next-auth/react';
 
 const Field: FC<{
   id: string;
   name: string;
 }> = ({ children, id, name }) => {
-  const { currentData } = useGetChurchInfoQuery(name);
+  const monumentInfo = useGetChurchInfoQuery(name).currentData
+    ?.payload as ChurchInfo;
   console.log(name);
-
+  const user = useSession().data?.user;
   const dispatch = useAppDispatch();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
     textareaRef.current
-      ? (textareaRef.current.value =
-          currentData?.churchInfo?.churchDescription || '')
+      ? (textareaRef.current.value = monumentInfo?.churchDescription || '')
       : null;
     textareaRef.current?.click();
   }, []);
@@ -50,6 +52,7 @@ const Field: FC<{
                   processUserInput({
                     info: event.currentTarget.value,
                     churchName: name,
+                    user: user?.name || 'ANONYM',
                   })
                 );
               }}

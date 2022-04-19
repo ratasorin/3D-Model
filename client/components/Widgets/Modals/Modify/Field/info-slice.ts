@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { User } from 'next-auth';
 
 export interface UserProvidedInput {
   lastUpdatedInfo: string;
   currentUserInfo: string;
   churchName: string;
+  user: string;
 }
 const changeInfo = createSlice({
   name: 'change-info',
@@ -20,12 +22,14 @@ const changeInfo = createSlice({
       action: PayloadAction<{
         info: string;
         churchName: string;
+        user: string;
       }>
     ) {
       return {
         ...state,
         churchName: action.payload.churchName,
         currentUserInfo: action.payload.info,
+        user: action.payload.user,
       };
     },
   },

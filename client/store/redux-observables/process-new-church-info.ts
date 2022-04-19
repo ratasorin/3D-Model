@@ -12,7 +12,7 @@ import {
 } from 'rxjs';
 import { RootState } from 'store/store';
 import { churchInfoApi } from 'store/redux-caching/church-info-cache';
-import { ChurchInfoSuccessResponse } from 'pages/api/church-info/[church]';
+import { ChurchInfo, RequestResponse } from 'pages/api/church-info/[church]';
 const sendNewInfo = (
   action$: Observable<Action<string>>,
   state$: StateObservable<RootState>
@@ -37,7 +37,7 @@ const sendNewInfo = (
             body: JSON.stringify({
               churchDescription: state.changeInfo.currentUserInfo,
               churchName: state.changeInfo.churchName,
-              editedBy: 'ANONIM',
+              editedBy: state.changeInfo.user,
             }),
             method: 'POST',
           })
@@ -54,12 +54,13 @@ const sendNewInfo = (
                 `${state.changeInfo.churchName}`,
                 () => {
                   return {
-                    churchInfo: {
+                    payload: {
                       churchDescription: state.changeInfo.currentUserInfo,
                       churchName: state.changeInfo.churchName,
-                      editedBy: 'ANONIM',
+                      editedBy: state.changeInfo.user,
                     },
-                  } as ChurchInfoSuccessResponse;
+                    error: false,
+                  } as RequestResponse<ChurchInfo>;
                 }
               ),
             ])

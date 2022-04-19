@@ -2,10 +2,19 @@ import Popup from '../Popup';
 import { useAppSelector } from 'hooks/redux-hooks';
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { AnimatePresence } from 'framer-motion';
+import { useEffect } from 'react';
+import { closePopup } from 'store/widgets/actions/popup-actions';
 const Success = () => {
   const { visible, popupMessage } = useAppSelector(
     ({ popupReducer }) => popupReducer
   );
+
+  useEffect(() => {
+    if (visible)
+      setTimeout(() => {
+        closePopup('success-popup');
+      }, 5000);
+  }, [visible]);
 
   return (
     <AnimatePresence>
