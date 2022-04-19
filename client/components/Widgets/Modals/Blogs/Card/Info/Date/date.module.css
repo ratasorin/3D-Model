@@ -1,4 +1,6 @@
 .info__text {
   display: flex;
   align-items: center;
+  font-weight: 400;
+  font-style: italic;
 }

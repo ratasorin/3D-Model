@@ -1,4 +1,7 @@
 .title {
-  font-size: 2em;
+  font-size: min(3em, 36px);
   margin-bottom: 0.5em;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

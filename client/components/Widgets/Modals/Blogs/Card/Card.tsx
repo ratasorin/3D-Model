@@ -1,9 +1,6 @@
 import card__styles from './card.module.css';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { FC, useEffect, useState } from 'react';
 import { FaCrown } from 'react-icons/fa';
-import { convertFromRaw, RawDraftContentState } from 'draft-js';
-import { parsedDate } from 'lib/date';
 import { RequestResponse } from 'pages/api/church-info/[church]';
 import { User } from '@prisma/client';
 import { openPopup } from 'store/widgets/actions/popup-actions';

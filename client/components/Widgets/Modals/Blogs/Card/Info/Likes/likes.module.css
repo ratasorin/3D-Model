@@ -1,6 +1,6 @@
 .like_button {
   cursor: pointer;
-  font-size: 1.8em;
+  font-size: 1.5em;
   margin-left: 10px;
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -13,4 +13,5 @@
 .info__text {
   display: flex;
   align-items: center;
+  font-size: 1.3em;
 }

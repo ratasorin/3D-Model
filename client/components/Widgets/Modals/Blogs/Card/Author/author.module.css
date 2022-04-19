@@ -3,11 +3,11 @@
   height: auto;
   display: flex;
   align-items: center;
-  margin-bottom: 2em;
-  font-size: 1.8em;
+  margin-bottom: 1em;
+  font-size: 2.5em;
 }
 .icon {
-  margin-right: 1.5em;
+  margin-right: 30px;
   max-width: 40px;
   max-height: 40px;
   border-radius: 50%;
