@@ -8,12 +8,16 @@ import { RequestResponse } from 'pages/api/church-info/[church]';
 import { User } from '@prisma/client';
 import { openPopup } from 'store/widgets/actions/popup-actions';
 import { PopupBuilder } from 'store/widgets/widgets-actions';
+import Author from './Author/Author';
+import Content from './Content/Content';
+import Info from './Info/Info';
+
 const Card: FC<{
   golden?: boolean;
   authorID: string;
-  rawContent: string;
+  content: string;
   likes: number;
-  date: Date;
+  date: string;
   title: string;
   blogID: string;
   monument: string;
@@ -21,15 +25,14 @@ const Card: FC<{
   golden = false,
   authorID,
   date,
-  likes: initialLikes,
-  rawContent,
+  likes,
+  content,
   title,
   blogID,
   monument,
 }) => {
   const [author, setAuthor] = useState<User | null>(null);
-  const [likes, setLikes] = useState(initialLikes);
-  const [liked, setLiked] = useState(false);
+
   useEffect(() => {
     const getAuthors = async () => {
       const response = await fetch(`/api/blogs/${authorID}`);
@@ -61,50 +64,15 @@ const Card: FC<{
     <div className={card__styles.golden_distinction}>
       {Award}
       <div className={card__styles.container}>
-        <div className={card__styles.author__info}>
-          <div className={card__styles.icon}>
-            <img src={author ? author.image : ''} alt="PFP" />
-          </div>
-          {author ? author.name : null}
-        </div>
-        <div className={card__styles.title}>{title}</div>
-        <div className={card__styles.subtitle}>
-          {convertFromRaw(
-            JSON.parse(rawContent) as RawDraftContentState
-          ).getPlainText()}
-        </div>
-        <div className={card__styles.more__info}>
-          <div className={card__styles.info__text}>
-            {parsedDate(new Date(date).toLocaleDateString())}
-          </div>
-          <div className={card__styles.info__text}>
-            {likes}
-            {liked ? (
-              <AiFillHeart
-                className={card__styles.like_button}
-                onClick={() => {
-                  setLikes(likes + 1);
-                  fetch(`/api/blogs/like/${blogID}/${authorID}/${monument}`, {
-                    method: 'POST',
-                    body: likes + 1,
-                  });
-                }}
-              />
-            ) : (
-              <AiOutlineHeart
-                className={card__styles.like_button}
-                onClick={() => {
-                  setLikes(likes + 1);
-                  setLiked(true);
-                  fetch(`/api/blogs/like/${blogID}/${authorID}/${monument}`, {
-                    method: 'POST',
-                    body: likes + 1,
-                  });
-                }}
-              />
-            )}
-          </div>
-        </div>
+        <Author author={author} />
+        <Content content={content} title={title} />
+        <Info
+          authorID={authorID}
+          blogID={blogID}
+          date={date}
+          likes={likes}
+          monument={monument}
+        />
       </div>
     </div>
   );

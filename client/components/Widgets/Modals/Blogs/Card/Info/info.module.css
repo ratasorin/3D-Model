@@ -1,0 +1,9 @@
+.more__info {
+  margin-top: 2em;
+  height: auto;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.2em;
+}

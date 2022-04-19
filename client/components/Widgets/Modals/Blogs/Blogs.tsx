@@ -10,7 +10,14 @@ import { FailResponse, SuccessResponse } from 'pages/api/church-info/[church]';
 import { Blogs } from '@prisma/client';
 import { openPopup } from 'store/widgets/actions/popup-actions';
 import { PopupBuilder } from 'store/widgets/widgets-actions';
+import { convertFromRaw, RawDraftContentState } from 'draft-js';
 const Card = dynamic(() => import('./Card/Card'));
+
+const contentFrom = (rawContent: string) => {
+  return convertFromRaw(
+    JSON.parse(rawContent) as RawDraftContentState
+  ).getPlainText();
+};
 
 const Blog = () => {
   const router = useRouter();
@@ -55,9 +62,9 @@ const Blog = () => {
             golden={index === 0}
             key={blog.blogId + blog.userId}
             authorID={blog.userId}
-            date={blog.createdAt}
+            date={blog.createdAt as unknown as string}
             likes={blog.likes}
-            rawContent={blog.content}
+            content={contentFrom(blog.content)}
             title={blog.title}
             blogID={blog.blogId}
             monument={name}

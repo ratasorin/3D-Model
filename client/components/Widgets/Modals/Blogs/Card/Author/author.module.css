@@ -1,0 +1,21 @@
+.author__info {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2em;
+  font-size: 1.8em;
+}
+.icon {
+  margin-right: 1.5em;
+  max-width: 40px;
+  max-height: 40px;
+  border-radius: 50%;
+  background-color: aliceblue;
+}
+
+.icon img {
+  max-width: 40px;
+  max-height: 40px;
+  border-radius: 50%;
+}
