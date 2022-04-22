@@ -52,6 +52,10 @@ const LazyBlogs = dynamic(import('components/Widgets/Modals/Blogs/Blogs'), {
   ssr: false,
 });
 
+const LazyBlog = dynamic(import('components/Widgets/Modals/Blogs/Blog/Blog'), {
+  ssr: false,
+});
+
 const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   ssr: false,
   loading: () => {
@@ -77,6 +81,7 @@ const Main = () => {
       <LazySuccessPopup />
       <LazyAuthenticate />
       <LazyChangeName />
+      <LazyBlog />
       {searchVisible ? (
         <div className={main__style.app}>
           <Searchbox />

@@ -35,15 +35,3 @@ export const selectFrom = <
 
   return payload;
 };
-
-// export const startLoadingModal = (modal: supportedModals) => {
-//   startLoading({
-//     modal,
-//   });
-// };
-
-// export const stopLoadingModal = (modal: supportedModals) => {
-//   stopLoading({
-//     type: modal,
-//   });
-// };

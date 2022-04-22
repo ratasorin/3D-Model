@@ -18,15 +18,17 @@ const Card: FC<{
   title: string;
   blogID: string;
   monument: string;
+  rawContent: string;
 }> = ({
   golden = false,
   authorID,
   date,
   likes,
-  content,
   title,
   blogID,
   monument,
+  rawContent,
+  content,
 }) => {
   const [author, setAuthor] = useState<User | null>(null);
 
@@ -62,7 +64,13 @@ const Card: FC<{
       {Award}
       <div className={card__styles.container}>
         <Author author={author} />
-        <Content content={content} title={title} />
+        <Content
+          content={content}
+          rawContent={rawContent}
+          title={title}
+          author={author?.name || ''}
+          likes={likes}
+        />
         <Info
           authorID={authorID}
           blogID={blogID}

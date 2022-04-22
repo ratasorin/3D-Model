@@ -5,9 +5,9 @@ const TitleSlice = createSlice({
   initialState: { postHash: randomHash(), title: '' },
   name: 'title',
   reducers: {
-    changeTitle(_, action: PayloadAction<string>) {
+    changeTitle(state, action: PayloadAction<string>) {
       return {
-        ..._,
+        ...state,
         title: action.payload,
       };
     },
@@ -18,4 +18,4 @@ const TitleSlice = createSlice({
 });
 
 export default TitleSlice.reducer;
-export const { changeTitle } = TitleSlice.actions;
+export const { changeTitle, generateNewHash } = TitleSlice.actions;

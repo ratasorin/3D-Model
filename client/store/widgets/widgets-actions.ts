@@ -6,9 +6,12 @@ import { open as pictureChangeOpen } from 'components/Widgets/Modals/Pictures/Ch
 import { open as pictureOpen } from 'components/Widgets/Modals/Pictures/picture-modal-slice';
 import { open as authenticateOpen } from 'components/Widgets/Modals/Authenticate/authenticate-slice';
 import { open as blogsOpen } from 'components/Widgets/Modals/Blogs/blogs-slice';
-import { supportedModals, supportedPopup } from './widgets-available';
 import { open as SimplePopupOpen } from 'components/Widgets/Popup/Tools/tools-slice';
 import { open as SuccessPopupOpen } from 'components/Widgets/Popup/Success/success-slice';
+import { open as blogOpen } from 'components/Widgets/Modals/Blogs/Blog/blog-slice';
+
+import { supportedModals, supportedPopup } from './widgets-available';
+
 const modalsOpenActions = [
   modifyOpen,
   infoOpen,
@@ -16,6 +19,7 @@ const modalsOpenActions = [
   authenticateOpen,
   pictureChangeOpen,
   blogsOpen,
+  blogOpen,
 ] as const;
 
 const popupOpenActions = [SimplePopupOpen, SuccessPopupOpen];

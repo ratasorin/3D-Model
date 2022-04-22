@@ -15,10 +15,13 @@ import pictureChangeModalReducer, {
   name as pictureChangeModalReducerName,
 } from 'components/Widgets/Modals/Pictures/Change/change-slice';
 import popupReducer from 'components/Widgets/Popup/Success/success-slice';
-import blogModalReducer, {
-  name as blogModalReducerName,
+import blogsModalReducer, {
+  name as blogsModalReducerName,
 } from 'components/Widgets/Modals/Blogs/blogs-slice';
 import simplePopupReducer from 'components/Widgets/Popup/Tools/tools-slice';
+import blogModalReducer, {
+  name as blogModalReducerName,
+} from 'components/Widgets/Modals/Blogs/Blog/blog-slice';
 
 export const widgets = {
   [modifyModalReducerName]: modifyModalReducer,
@@ -26,6 +29,7 @@ export const widgets = {
   [pictureModalReducerName]: pictureModalReducer,
   [authenticateReducerName]: authenticateReducer,
   [pictureChangeModalReducerName]: pictureChangeModalReducer,
+  [blogsModalReducerName]: blogsModalReducer,
   [blogModalReducerName]: blogModalReducer,
   popupReducer,
   simplePopupReducer,

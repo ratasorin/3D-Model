@@ -5,10 +5,11 @@ import prisma from 'utils/prisma';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { username, post } = req.query as {
+    const { username, title } = req.query as {
       username: string;
-      post: string;
+      title: string;
     };
+    console.log('TITLE IS:', title);
     const blog = JSON.parse(req.body) as {
       content: string;
       id: string;
@@ -24,9 +25,9 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       await prisma.blogs.create({
         data: {
           content: blog.content,
-          title: parse(post),
+          title: title,
           userId: user.id,
-          blogId: blog.id,
+          blogId: blog.id + 'xyz',
           monument: parse(blog.monument),
         },
       });
@@ -42,6 +43,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       error: false,
       payload: 'Totul este perfect !',
     });
-    console.log(username, parse(post), 'POST', parse(blog.monument));
+    console.log(username, title, 'POST', parse(blog.monument));
   }
 }

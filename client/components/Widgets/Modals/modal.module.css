@@ -27,8 +27,9 @@
 }
 
 .title {
-  width: 100%;
+  max-width: 100%;
   display: flex;
+  word-break: break-all;
   align-items: center;
   white-space: wrap;
   font-size: 1.5em;

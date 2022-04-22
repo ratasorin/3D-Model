@@ -68,6 +68,7 @@ const Blog = () => {
             title={blog.title}
             blogID={blog.blogId}
             monument={name}
+            rawContent={blog.content}
           />
         ))}
       </div>

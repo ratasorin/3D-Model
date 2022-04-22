@@ -23,7 +23,7 @@ const Submit: FC<{
   const callback = useCallback(() => {
     if (user) submit(data, path, stringify);
     else openModal('authenticate-modal');
-  }, [user]);
+  }, [user, path]);
 
   return <Button payload={payload} onClick={callback} />;
 };

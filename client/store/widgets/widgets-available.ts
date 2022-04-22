@@ -6,6 +6,7 @@ import { name as pictureChangeName } from 'components/Widgets/Modals/Pictures/Ch
 import { name as popupName } from 'components/Widgets/Popup/Success/success-slice';
 import { name as blogsName } from 'components/Widgets/Modals/Blogs/blogs-slice';
 import { name as simplePopupName } from 'components/Widgets/Popup/Tools/tools-slice';
+import { name as blogName } from 'components/Widgets/Modals/Blogs/Blog/blog-slice';
 
 const modals = [
   modifyModalName,
@@ -14,6 +15,7 @@ const modals = [
   authenticateName,
   pictureChangeName,
   blogsName,
+  blogName,
 ] as const;
 
 const popups = [popupName, simplePopupName] as const;
