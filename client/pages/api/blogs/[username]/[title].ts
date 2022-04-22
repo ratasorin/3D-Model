@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { FailResponse } from 'pages/api/church-info/[church]';
+import { ErrorResponse } from 'pages/types/response';
 import parse from 'utils/parse';
 import prisma from 'utils/prisma';
 
@@ -35,7 +35,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       res.send({
         error: true,
         payload: 'Trebuie sa fii logat ca sa poti posta ',
-      } as FailResponse);
+      } as ErrorResponse);
       return;
     }
 
