@@ -1,4 +1,3 @@
-import { Action } from '@reduxjs/toolkit';
 import { ofType, StateObservable } from 'redux-observable';
 import {
   debounceTime,
@@ -14,7 +13,7 @@ import { RootState } from 'store/store';
 import { churchInfoApi } from 'store/redux-caching/church-info-cache';
 import { ChurchInfo, RequestResponse } from 'pages/api/church-info/[church]';
 const sendNewInfo = (
-  action$: Observable<Action<string>>,
+  action$: Observable<{ type: string }>,
   state$: StateObservable<RootState>
 ) =>
   action$.pipe(
@@ -62,7 +61,8 @@ const sendNewInfo = (
                     error: false,
                   } as RequestResponse<ChurchInfo>;
                 }
-              ),
+              ) as any,
+              // cast to any to avoid ReduxThunk typings not matching AnyAction which is the expected output from epics
             ])
           )
         )

@@ -19,8 +19,8 @@ export const store = configureStore({
   reducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
-      .concat(churchInfoApi.middleware)
-      .concat(epicMiddleware),
+      .concat(epicMiddleware)
+      .concat(churchInfoApi.middleware),
 });
 
 epicMiddleware.run(sendNewInfo);

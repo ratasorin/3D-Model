@@ -14,7 +14,7 @@ import content__style from './content.module.css';
 import { useObservableState } from 'observable-hooks';
 import { file$ } from './Media/Upload/File/FileUploader';
 import { composeStyle } from 'lib/edit-text';
-import { ReplaySubject, Subject } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 import { useAppSelector } from 'hooks/redux-hooks';
 
 const HASHTAG_REGEX = /#[\w\u0590-\u05ff]+/g;
@@ -22,7 +22,7 @@ const HASHTAG_REGEX = /#[\w\u0590-\u05ff]+/g;
 function findWithRegex(
   regex: RegExp,
   contentBlock: ContentBlock,
-  callback: Function
+  callback: (start: number, end: number) => unknown
 ) {
   const text = contentBlock.getText();
   let matchArr, start;
@@ -33,8 +33,7 @@ function findWithRegex(
 }
 function hashtagStrategy(
   contentBlock: ContentBlock,
-  callback: Function
-  // contentState
+  callback: (start: number, end: number) => unknown
 ) {
   findWithRegex(HASHTAG_REGEX, contentBlock, callback);
 }
