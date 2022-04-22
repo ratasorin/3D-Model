@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { RequestResponse } from 'pages/api/church-info/[church]';
+import { SuccessResponse } from 'pages/types/response';
 import parse from 'utils/parse';
 import prisma from 'utils/prisma';
 
@@ -25,5 +25,5 @@ export default async function hasLiked(
   res.send({
     error: false,
     payload: hasLiked,
-  } as RequestResponse<boolean>);
+  } as SuccessResponse<boolean>);
 }

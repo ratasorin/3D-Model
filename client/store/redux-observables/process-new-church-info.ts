@@ -11,7 +11,9 @@ import {
 } from 'rxjs';
 import { RootState } from 'store/store';
 import { churchInfoApi } from 'store/redux-caching/church-info-cache';
-import { ChurchInfo, RequestResponse } from 'pages/api/church-info/[church]';
+import { ChurchInfo } from 'pages/api/church-info/[church]';
+import { ServerResponse } from 'pages/types/response';
+
 const sendNewInfo = (
   action$: Observable<{ type: string }>,
   state$: StateObservable<RootState>
@@ -59,7 +61,7 @@ const sendNewInfo = (
                       editedBy: state.changeInfo.user,
                     },
                     error: false,
-                  } as RequestResponse<ChurchInfo>;
+                  } as ServerResponse<ChurchInfo>;
                 }
               ) as any,
               // cast to any to avoid ReduxThunk typings not matching AnyAction which is the expected output from epics

@@ -11,9 +11,6 @@ import authenticateReducer, {
   name as authenticateReducerName,
 } from 'components/Widgets/Modals/Authenticate/authenticate-slice';
 import stackReducer from 'components/Widgets/stack-slice';
-import pictureChangeModalReducer, {
-  name as pictureChangeModalReducerName,
-} from 'components/Widgets/Modals/Pictures/Change/change-slice';
 import popupReducer from 'components/Widgets/Popup/Success/success-slice';
 import blogsModalReducer, {
   name as blogsModalReducerName,
@@ -28,7 +25,6 @@ export const widgets = {
   [infoModalReducerName]: infoModalReducer,
   [pictureModalReducerName]: pictureModalReducer,
   [authenticateReducerName]: authenticateReducer,
-  [pictureChangeModalReducerName]: pictureChangeModalReducer,
   [blogsModalReducerName]: blogsModalReducer,
   [blogModalReducerName]: blogModalReducer,
   popupReducer,

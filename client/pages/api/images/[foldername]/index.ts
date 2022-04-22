@@ -1,7 +1,13 @@
 import fs from 'fs/promises';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { ErrorResponse, SuccessResponse } from 'pages/types/response';
 import path from 'path/posix';
 import slugify from 'slugify';
+
+export interface Image {
+  src: string;
+  filename: string;
+}
 
 export default async function handler(
   req: NextApiRequest,
@@ -25,14 +31,14 @@ export default async function handler(
           'base64'
         );
         const finalImage = 'data:image/png;base64,' + image;
-        return { fileSRC: finalImage, filename };
+        return { src: finalImage, filename } as Image;
       })
     );
-    res.json(files);
+    res.json({ error: false, payload: files } as SuccessResponse<Image[]>);
   } catch (e) {
     res.json({
       error: true,
-      Error: `${e}`,
-    });
+      payload: e,
+    } as ErrorResponse);
   }
 }

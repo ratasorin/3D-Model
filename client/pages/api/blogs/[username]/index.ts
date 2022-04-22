@@ -1,6 +1,6 @@
 import { User } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { FailResponse, SuccessResponse } from 'pages/api/church-info/[church]';
+import { ErrorResponse, SuccessResponse } from 'pages/types/response';
 import prisma from 'utils/prisma';
 
 export default async function getUser(
@@ -23,6 +23,6 @@ export default async function getUser(
     res.send({
       error: true,
       payload: 'UPS! Ceva nu a mers',
-    } as FailResponse);
+    } as ErrorResponse);
   }
 }

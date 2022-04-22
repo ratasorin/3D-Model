@@ -12,7 +12,7 @@ import { Blog as BlogType } from './blog-slice';
 import blog__style from './blog.module.css';
 
 const Blog = () => {
-  const { visible, author, content, likes, title } =
+  const { visible, author, content, title } =
     selectFrom<BlogType>('blog-modal');
 
   return visible ? (

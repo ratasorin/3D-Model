@@ -4,36 +4,25 @@ import carouselStyles from './carousel.module.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useEffect, useState } from 'react';
-import Loading from 'components/Loading/Loading';
+import { ServerResponse } from 'pages/types/response';
+import { Image } from 'pages/api/images/[foldername]';
 
 const Carousel = ({ church }: { church: string }) => {
   const [photos, setPhotos] = useState<HTMLImageElement[]>([]);
-  // const { doAction, loading } = useLoading<string, HTMLImageElement[]>(
-  //   async function () {
-  //     const response = await fetch(`/api/images/${church}`);
-  //     const base64Images = (await response.json()) as string[];
-  //     if (!base64Images.error)
-  //       return base64Images.map((base64Image) => {
-  //         const image = new Image();
-  //         image.src = 'data:image/png;base64,' + base64Image;
-  //         return image;
-  //       });
-  //     else return [];
-  //   }
-  // );
 
   useEffect(() => {
     async function fetchImages() {
       const response = await fetch(`/api/images/${church}`);
-      const base64Images = (await response.json()) as string[];
-      if (!base64Images.error)
-        return base64Images.map((base64Image) => {
-          const image = new Image();
-          console.log(base64Image);
-          image.src = base64Image.fileSRC;
-          return image;
-        });
-      else return [];
+      const base64Images = (await response.json()) as ServerResponse<Image[]>;
+      if (base64Images.error) return [];
+      return base64Images.payload
+        ? base64Images.payload.map((base64Image) => {
+            const image = new Image();
+            console.log(base64Image);
+            image.src = base64Image.src;
+            return image;
+          })
+        : [];
     }
 
     fetchImages().then((images) => setPhotos(images));
@@ -48,12 +37,6 @@ const Carousel = ({ church }: { church: string }) => {
       </div>
     );
   };
-
-  // useEffect(() => {
-  //   doAction(church).then((images) => {
-  //     setPhotos(images);
-  //   });
-  // }, []);
 
   const PrevArrow = ({ onClick }: { onClick?: React.MouseEventHandler }) => {
     return (
@@ -79,21 +62,17 @@ const Carousel = ({ church }: { church: string }) => {
 
   return (
     <div className={carouselStyles.container}>
-      {true ? (
-        <Slider
-          {...settings}
-          adaptiveHeight={true}
-          className={carouselStyles.slider}
-        >
-          {photos.map((img, index) => (
-            <div key={index} className={carouselStyles.slide}>
-              <img src={img?.src} alt={'alt'} />
-            </div>
-          ))}
-        </Slider>
-      ) : (
-        <Loading />
-      )}
+      <Slider
+        {...settings}
+        adaptiveHeight={true}
+        className={carouselStyles.slider}
+      >
+        {photos.map((img, index) => (
+          <div key={index} className={carouselStyles.slide}>
+            <img src={img?.src} alt={'alt'} />
+          </div>
+        ))}
+      </Slider>
     </div>
   );
 };

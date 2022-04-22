@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { ErrorResponse, SuccessResponse } from 'pages/types/response';
 import prisma from 'utils/prisma';
 
 export interface ChurchInfo {
@@ -6,18 +7,6 @@ export interface ChurchInfo {
   churchDescription: string;
   churchName: string;
 }
-
-export interface SuccessResponse<T> {
-  error: false;
-  payload: T | null;
-}
-
-export interface FailResponse {
-  error: true;
-  payload: string;
-}
-
-export type RequestResponse<T> = SuccessResponse<T> | FailResponse;
 
 const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
@@ -46,7 +35,7 @@ const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
       res.send({
         error: true,
         payload: 'Ups! Ceva nu a mers, incercati din nou mai tarziu',
-      } as FailResponse);
+      } as ErrorResponse);
     }
   } else {
     const churchName = req.query.church as string;
@@ -67,12 +56,12 @@ const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
         res.send({
           error: true,
           payload: `Se pare ca nimeni nu a mai incarcat o descriere pentru ${churchName}`,
-        } as FailResponse);
+        } as ErrorResponse);
     } catch (e) {
       res.send({
         error: true,
         payload: 'Ups! Ceva nu a mers, incercati din nou mai tarziu',
-      } as FailResponse);
+      } as ErrorResponse);
     }
   }
 };

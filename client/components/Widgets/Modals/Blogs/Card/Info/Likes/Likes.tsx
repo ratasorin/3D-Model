@@ -2,8 +2,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import like__style from './likes.module.css';
 import throttle from 'lodash.throttle';
-import { RequestResponse } from 'pages/api/church-info/[church]';
-
+import { ServerResponse } from 'pages/types/response';
 const Likes: FC<{
   likes: number;
   blogID: string;
@@ -17,7 +16,7 @@ const Likes: FC<{
       const response = (await fetch(
         `/api/blogs/like/${blogID}/${authorID}/${monument}`
       )) as Response;
-      const { payload } = (await response.json()) as RequestResponse<boolean>;
+      const { payload } = (await response.json()) as ServerResponse<boolean>;
       setLiked(!!payload);
     };
     getUserLiked();

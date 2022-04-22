@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from 'next-auth';
 
 export interface UserProvidedInput {
   lastUpdatedInfo: string;

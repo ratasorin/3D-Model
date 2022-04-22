@@ -41,13 +41,6 @@ const LazyAuthenticate = dynamic(
   }
 );
 
-const LazyChangeName = dynamic(
-  () => import('components/Widgets/Modals/Pictures/Change/ChangeName'),
-  {
-    ssr: false,
-  }
-);
-
 const LazyBlogs = dynamic(import('components/Widgets/Modals/Blogs/Blogs'), {
   ssr: false,
 });
@@ -80,7 +73,6 @@ const Main = () => {
       <LazyModal />
       <LazySuccessPopup />
       <LazyAuthenticate />
-      <LazyChangeName />
       <LazyBlog />
       {searchVisible ? (
         <div className={main__style.app}>

@@ -15,7 +15,7 @@ export default async function like(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     console.log(blogID, userID, monument);
-    const updateBlog = await prisma.blogs.update({
+    await prisma.blogs.update({
       where: {
         blogId_userId_monument: {
           blogId: blogID,

@@ -1,7 +1,7 @@
 import card__styles from './card.module.css';
 import { FC, useEffect, useState } from 'react';
 import { FaCrown } from 'react-icons/fa';
-import { RequestResponse } from 'pages/api/church-info/[church]';
+import { ServerResponse } from 'pages/types/response';
 import { User } from '@prisma/client';
 import { openPopup } from 'store/widgets/actions/popup-actions';
 import { PopupBuilder } from 'store/widgets/widgets-actions';
@@ -35,7 +35,7 @@ const Card: FC<{
   useEffect(() => {
     const getAuthors = async () => {
       const response = await fetch(`/api/blogs/${authorID}`);
-      const author = (await response.json()) as RequestResponse<User>;
+      const author = (await response.json()) as ServerResponse<User>;
 
       if (author.error)
         openPopup('success-popup', {

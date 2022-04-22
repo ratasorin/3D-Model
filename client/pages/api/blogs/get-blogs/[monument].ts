@@ -2,7 +2,7 @@ import { Blogs } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 import parse from 'utils/parse';
 import prisma from 'utils/prisma';
-import { FailResponse, SuccessResponse } from '../../church-info/[church]';
+import { ErrorResponse, SuccessResponse } from 'pages/types/response';
 
 export default async function getBlogs(
   req: NextApiRequest,
@@ -29,6 +29,6 @@ export default async function getBlogs(
       error: true,
       payload:
         'Blogurile nu au putut fi incarcate, va rugam incercati din nou mai tarziu',
-    } as FailResponse);
+    } as ErrorResponse);
   }
 }

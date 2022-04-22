@@ -10,7 +10,7 @@ const Quotes = () => {
       }}
       className={option__style.button}
     >
-      <code>"Q"</code>
+      <code>`&quot`Q`&quot`</code>
     </button>
   );
 };

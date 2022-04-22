@@ -6,7 +6,8 @@ import { useRouter } from 'next/router';
 import Filter from './Filter/Filter';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import { FailResponse, SuccessResponse } from 'pages/api/church-info/[church]';
+import { ServerResponse } from 'pages/types/response';
+
 import { Blogs } from '@prisma/client';
 import { openPopup } from 'store/widgets/actions/popup-actions';
 import { PopupBuilder } from 'store/widgets/widgets-actions';
@@ -26,9 +27,7 @@ const Blog = () => {
   useEffect(() => {
     const getBlogs = async () => {
       const response = await fetch(`/api/blogs/get-blogs/${name}`);
-      const fetchedBlogs = (await response.json()) as
-        | SuccessResponse<Blogs[]>
-        | FailResponse;
+      const fetchedBlogs = (await response.json()) as ServerResponse<Blogs[]>;
       if (fetchedBlogs.error)
         openPopup('success-popup', {
           payload: fetchedBlogs.payload,

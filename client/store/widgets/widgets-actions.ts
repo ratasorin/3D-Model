@@ -2,7 +2,6 @@ import { useAppSelector } from 'hooks/redux-hooks';
 
 import { open as modifyOpen } from 'components/Widgets/Modals/Modify/modify-modal-slice';
 import { open as infoOpen } from 'components/Widgets/Modals/Info/info-modal-slice';
-import { open as pictureChangeOpen } from 'components/Widgets/Modals/Pictures/Change/change-slice';
 import { open as pictureOpen } from 'components/Widgets/Modals/Pictures/picture-modal-slice';
 import { open as authenticateOpen } from 'components/Widgets/Modals/Authenticate/authenticate-slice';
 import { open as blogsOpen } from 'components/Widgets/Modals/Blogs/blogs-slice';
@@ -17,7 +16,6 @@ const modalsOpenActions = [
   infoOpen,
   pictureOpen,
   authenticateOpen,
-  pictureChangeOpen,
   blogsOpen,
   blogOpen,
 ] as const;

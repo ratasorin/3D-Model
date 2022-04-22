@@ -1,4 +1,4 @@
-import { catchError, first, from, map, Observable, switchMap } from 'rxjs';
+import { catchError, first, from, Observable, switchMap } from 'rxjs';
 // import { useSession } from 'next-auth/react';
 import { closePopup, openPopup } from 'store/widgets/actions/popup-actions';
 import { PopupBuilder } from 'store/widgets/widgets-actions';

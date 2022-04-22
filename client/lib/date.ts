@@ -1,9 +1,3 @@
-type Month = number;
-type Day = number;
-type Year = number;
-
-type LocalizedDate = `${Month}/${Day}/${Year}`;
-
 const MONTHS = [
   'IAN',
   'FEB',

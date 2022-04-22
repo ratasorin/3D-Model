@@ -10,6 +10,7 @@ const PDF: FC<{ src: string }> = ({ src }) => {
   }
   return (
     <Document
+      //TODO: Use the src for the file
       file={`/api/images/user-draft01/Exercitii.pdf`}
       onLoadSuccess={onDocumentLoadSuccess}
     >
