@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ChurchInfo, ErrorResponse, SuccessResponse } from 'pages/types/server';
+import { ChurchInfo, ErrorResponse, SuccessResponse } from 'types/server';
 import prisma from 'utils/prisma';
 
 const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {

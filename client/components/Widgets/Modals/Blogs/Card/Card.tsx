@@ -1,7 +1,7 @@
 import card__styles from './card.module.css';
 import { FC, useEffect, useState } from 'react';
 import { FaCrown } from 'react-icons/fa';
-import { ServerResponse } from 'pages/types/server';
+import { ServerResponse } from 'types/server';
 import { User } from '@prisma/client';
 import { openPopup } from 'store/widgets/actions/popup-actions';
 import { PopupBuilder } from 'store/widgets/widgets-actions';

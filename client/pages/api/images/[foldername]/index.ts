@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ErrorResponse, Image, SuccessResponse } from 'pages/types/server';
+import { ErrorResponse, Image, SuccessResponse } from 'types/server';
 import path from 'path/posix';
 import slugify from 'slugify';
 

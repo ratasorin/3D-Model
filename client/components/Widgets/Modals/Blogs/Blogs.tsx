@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import Filter from './Filter/Filter';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import { ServerResponse } from 'pages/types/server';
+import { ServerResponse } from 'types/server';
 
 import { Blogs } from '@prisma/client';
 import { openPopup } from 'store/widgets/actions/popup-actions';

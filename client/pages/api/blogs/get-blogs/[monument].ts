@@ -2,7 +2,7 @@ import { Blogs } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 import parse from 'utils/parse';
 import prisma from 'utils/prisma';
-import { ErrorResponse, SuccessResponse } from 'pages/types/server';
+import { ErrorResponse, SuccessResponse } from 'types/server';
 
 export default async function getBlogs(
   req: NextApiRequest,

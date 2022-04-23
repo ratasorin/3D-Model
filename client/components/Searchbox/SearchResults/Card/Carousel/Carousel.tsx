@@ -4,8 +4,8 @@ import carouselStyles from './carousel.module.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useEffect, useState } from 'react';
-import { ServerResponse } from 'pages/types/server';
-import type { Image } from 'pages/types/server';
+import { ServerResponse } from 'types/server';
+import type { Image } from 'types/server';
 
 const Carousel = ({ church }: { church: string }) => {
   const [photos, setPhotos] = useState<HTMLImageElement[]>([]);
