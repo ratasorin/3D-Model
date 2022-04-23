@@ -1,21 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import slugify from 'slugify';
-import { createWriteStream } from 'fs';
 import busboy from 'busboy';
 import path from 'path/posix';
-import S3, { ManagedUpload } from 'aws-sdk/clients/s3';
 import { ErrorResponse, SuccessResponse } from 'types/server';
 import normalizePaths from 'utils/normalize-path';
-
-const s3 = new S3({
-  region: process.env.AWS_REGION,
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY as string,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
-  },
-});
-
-const Bucket = process.env.AWS_BUCKET_NAME as string;
+import { ManagedUpload } from 'aws-sdk/clients/s3';
+import s3, { Bucket } from './aws/s3';
 export interface FileUploadError {
   ok: false;
   error: string;

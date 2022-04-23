@@ -2,17 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { ErrorResponse, Image, SuccessResponse } from 'types/server';
 import path from 'path/posix';
 import normalizePaths from 'utils/normalize-path';
-import S3 from 'aws-sdk/clients/s3';
+import s3, { Bucket } from '../aws/s3';
 
-const s3 = new S3({
-  region: process.env.AWS_REGION,
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY as string,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
-  },
-});
-
-const Bucket = process.env.AWS_BUCKET_NAME as string;
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
