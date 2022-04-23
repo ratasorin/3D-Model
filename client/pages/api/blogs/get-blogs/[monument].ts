@@ -1,6 +1,6 @@
 import { Blogs } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
-import parse from 'utils/parse';
+import parse from 'utils/normalize-path';
 import prisma from 'utils/prisma';
 import { ErrorResponse, SuccessResponse } from 'types/server';
 
@@ -9,7 +9,7 @@ export default async function getBlogs(
   res: NextApiResponse
 ) {
   const { monument: rawMonument } = req.query as { monument: string };
-  const monument = parse(rawMonument);
+  const [monument] = parse(rawMonument);
   try {
     const blogs = await prisma.blogs.findMany({
       where: {

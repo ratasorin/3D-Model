@@ -1,10 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import slugify from 'slugify';
-import { stat, mkdir } from 'fs/promises';
 import { createWriteStream } from 'fs';
 import busboy from 'busboy';
 import path from 'path/posix';
-import S3 from 'aws-sdk/clients/s3';
+import S3, { ManagedUpload } from 'aws-sdk/clients/s3';
+import { ErrorResponse, SuccessResponse } from 'types/server';
+import normalizePaths from 'utils/normalize-path';
 
 const s3 = new S3({
   region: process.env.AWS_REGION,
@@ -14,7 +15,7 @@ const s3 = new S3({
   },
 });
 
-const bucket = process.env.AWS_BUCKET_NAME as string;
+const Bucket = process.env.AWS_BUCKET_NAME as string;
 export interface FileUploadError {
   ok: false;
   error: string;
@@ -33,17 +34,6 @@ export const config = {
   },
 };
 
-const folderDistrict = (name: string) =>
-  slugify(name, {
-    lower: true,
-    replacement: '_',
-  });
-
-const fileExists = async (path: string) =>
-  await stat(path)
-    .then(() => true)
-    .catch(() => false);
-
 export default async function imagesHandler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -53,46 +43,50 @@ export default async function imagesHandler(
   });
 
   busBoyParser.on('file', async (name, stream, info) => {
-    const folderName = folderDistrict(
-      Buffer.from(name, 'latin1').toString('utf8')
+    const standardizedFoldername = Buffer.from(name, 'latin1').toString('utf8');
+    const [folder, filename] = normalizePaths(
+      standardizedFoldername,
+      info.filename
     );
-
-    const pathToFolder = path.join(process.cwd(), 'uploads', folderName);
-    const pathToFile = path.join(pathToFolder, info.filename);
+    const id = path.join('uploads', folder, filename);
 
     try {
-      await mkdir(pathToFolder, {
-        recursive: true,
-      });
+      // console.log('THE S3 is', s3);
+      const response = await s3
+        .upload({
+          Bucket,
+          Body: stream,
+          Key: id,
+        })
+        .promise()
+        .then((e) => {
+          console.log('THE RESPONSE IS:', e);
+          return e;
+        })
+        .catch((e) => {
+          console.log('THE ERROR IS:', e);
+          return e;
+        });
+      console.log('THE RESPONSE IS:', response);
+      res.send({
+        error: false,
+        payload: response,
+      } as SuccessResponse<ManagedUpload.SendData>);
     } catch (e) {
-      // ignore if the folder was already there
-      console.log(e);
-    } finally {
-      if (await fileExists(pathToFile)) {
-        console.log('File is already there');
-        res.send({
-          ok: false,
-          error: `Fisierul a mai fost incarcat. Va rugam schimbati numele fisierului ${info.filename}`,
-          file: info.filename,
-        } as FileUploadError);
-        res.end();
-      } else {
-        console.log('Uploading file');
-        stream.pipe(createWriteStream(pathToFile));
-        res.send({
-          ok: true,
-          message: 'Fisierul a fost procesat cu success',
-        } as FileUploadSuccess);
-      }
+      console.log('ERROR IS:', e);
+      res.send({
+        error: true,
+        payload:
+          'O eroare a aparut in sistem, va rugam incercati din nou mai tarziu',
+      } as ErrorResponse);
     }
   });
   busBoyParser.on('error', () => {
     res.send({
-      ok: false,
-      error:
+      error: true,
+      payload:
         'O eroare a aparut in sistem, va rugam incercati din nou mai tarziu',
-    } as FileUploadError);
-    res.end();
+    } as ErrorResponse);
   });
   req.pipe(busBoyParser);
 }

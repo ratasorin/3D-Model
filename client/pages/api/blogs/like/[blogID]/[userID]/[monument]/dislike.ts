@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import parse from 'utils/parse';
+import parse from 'utils/normalize-path';
 import prisma from 'utils/prisma';
 
 export default async function like(req: NextApiRequest, res: NextApiResponse) {
@@ -19,7 +19,7 @@ export default async function like(req: NextApiRequest, res: NextApiResponse) {
       where: {
         blogId_userId_monument: {
           blogId: blogID,
-          monument: parse(monument),
+          monument: parse(monument)[0],
           userId: userID,
         },
       },

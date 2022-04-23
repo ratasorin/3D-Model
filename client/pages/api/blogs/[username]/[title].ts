@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ErrorResponse } from 'types/server';
-import parse from 'utils/parse';
+import parse from 'utils/normalize-path';
 import prisma from 'utils/prisma';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
@@ -28,7 +28,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
           title: title,
           userId: user.id,
           blogId: blog.id + 'xyz',
-          monument: parse(blog.monument),
+          monument: parse(blog.monument)[0],
         },
       });
     else {

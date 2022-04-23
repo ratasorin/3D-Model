@@ -1,29 +1,42 @@
-import { createReadStream } from 'fs';
-import fs from 'fs/promises';
+import S3 from 'aws-sdk/clients/s3';
 import { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path/posix';
-import slugify from 'slugify';
+import normalizePaths from 'utils/normalize-path';
+
+const s3 = new S3({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY as string,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
+  },
+});
+
+const Bucket = process.env.AWS_BUCKET_NAME as string;
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { foldername, filename } = req.query as { [key: string]: string };
-  console.log(foldername, filename);
-  const file = path.join(
-    process.cwd(),
-    'uploads',
-    foldername,
-    slugify(filename, {
-      lower: true,
-      replacement: '_',
-    })
+  const { foldername: defaultFoldername, filename: defaultFilename } =
+    req.query as { [key: string]: string };
+  console.log(defaultFoldername, defaultFilename);
+
+  const [foldername, filename] = normalizePaths(
+    defaultFoldername,
+    defaultFilename
   );
+
+  const id = path.join('uploads', foldername, filename);
+  console.log('THE ID IS:', id);
+
+  const stream = s3
+    .getObject({
+      Key: id,
+      Bucket,
+    })
+    .createReadStream();
   try {
-    const { size } = await fs.stat(file);
     res.setHeader('Content-Type', 'image/jpeg');
-    res.setHeader('Content-Length', size);
-    const stream = createReadStream(file);
     stream.pipe(res);
   } catch (e) {
     res.json({

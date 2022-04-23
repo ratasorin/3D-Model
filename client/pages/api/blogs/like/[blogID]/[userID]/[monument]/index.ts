@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { SuccessResponse } from 'types/server';
-import parse from 'utils/parse';
+import parse from 'utils/normalize-path';
 import prisma from 'utils/prisma';
 
 export default async function hasLiked(
@@ -17,7 +17,7 @@ export default async function hasLiked(
     where: {
       blogsBlogId: blogID,
       userId: userID,
-      blogsMonument: parse(monument),
+      blogsMonument: parse(monument)[0],
     },
   }));
 
