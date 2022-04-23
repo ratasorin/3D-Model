@@ -9,5 +9,7 @@ const s3 = new S3({
 });
 
 export const Bucket = process.env.AWS_BUCKET_NAME as string;
+export const joinPath = (...s: string[]) =>
+  s.reduce((path, curr, i) => (i !== 0 ? path + '/' + curr : path + curr), '');
 
 export default s3;

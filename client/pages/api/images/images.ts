@@ -1,10 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import busboy from 'busboy';
-import path from 'path/posix';
 import { ErrorResponse, SuccessResponse } from 'types/server';
 import normalizePaths from 'utils/normalize-path';
 import { ManagedUpload } from 'aws-sdk/clients/s3';
-import s3, { Bucket } from './aws/s3';
+import s3, { Bucket, joinPath } from './aws/s3';
 export interface FileUploadError {
   ok: false;
   error: string;
@@ -37,7 +36,7 @@ export default async function imagesHandler(
       standardizedFoldername,
       info.filename
     );
-    const id = path.join('uploads', folder, filename);
+    const id = joinPath('uploads', folder, filename);
 
     try {
       // console.log('THE S3 is', s3);

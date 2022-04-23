@@ -1,8 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ErrorResponse, Image, SuccessResponse } from 'types/server';
-import path from 'path/posix';
 import normalizePaths from 'utils/normalize-path';
-import s3, { Bucket } from '../aws/s3';
+import s3, { Bucket, joinPath } from '../aws/s3';
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,7 +11,7 @@ export default async function handler(
     [key: string]: string;
   };
   const [foldername] = normalizePaths(defaultFoldername);
-  const Prefix = path.join('uploads', foldername);
+  const Prefix = joinPath('uploads', foldername);
   console.log(Prefix);
   try {
     s3.listObjects(

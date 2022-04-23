@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import path from 'path/posix';
 import normalizePaths from 'utils/normalize-path';
-import s3, { Bucket } from '../aws/s3';
+import s3, { Bucket, joinPath } from '../aws/s3';
 
 export default async function handler(
   req: NextApiRequest,
@@ -16,7 +15,7 @@ export default async function handler(
     defaultFilename
   );
 
-  const id = path.join('uploads', foldername, filename);
+  const id = joinPath('uploads', foldername, filename);
   console.log('THE ID IS:', id);
 
   const stream = s3
