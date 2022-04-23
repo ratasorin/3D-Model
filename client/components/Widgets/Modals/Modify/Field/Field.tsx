@@ -3,7 +3,7 @@ import fieldStyle from './field.module.css';
 import { useGetChurchInfoQuery } from 'store/redux-caching/church-info-cache';
 import { processUserInput } from 'components/Widgets/Modals/Modify/Field/info-slice';
 import { useAppDispatch } from 'hooks/redux-hooks';
-import { ChurchInfo } from 'pages/api/church-info/[church]';
+import type { ChurchInfo } from 'pages/types/server';
 import { useSession } from 'next-auth/react';
 
 const Field: FC<{

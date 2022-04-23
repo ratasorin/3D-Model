@@ -3,7 +3,7 @@ import info__style from './info.module.css';
 import { openModal, selectFrom } from 'store/widgets/actions/modals-actions';
 import { useGetChurchInfoQuery } from 'store/redux-caching/church-info-cache';
 import Dispatch from '../../Button/Dispatch/Dispatch';
-import { ChurchInfo } from 'pages/api/church-info/[church]';
+import type { ChurchInfo } from 'pages/types/server';
 import { PopupBuilder } from 'store/widgets/widgets-actions';
 import { openPopup } from 'store/widgets/actions/popup-actions';
 import { useEffect, useState } from 'react';

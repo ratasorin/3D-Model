@@ -1,12 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ErrorResponse, SuccessResponse } from 'pages/types/response';
+import { ChurchInfo, ErrorResponse, SuccessResponse } from 'pages/types/server';
 import prisma from 'utils/prisma';
-
-export interface ChurchInfo {
-  editedBy: string | null;
-  churchDescription: string;
-  churchName: string;
-}
 
 const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {

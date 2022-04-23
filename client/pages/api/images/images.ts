@@ -4,7 +4,17 @@ import { stat, mkdir } from 'fs/promises';
 import { createWriteStream } from 'fs';
 import busboy from 'busboy';
 import path from 'path/posix';
+import S3 from 'aws-sdk/clients/s3';
 
+const s3 = new S3({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY as string,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
+  },
+});
+
+const bucket = process.env.AWS_BUCKET_NAME as string;
 export interface FileUploadError {
   ok: false;
   error: string;
@@ -34,7 +44,10 @@ const fileExists = async (path: string) =>
     .then(() => true)
     .catch(() => false);
 
-async function imagesHandler(req: NextApiRequest, res: NextApiResponse) {
+export default async function imagesHandler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const busBoyParser = busboy({
     headers: req.headers,
   });
@@ -83,5 +96,3 @@ async function imagesHandler(req: NextApiRequest, res: NextApiResponse) {
   });
   req.pipe(busBoyParser);
 }
-
-export default imagesHandler;

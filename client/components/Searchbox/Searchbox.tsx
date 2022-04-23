@@ -1,5 +1,4 @@
 import { forwardRef } from 'react';
-
 import searchboxStyle from './searchbox.module.css';
 import Searchbar from './Searchbar/Searchbar';
 import SearchResults from './SearchResults/SearchResults';

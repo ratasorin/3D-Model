@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ChurchInfo } from 'pages/api/church-info/[church]';
-import { ServerResponse } from 'pages/types/response';
-
+import { ServerResponse } from 'pages/types/server';
+import type { ChurchInfo } from 'pages/types/server';
 export const churchInfoApi = createApi({
   reducerPath: 'churchInfo',
   baseQuery: fetchBaseQuery({ baseUrl: '/api/church-info/' }),

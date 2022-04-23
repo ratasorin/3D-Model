@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ErrorResponse } from 'pages/types/response';
+import { ErrorResponse } from 'pages/types/server';
 import parse from 'utils/parse';
 import prisma from 'utils/prisma';
 

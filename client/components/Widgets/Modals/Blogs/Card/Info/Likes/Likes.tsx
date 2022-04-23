@@ -2,7 +2,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import like__style from './likes.module.css';
 import throttle from 'lodash.throttle';
-import { ServerResponse } from 'pages/types/response';
+import { ServerResponse } from 'pages/types/server';
 const Likes: FC<{
   likes: number;
   blogID: string;

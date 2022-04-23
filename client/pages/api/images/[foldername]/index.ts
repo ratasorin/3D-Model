@@ -1,13 +1,8 @@
 import fs from 'fs/promises';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ErrorResponse, SuccessResponse } from 'pages/types/response';
+import { ErrorResponse, Image, SuccessResponse } from 'pages/types/server';
 import path from 'path/posix';
 import slugify from 'slugify';
-
-export interface Image {
-  src: string;
-  filename: string;
-}
 
 export default async function handler(
   req: NextApiRequest,

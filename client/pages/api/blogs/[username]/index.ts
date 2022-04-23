@@ -1,6 +1,6 @@
 import { User } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ErrorResponse, SuccessResponse } from 'pages/types/response';
+import { ErrorResponse, SuccessResponse } from 'pages/types/server';
 import prisma from 'utils/prisma';
 
 export default async function getUser(

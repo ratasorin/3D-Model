@@ -11,8 +11,7 @@ import {
 } from 'rxjs';
 import { RootState } from 'store/store';
 import { churchInfoApi } from 'store/redux-caching/church-info-cache';
-import { ChurchInfo } from 'pages/api/church-info/[church]';
-import { ServerResponse } from 'pages/types/response';
+import { ServerResponse, ChurchInfo } from 'pages/types/server';
 
 const sendNewInfo = (
   action$: Observable<{ type: string }>,
