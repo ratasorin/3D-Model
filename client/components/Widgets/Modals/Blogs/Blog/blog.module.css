@@ -2,5 +2,6 @@
   max-width: 100%;
   padding: 2em;
   font-size: 1.3em;
-  overflow-y: scroll;
+  overflow-y: auto;
+  height: 100%;
 }

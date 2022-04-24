@@ -5,7 +5,12 @@ const Author: FC<{ author: User | null }> = ({ author }) => {
   return (
     <div className={author__style.author__info}>
       <div className={author__style.icon}>
-        <img src={author ? (author.image ? author.image : '') : ''} alt="PFP" />
+        <img
+          src={
+            author ? (author.image ? author.image : '/emoji.png') : '/emoji.png'
+          }
+          alt="Profile Picture"
+        />
       </div>
       {author ? author.name : null}
     </div>

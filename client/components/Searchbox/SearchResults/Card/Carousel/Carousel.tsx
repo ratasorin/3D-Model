@@ -13,10 +13,10 @@ const Carousel = ({ church }: { church: string }) => {
   useEffect(() => {
     async function fetchImages() {
       const response = await fetch(`/api/images/${church}`);
-      const base64Images = (await response.json()) as ServerResponse<Image[]>;
-      if (base64Images.error) return [];
-      return base64Images.payload
-        ? base64Images.payload.map((base64Image) => {
+      const images = (await response.json()) as ServerResponse<Image[]>;
+      if (images.error) return [];
+      return images.payload
+        ? images.payload.map((base64Image) => {
             const image = new Image();
             console.log(base64Image);
             image.src = base64Image.src;
