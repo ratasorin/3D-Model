@@ -1,6 +1,9 @@
 import Map from '@arcgis/core/Map';
 import buildingsLayer from './featureLayer';
+import config from '@arcgis/core/config';
+config.apiKey =
+  'AAPK3e35c62c997345d6a290368f12ee84125aRTVkpYaDREUO_2X3uYcuIoyNyhyfiFRHE05ISNorYGrNWPcteZM7LTF0LFtZuX';
 export default new Map({
-  basemap: 'osm',
+  basemap: 'arcgis-navigation',
   layers: [buildingsLayer],
 });

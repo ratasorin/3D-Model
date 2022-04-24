@@ -9,6 +9,12 @@ const createSymbol = (heading: number, href: string, height: number) => {
       {
         type: 'object',
         height,
+        anchor: 'relative',
+        anchorPosition: {
+          x: 0,
+          y: 0,
+          z: -0.5,
+        },
         heading,
         resource: {
           href,

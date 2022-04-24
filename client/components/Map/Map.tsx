@@ -6,7 +6,7 @@ import '@arcgis/core/assets/esri/css/main.css';
 import getView from './view';
 import { tap } from 'rxjs';
 import { Subject } from 'rxjs';
-
+import Camera from '@arcgis/core/Camera';
 export const coordinates = new Subject<[number, number]>();
 
 const MapP: NextPage = () => {
@@ -22,10 +22,17 @@ const MapP: NextPage = () => {
       .pipe(
         tap(([lat, long]) => {
           console.log(lat, long);
-          view?.goTo({
-            center: [long, lat],
-            zoom: 20,
-          });
+          view
+            ?.goTo({
+              center: [long, lat],
+              zoom: 17,
+              tilt: 0,
+            })
+            .then(() => {
+              view?.goTo({
+                tilt: 65,
+              });
+            });
         })
       )
       .subscribe();

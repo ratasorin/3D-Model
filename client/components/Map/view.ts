@@ -13,14 +13,28 @@ const handler = (mapContainer: HTMLDivElement) =>
     viewingMode: 'local',
     map: map,
     container: mapContainer,
+    center: {
+      type: 'point',
+      x: 21.226451243275225,
+      z: 125,
+      y: 45.74,
+    },
     camera: {
       position: {
         x: 21.226451243275225,
         y: 45.74,
-        z: 100,
+        z: 125,
       },
       heading: 0,
       tilt: 65,
+    },
+    environment: {
+      background: {
+        type: 'color',
+        color: '#D4F5FF',
+      },
+      starsEnabled: false,
+      atmosphereEnabled: false,
     },
   });
 export default handler;
