@@ -1,6 +1,6 @@
 import Slider, { LazyLoadTypes } from 'react-slick';
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
-import carouselStyles from './carousel.module.css';
+import carousel__style from './carousel.module.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useEffect, useState } from 'react';
@@ -30,7 +30,7 @@ const Carousel = ({ church }: { church: string }) => {
   const NextArrow = ({ onClick }: { onClick?: React.MouseEventHandler }) => {
     return (
       <div
-        className={`${carouselStyles.arrow} ${carouselStyles.next}`}
+        className={`${carousel__style.arrow} ${carousel__style.next}`}
         onClick={onClick}
       >
         <FaArrowRight />
@@ -41,7 +41,7 @@ const Carousel = ({ church }: { church: string }) => {
   const PrevArrow = ({ onClick }: { onClick?: React.MouseEventHandler }) => {
     return (
       <div
-        className={`${carouselStyles.arrow} ${carouselStyles.prev}`}
+        className={`${carousel__style.arrow} ${carousel__style.prev}`}
         onClick={onClick}
       >
         <FaArrowLeft />
@@ -61,18 +61,22 @@ const Carousel = ({ church }: { church: string }) => {
   };
 
   return (
-    <div className={carouselStyles.container}>
-      <Slider
-        {...settings}
-        adaptiveHeight={true}
-        className={carouselStyles.slider}
-      >
-        {photos.map((img, index) => (
-          <div key={index} className={carouselStyles.slide}>
-            <img src={img?.src} alt={'alt'} />
-          </div>
-        ))}
-      </Slider>
+    <div className={carousel__style.container}>
+      {photos.length ? (
+        <Slider
+          {...settings}
+          adaptiveHeight={true}
+          className={carousel__style.slider}
+        >
+          {photos.map((img, index) => (
+            <div key={index} className={carousel__style.slide}>
+              <img src={img?.src} alt={'alt'} />
+            </div>
+          ))}
+        </Slider>
+      ) : (
+        <div className={carousel__style.placeholder}></div>
+      )}
     </div>
   );
 };
