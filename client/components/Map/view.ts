@@ -1,6 +1,6 @@
 import SceneView from '@arcgis/core/views/SceneView';
 import Extent from '@arcgis/core/geometry/Extent';
-import map from './roadMap';
+import map from './basemap';
 const clippingArea = new Extent({
   xmin: 21.201993,
   xmax: 21.258754,

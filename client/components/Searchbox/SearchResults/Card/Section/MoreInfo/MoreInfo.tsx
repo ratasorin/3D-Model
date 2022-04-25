@@ -16,7 +16,9 @@ const MoreInfo: FC<{ name: string }> = ({ name }) => {
         element: (
           <>
             Aflati mai multe informatii despre
-            <span className={more_info_style.church__name__info}>{name}</span>
+            <span className={more_info_style.church__name__info}>
+              {' ' + name}
+            </span>
           </>
         ),
         position: 'last',

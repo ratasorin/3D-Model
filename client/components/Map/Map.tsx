@@ -6,12 +6,18 @@ import '@arcgis/core/assets/esri/css/main.css';
 import getView from './view';
 import { tap } from 'rxjs';
 import { Subject } from 'rxjs';
-import Camera from '@arcgis/core/Camera';
+import { useWindowSize } from 'hooks/useWindowSize';
+import {
+  createInfoLabel,
+  infoLabelBreakpoints,
+} from './featureLayers/info-label/info-label';
+import { pinsRendererBreakpoints } from './render/pin';
 export const coordinates = new Subject<[number, number]>();
 
 const MapP: NextPage = () => {
   const divRef = useRef<HTMLDivElement>(null);
   const [view, setView] = useState<SceneView>();
+  const { width } = useWindowSize();
   useEffect(() => {
     if (divRef.current && !view) {
       const view = getView(divRef.current);
@@ -37,6 +43,29 @@ const MapP: NextPage = () => {
       )
       .subscribe();
   }, [divRef, view]);
+
+  useEffect(() => {
+    if (width && width < 600) {
+      view?.map.layers.map((layer) => {
+        if (layer.id === 'PINS') {
+          layer.set('labelingInfo', infoLabelBreakpoints['600']);
+          layer.set('renderer', pinsRendererBreakpoints['600']);
+        }
+      });
+      console.log('UNDER 600', width);
+    }
+
+    if (width && width > 600) {
+      view?.map.layers.map((layer) => {
+        if (layer.id === 'PINS') {
+          layer.set('labelingInfo', infoLabelBreakpoints['default']);
+          layer.set('renderer', pinsRendererBreakpoints['default']);
+        }
+      });
+      console.log('ABOVE 600', width);
+    }
+  }, [width]);
+
   return (
     <div className={mapStyle.container}>
       <div className={mapStyle.map} ref={divRef}></div>

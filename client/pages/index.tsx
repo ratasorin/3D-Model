@@ -3,6 +3,8 @@ import { useAppSelector } from 'hooks/redux-hooks';
 import dynamic from 'next/dynamic';
 import Navbar from 'components/Navbar/Navbar';
 import { useUser } from 'lib/user';
+import { useEffect } from 'react';
+import { openModal } from 'store/widgets/actions/modals-actions';
 
 const Searchbox = dynamic(() => import('components/Searchbox/Searchbox'), {
   ssr: false,
