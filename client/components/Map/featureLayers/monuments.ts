@@ -5,15 +5,16 @@ import { ChurchInfo, ServerResponse } from 'types/server';
 import { openPopup } from 'store/widgets/actions/popup-actions';
 import { PopupBuilder } from 'store/widgets/widgets-actions';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
+import { MONUMENTS_QUERY, PORTAL_ID } from '../constants/constants';
 
 export const monumentsLayer = new FeatureLayer({
   id: 'MONUMENTS',
   portalItem: {
-    id: '3677599f43b9484aa01a0ee212beb410',
+    id: PORTAL_ID,
   },
   labelsVisible: false,
   opacity: 1,
-  definitionExpression: 'osm_id = 152474227 OR osm_id = 194450516',
+  definitionExpression: MONUMENTS_QUERY,
   renderer: monumentRenderer as unknown as undefined,
   popupTemplate: {
     title: '{NAME}',
@@ -36,7 +37,7 @@ export const monumentsLayer = new FeatureLayer({
 });
 
 const query = monumentsLayer.createQuery();
-query.where = 'osm_id = 152474227 OR osm_id = 194450516';
+query.where = MONUMENTS_QUERY;
 query.returnGeometry = true;
 
 export const monuments = monumentsLayer

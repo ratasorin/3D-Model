@@ -8,10 +8,10 @@ import { tap } from 'rxjs';
 import { Subject } from 'rxjs';
 import { useWindowSize } from 'hooks/useWindowSize';
 import {
-  createInfoLabel,
   infoLabelBreakpoints,
-} from './featureLayers/info-label/info-label';
-import { pinsRendererBreakpoints } from './render/pin';
+  pinsRendererBreakpoints,
+} from './breakpoints/breakpoints';
+import { MEDIA_QUERIES } from './constants/constants';
 export const coordinates = new Subject<[number, number]>();
 
 const MapP: NextPage = () => {
@@ -45,24 +45,19 @@ const MapP: NextPage = () => {
   }, [divRef, view]);
 
   useEffect(() => {
-    if (width && width < 600) {
+    if (width) {
+      const rawQuery = MEDIA_QUERIES.reduce((prev, curr) => {
+        if (width > Number(curr)) return curr;
+        if (width > Number(prev) && width < Number(curr)) return curr;
+        else return prev;
+      }, '600');
+      const query = width > Number(rawQuery) ? 'default' : rawQuery;
       view?.map.layers.map((layer) => {
         if (layer.id === 'PINS') {
-          layer.set('labelingInfo', infoLabelBreakpoints['600']);
-          layer.set('renderer', pinsRendererBreakpoints['600']);
+          layer.set('labelingInfo', infoLabelBreakpoints[query]);
+          layer.set('renderer', pinsRendererBreakpoints[query]);
         }
       });
-      console.log('UNDER 600', width);
-    }
-
-    if (width && width > 600) {
-      view?.map.layers.map((layer) => {
-        if (layer.id === 'PINS') {
-          layer.set('labelingInfo', infoLabelBreakpoints['default']);
-          layer.set('renderer', pinsRendererBreakpoints['default']);
-        }
-      });
-      console.log('ABOVE 600', width);
     }
   }, [width]);
 

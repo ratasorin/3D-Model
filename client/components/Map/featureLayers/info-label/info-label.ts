@@ -29,8 +29,3 @@ export const createInfoLabel = (font: Font, haloSize?: number) => {
     } as any as LabelClass,
   ];
 };
-
-export const infoLabelBreakpoints = {
-  default: createInfoLabel({ size: 30 }),
-  '600': createInfoLabel({ size: 12 }, 1.5),
-};

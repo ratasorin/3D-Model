@@ -1,5 +1,5 @@
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
-import { pinsRendererBreakpoints } from '../render/pin';
+import { pinsRendererBreakpoints } from '../breakpoints/breakpoints';
 import { createInfoLabel } from './info-label/info-label';
 
 export const pinsLayer = new FeatureLayer({

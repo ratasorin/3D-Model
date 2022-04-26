@@ -1,6 +1,6 @@
 import { Buildings } from '../assets/buildings';
+import { FIELD_CRITERIA } from '../constants/constants';
 
-const FIELD_CRITERIA = 'osm_id';
 const createSymbol = (
   heading: number,
   href: string,

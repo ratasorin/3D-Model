@@ -1,6 +1,5 @@
 import { Buildings } from '../assets/buildings';
-
-const FIELD_CRITERIA = 'osm_id';
+import { FIELD_CRITERIA } from '../constants/constants';
 
 const verticalOffset = {
   screenLength: 100,
@@ -48,8 +47,11 @@ function getUniqueValueSymbol(customizations: Customizations) {
   };
 }
 
-const createPinsRenderer = (size?: number, lineWidth?: number) => {
-  console.log('FROM CREATE PINS RENDERER THE SIZE IS:', size);
+/**
+ * @param size The size of the icon
+ * @param lineWidth The width of the line
+ */
+export const createPinsRenderer = (size?: number, lineWidth?: number) => {
   return {
     type: 'unique-value',
     field: FIELD_CRITERIA,
@@ -76,9 +78,4 @@ const createPinsRenderer = (size?: number, lineWidth?: number) => {
       },
     ],
   };
-};
-
-export const pinsRendererBreakpoints = {
-  default: createPinsRenderer(),
-  '600': createPinsRenderer(20, 3),
 };
