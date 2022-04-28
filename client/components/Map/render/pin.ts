@@ -1,4 +1,4 @@
-import { Buildings } from '../assets/buildings';
+import { Buildings, Monuments } from '../assets/buildings';
 import { FIELD_CRITERIA } from '../constants/constants';
 
 const verticalOffset = {
@@ -47,6 +47,21 @@ function getUniqueValueSymbol(customizations: Customizations) {
   };
 }
 
+const createUniqueValueInfos = (
+  monument: Monuments,
+  size?: number,
+  lineWidth?: number
+) => ({
+  value: Buildings[monument].osm_id,
+  symbol: getUniqueValueSymbol({
+    fontSource:
+      'https://developers.arcgis.com/javascript/latest/sample-code/visualization-point-styles/live/Church.png',
+    color: '#40C2B4',
+    size,
+    lineWidth,
+  }),
+});
+
 /**
  * @param size The size of the icon
  * @param lineWidth The width of the line
@@ -55,27 +70,8 @@ export const createPinsRenderer = (size?: number, lineWidth?: number) => {
   return {
     type: 'unique-value',
     field: FIELD_CRITERIA,
-    uniqueValueInfos: [
-      {
-        value: Buildings['Biserica Romano-Catolică din Elisabetin'].osm_id,
-        symbol: getUniqueValueSymbol({
-          fontSource:
-            'https://developers.arcgis.com/javascript/latest/sample-code/visualization-point-styles/live/Church.png',
-          color: '#40C2B4',
-          size,
-          lineWidth,
-        }),
-      },
-      {
-        value: Buildings['Catedrala Mitropolitană Ortodoxă'].osm_id,
-        symbol: getUniqueValueSymbol({
-          fontSource:
-            'https://developers.arcgis.com/javascript/latest/sample-code/visualization-point-styles/live/Church.png',
-          color: '#40C2B4',
-          size,
-          lineWidth,
-        }),
-      },
-    ],
+    uniqueValueInfos: Object.entries(Buildings).map(([building]) =>
+      createUniqueValueInfos(building as Monuments, size, lineWidth)
+    ),
   };
 };

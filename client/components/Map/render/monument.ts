@@ -1,4 +1,4 @@
-import { Buildings } from '../assets/buildings';
+import { Buildings, Monuments } from '../assets/buildings';
 import { FIELD_CRITERIA } from '../constants/constants';
 
 const createSymbol = (
@@ -28,29 +28,22 @@ const createSymbol = (
   };
 };
 
+const createUniqueValueInfos = (monument: Monuments) => ({
+  value: Buildings[monument].osm_id,
+  symbol: createSymbol(
+    Buildings[monument].heading,
+    Buildings[monument].href,
+    Buildings[monument].height
+  ),
+});
+
 export const monumentRenderer = {
   type: 'unique-value',
   // the default symbol indicates all other building types
   defaultSymbol: createSymbol(0, '/catedrala.gltf', 50),
   // match symbols to unique values here
   field: FIELD_CRITERIA,
-  uniqueValueInfos: [
-    {
-      value: Buildings['Biserica Romano-Catolică din Elisabetin'].osm_id,
-      symbol: createSymbol(
-        Buildings['Biserica Romano-Catolică din Elisabetin'].heading,
-        Buildings['Biserica Romano-Catolică din Elisabetin'].href,
-        Buildings['Biserica Romano-Catolică din Elisabetin'].height
-      ),
-    },
-
-    {
-      value: Buildings['Catedrala Mitropolitană Ortodoxă'].osm_id,
-      symbol: createSymbol(
-        Buildings['Catedrala Mitropolitană Ortodoxă'].heading,
-        Buildings['Catedrala Mitropolitană Ortodoxă'].href,
-        Buildings['Catedrala Mitropolitană Ortodoxă'].height
-      ),
-    },
-  ],
+  uniqueValueInfos: Object.entries(Buildings).map(([building]) =>
+    createUniqueValueInfos(building as Monuments)
+  ),
 };
