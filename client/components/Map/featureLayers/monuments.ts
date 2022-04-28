@@ -5,7 +5,8 @@ import { ChurchInfo, ServerResponse } from 'types/server';
 import { openPopup } from 'store/widgets/actions/popup-actions';
 import { PopupBuilder } from 'store/widgets/widgets-actions';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
-import { MONUMENTS_QUERY, PORTAL_ID } from '../constants/constants';
+import { PORTAL_ID } from '../constants/constants';
+import { MONUMENTS_QUERY } from '../constants/monuments';
 
 export const monumentsLayer = new FeatureLayer({
   id: 'MONUMENTS',
