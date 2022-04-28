@@ -1,9 +1,10 @@
 import main__style from './main.module.css';
 import { useAppSelector } from 'hooks/redux-hooks';
 import dynamic from 'next/dynamic';
-
 import Navbar from 'components/Navbar/Navbar';
 import { useUser } from 'lib/user';
+import { useEffect } from 'react';
+import { openModal } from 'store/widgets/actions/modals-actions';
 
 const Searchbox = dynamic(() => import('components/Searchbox/Searchbox'), {
   ssr: false,
@@ -53,9 +54,24 @@ const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   ssr: false,
   loading: () => {
     return (
-      <>
-        <div className={main__style.loader}></div>
-      </>
+      <div className={main__style.loading_panel__container}>
+        <p>Incarcam mapa</p>
+        <div className={main__style.loading__map}>
+          <div className={main__style.map}>
+            <img src="/map.png" alt="map" />
+          </div>
+          <div className={main__style.loader__container}>
+            <div className={main__style['loading-spinner']}>
+              <div className={main__style['loading']}>
+                <div></div>
+                <div>
+                  <div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   },
 });

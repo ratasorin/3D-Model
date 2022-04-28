@@ -8,6 +8,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 2em;
 }
 
 .navigation {
@@ -26,12 +27,17 @@
   justify-content: space-between;
 }
 
-.title {
-  max-width: 100%;
+.header__container {
+  flex: 1;
+  overflow-x: auto;
+  text-overflow: ellipsis;
   display: flex;
-  word-break: break-all;
   align-items: center;
-  white-space: wrap;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.title {
   font-size: 1.5em;
 }
 
@@ -43,6 +49,7 @@
 }
 
 .close {
+  width: 50px;
   position: relative;
   color: grey;
   display: flex;

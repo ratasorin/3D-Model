@@ -2,11 +2,11 @@ import ModalTemplate from '../Modals';
 import authenticate__style from './authenticate.module.css';
 import { signIn } from 'next-auth/react';
 import { selectFrom } from 'store/widgets/actions/modals-actions';
-const PROVIDERS = ['GOOGLE', 'FACEBOOK', 'APPLE', 'INSTAGRAM'] as const;
+const PROVIDERS = ['GOOGLE', 'GITHUB'] as const;
 const Authenticate = () => {
   const { visible } = selectFrom('authenticate-modal');
   const signInWithProvider = (provider: string) => {
-    signIn('github', {
+    signIn(provider.toLocaleLowerCase(), {
       redirect: false,
     });
   };

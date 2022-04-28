@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { debounceTime, from, mergeMap, tap, map } from 'rxjs';
 import searchResults from './searchResults.module.css';
-import { chruches as churches } from 'components/Map/featureLayer';
+import { monuments } from 'components/Map/featureLayers/monuments';
 import Card from './Card/Card';
 import { searchQuery$ } from '../Searchbar/Searchbar';
 
@@ -13,8 +13,8 @@ export interface Church {
 const Searchbar = () => {
   const [inputValue, setInputValue] = useState<Church[]>([]);
   useEffect(() => {
-    const data$ = from(churches);
-    churches.then((allChurches) => setInputValue(allChurches));
+    const data$ = from(monuments);
+    monuments.then((monument) => setInputValue(monument));
 
     const obs = searchQuery$
       .pipe(

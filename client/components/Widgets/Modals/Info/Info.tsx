@@ -21,10 +21,6 @@ const useData = (name: string) => {
     } else setInfo(data?.payload);
   }, [data]);
 
-  useEffect(() => {
-    console.log('KEEPING TRACK OF THE NAME. THE CURRENT ONE IS:', name);
-  }, [name]);
-
   return info;
 };
 
@@ -52,11 +48,16 @@ const Info = () => {
       }}
     >
       <div className={info__style.container}>
-        <div className={info__style.description}>{info?.churchDescription}</div>
+        <div className={info__style.description}>
+          {info?.churchDescription ||
+            `Momentan nimeni nu a gasit o descriere buna pentru ${name}. Incercati dumneavoastra !`}
+        </div>
         <div className={info__style.button__wrapper}>
           <div className={info__style.editor__container}>
             Editor:
-            <p className={info__style.editor}>{info?.editedBy}</p>
+            <p className={info__style.editor}>
+              {info?.editedBy || 'Niciun autor'}
+            </p>
           </div>
           {user ? (
             <Dispatch action={openModifyModal} payload="Sugerati o schimbare" />

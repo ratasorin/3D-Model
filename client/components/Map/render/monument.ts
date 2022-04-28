@@ -1,14 +1,24 @@
-import { Buildings } from './buildings';
+import { Buildings } from '../assets/buildings';
+import { FIELD_CRITERIA } from '../constants/constants';
 
-const FIELD_CRITERIA = 'osm_id';
-
-const createSymbol = (heading: number, href: string, height: number) => {
+const createSymbol = (
+  heading: number,
+  href: string,
+  height: number,
+  z = -0.5
+) => {
   return {
     type: 'point-3d',
     symbolLayers: [
       {
         type: 'object',
         height,
+        anchor: 'relative',
+        anchorPosition: {
+          x: 0,
+          y: 0,
+          z,
+        },
         heading,
         resource: {
           href,
@@ -18,8 +28,8 @@ const createSymbol = (heading: number, href: string, height: number) => {
   };
 };
 
-const renderer = {
-  type: 'unique-value', // autocasts as new UniqueValueRenderer()
+export const monumentRenderer = {
+  type: 'unique-value',
   // the default symbol indicates all other building types
   defaultSymbol: createSymbol(0, '/catedrala.gltf', 50),
   // match symbols to unique values here
@@ -44,5 +54,3 @@ const renderer = {
     },
   ],
 };
-
-export default renderer;
