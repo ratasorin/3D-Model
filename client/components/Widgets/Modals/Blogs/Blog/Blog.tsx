@@ -25,7 +25,7 @@ const Blog = () => {
       modal="blog-modal"
     >
       <div className={blog__style.button_div__container}>
-        {author === user ? (
+        {author === user?.name ? (
           <div className={blog__style.button__container}>
             (
             <Dispatch
