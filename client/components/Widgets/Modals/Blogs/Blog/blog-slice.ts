@@ -4,6 +4,9 @@ export interface Blog {
   author: string;
   likes: number;
   title: string;
+  blogID: string;
+  authorID: string;
+  monument: string;
 }
 
 const blogSlice = createModalSlice<
@@ -13,12 +16,18 @@ const blogSlice = createModalSlice<
     author: string;
     likes: number;
     title: string;
+    blogID: string;
+    authorID: string;
+    monument: string;
   }
 >('blog-modal', {
   author: '',
   content: '',
   likes: 0,
   title: '',
+  blogID: '',
+  authorID: '',
+  monument: '',
 });
 
 export const name = blogSlice.name;

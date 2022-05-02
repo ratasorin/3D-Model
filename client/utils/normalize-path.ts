@@ -7,6 +7,7 @@ const normalize = (s: string) => {
   });
 };
 
+export const normalizePath = (path: string) => normalize(path);
 export default function normalizePaths(...paths: string[]) {
   return paths.map((s) => normalize(s));
 }

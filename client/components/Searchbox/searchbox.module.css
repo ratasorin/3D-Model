@@ -1,6 +1,6 @@
 .container {
   width: 40em;
-  height: 55em;
+  height: min(55em, 80vh);
   background-color: #444c53;
   border-radius: 2em;
   padding: 3em 2em;
@@ -18,13 +18,13 @@
 
 @media screen and (max-width: 600px) and (min-width: 500px) {
   .container {
-    height: 60em;
+    height: min(60em, 80vh);
   }
 }
 
 @media screen and (max-width: 499px) {
   .container {
-    height: 75em;
+    height: min(75em, 80vh);
     width: 20rem;
   }
 }

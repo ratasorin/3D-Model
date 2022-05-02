@@ -7,10 +7,30 @@ const Content: FC<{
   rawContent: string;
   author: string;
   likes: number;
-}> = ({ content, title, author, likes, rawContent }) => {
+  blogID: string;
+  monument: string;
+  authorID: string;
+}> = ({
+  content,
+  title,
+  author,
+  likes,
+  rawContent,
+  blogID,
+  monument,
+  authorID,
+}) => {
   return (
     <>
-      <Title title={title} content={rawContent} author={author} likes={likes} />
+      <Title
+        authorID={authorID}
+        monument={monument}
+        title={title}
+        content={rawContent}
+        author={author}
+        likes={likes}
+        blogID={blogID}
+      />
       <Description content={content} />
     </>
   );

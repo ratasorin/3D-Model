@@ -1,7 +1,14 @@
 .container {
   max-width: 100%;
-  padding: 2em;
   font-size: 1.3em;
   overflow-y: auto;
   height: 100%;
+}
+
+.button_div__container {
+  padding: 2em;
+}
+
+.button__container {
+  margin-bottom: 2em;
 }
