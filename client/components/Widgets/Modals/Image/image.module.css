@@ -1,0 +1,17 @@
+.container {
+  z-index: 9999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.302);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image__container img {
+  max-width: max(60vw, 20rem);
+  border-radius: 1rem;
+}

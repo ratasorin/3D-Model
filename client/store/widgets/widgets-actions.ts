@@ -8,6 +8,7 @@ import { open as blogsOpen } from 'components/Widgets/Modals/Blogs/blogs-slice';
 import { open as SimplePopupOpen } from 'components/Widgets/Popup/Tools/tools-slice';
 import { open as SuccessPopupOpen } from 'components/Widgets/Popup/Success/success-slice';
 import { open as blogOpen } from 'components/Widgets/Modals/Blogs/Blog/blog-slice';
+import { open as imageOpen } from 'components/Widgets/Modals/Image/image-slice';
 
 import { supportedModals, supportedPopup } from './widgets-available';
 
@@ -18,6 +19,7 @@ const modalsOpenActions = [
   authenticateOpen,
   blogsOpen,
   blogOpen,
+  imageOpen,
 ] as const;
 
 const popupOpenActions = [SimplePopupOpen, SuccessPopupOpen];

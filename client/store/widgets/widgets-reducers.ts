@@ -19,6 +19,9 @@ import simplePopupReducer from 'components/Widgets/Popup/Tools/tools-slice';
 import blogModalReducer, {
   name as blogModalReducerName,
 } from 'components/Widgets/Modals/Blogs/Blog/blog-slice';
+import imageReducer, {
+  name as imageName,
+} from 'components/Widgets/Modals/Image/image-slice';
 
 export const widgets = {
   [modifyModalReducerName]: modifyModalReducer,
@@ -27,6 +30,7 @@ export const widgets = {
   [authenticateReducerName]: authenticateReducer,
   [blogsModalReducerName]: blogsModalReducer,
   [blogModalReducerName]: blogModalReducer,
+  [imageName]: imageReducer,
   popupReducer,
   simplePopupReducer,
   stackReducer,

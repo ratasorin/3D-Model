@@ -3,7 +3,6 @@ import ModalTemplate from '../Modals';
 import blogs__styles from './blogs.module.css';
 import Dispatch from 'components/Widgets/Button/Dispatch/Dispatch';
 import { useRouter } from 'next/router';
-import Filter from './Filter/Filter';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { ServerResponse } from 'types/server';

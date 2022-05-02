@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { useEffect, useState } from 'react';
 import { ServerResponse } from 'types/server';
 import type { Image } from 'types/server';
+import { openModal } from 'store/widgets/actions/modals-actions';
 
 const Carousel = ({ church }: { church: string }) => {
   const [photos, setPhotos] = useState<HTMLImageElement[]>([]);
@@ -70,7 +71,15 @@ const Carousel = ({ church }: { church: string }) => {
         >
           {photos.map((img, index) => (
             <div key={index} className={carousel__style.slide}>
-              <img src={img?.src} alt={'alt'} />
+              <img
+                src={img?.src}
+                alt={'alt'}
+                onClick={() => {
+                  openModal('image-viewer', {
+                    src: img.src,
+                  });
+                }}
+              />
             </div>
           ))}
         </Slider>

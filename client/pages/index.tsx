@@ -76,6 +76,10 @@ const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   },
 });
 
+const LazyImages = dynamic(
+  () => import('components/Widgets/Modals/Image/Image')
+);
+
 const Main = () => {
   const searchVisible = useAppSelector(({ showSearch }) => showSearch);
   useUser();
@@ -90,6 +94,7 @@ const Main = () => {
       <LazySuccessPopup />
       <LazyAuthenticate />
       <LazyBlog />
+      <LazyImages />
       {searchVisible ? (
         <div className={main__style.app}>
           <Searchbox />

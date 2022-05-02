@@ -65,6 +65,9 @@ const Card: FC<{
       <div className={card__styles.container}>
         <Author author={author} />
         <Content
+          authorID={authorID}
+          monument={monument}
+          blogID={blogID}
           content={content}
           rawContent={rawContent}
           title={title}

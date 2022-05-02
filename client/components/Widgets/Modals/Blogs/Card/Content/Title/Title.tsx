@@ -9,10 +9,21 @@ const Title: FC<{
   author: string;
   content: string;
   likes: number;
-}> = ({ title, author, content, likes }) => {
+  blogID: string;
+  authorID: string;
+  monument: string;
+}> = ({ title, author, content, likes, blogID, authorID, monument }) => {
   const openBlog = useCallback(() => {
-    openModal('blog-modal', { author, content, likes, title } as Blog);
-  }, [content, title, author, likes]);
+    openModal('blog-modal', {
+      author,
+      content,
+      likes,
+      title,
+      blogID,
+      authorID,
+      monument,
+    } as Blog);
+  }, [content, title, author, likes, blogID]);
 
   return (
     <button onClick={openBlog} className={title__style.title}>
