@@ -1,5 +1,5 @@
 import card__styles from './card.module.css';
-import { FC, useEffect, useState } from 'react';
+import { CSSProperties, FC, useEffect, useState } from 'react';
 import { FaCrown } from 'react-icons/fa';
 import { ServerResponse } from 'types/server';
 import { User } from '@prisma/client';
@@ -19,7 +19,9 @@ const Card: FC<{
   blogID: string;
   monument: string;
   rawContent: string;
+  style?: CSSProperties;
 }> = ({
+  style,
   golden = false,
   authorID,
   date,
@@ -63,7 +65,7 @@ const Card: FC<{
   return (
     <div className={card__styles.golden_distinction}>
       {Award}
-      <div className={card__styles.container}>
+      <div style={style} className={card__styles.container}>
         <Author author={author} />
         <Content
           authorID={authorID}
