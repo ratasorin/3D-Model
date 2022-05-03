@@ -25,20 +25,25 @@ const CercDeLectura = () => {
             />
           }
         />
-        {blogs?.map((blog) => (
-          <Card
-            authorID={blog.userId}
-            blogID={blog.blogId}
-            description={descriptionFrom(blog.content)}
-            date={dateFrom(blog.createdAt)}
-            likes={blog.likeCount}
-            monument="cerc de lectura"
-            rawContent={blog.content}
-            key={blog.content}
-            title={blog.title}
-            golden={false}
-          />
-        ))}
+        <div className={cerc__style.posts}>
+          {blogs?.map((blog) => (
+            <Card
+              style={{
+                maxWidth: '25rem',
+              }}
+              authorID={blog.userId}
+              blogID={blog.blogId}
+              description={descriptionFrom(blog.content)}
+              date={dateFrom(blog.createdAt)}
+              likes={blog.likeCount}
+              monument="cerc de lectura"
+              rawContent={blog.content}
+              key={blog.content}
+              title={blog.title}
+              golden={false}
+            />
+          ))}
+        </div>
       </div>
       <Blog />
     </>
