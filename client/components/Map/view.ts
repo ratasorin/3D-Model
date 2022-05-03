@@ -10,6 +10,9 @@ const clippingArea = new Extent({
 const handler = (mapContainer: HTMLDivElement) =>
   new SceneView({
     clippingArea,
+    ui: {
+      components: [],
+    },
     viewingMode: 'local',
     map: map,
     container: mapContainer,

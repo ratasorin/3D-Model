@@ -14,8 +14,11 @@ const Searchbar = () => {
   const [inputValue, setInputValue] = useState<Church[]>([]);
   useEffect(() => {
     const data$ = from(monuments);
-    monuments.then((monument) => setInputValue(monument));
-
+    monuments.then((monument) =>
+      setInputValue(
+        monument.sort((prev, curr) => (prev.name > curr.name ? 1 : -1))
+      )
+    );
     const obs = searchQuery$
       .pipe(
         mergeMap((inputValue: string) => {

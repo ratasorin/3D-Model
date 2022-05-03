@@ -27,14 +27,12 @@ const Blog = () => {
       <div className={blog__style.button_div__container}>
         {author === user?.name ? (
           <div className={blog__style.button__container}>
-            (
             <Dispatch
               action={() => {
                 fetch(`/api/blogs/blog/${authorID}/${monument}/${blogID}`);
               }}
               payload="Sterge postarea"
             />
-            )
           </div>
         ) : null}
         <div className={blog__style.container}>

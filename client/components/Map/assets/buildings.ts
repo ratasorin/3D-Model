@@ -6,9 +6,9 @@ export interface Building {
 }
 
 export type Monuments =
+  | 'Biserica Adormirea Maicii Domnului'
   | 'Biserica Romano-Catolică din Elisabetin'
-  | 'Catedrala Mitropolitană Ortodoxă'
-  | 'Biserica Adormirea Maicii Domnului';
+  | 'Catedrala Mitropolitană Ortodoxă';
 
 export const Buildings: Record<Monuments, Building> = {
   'Biserica Romano-Catolică din Elisabetin': {
