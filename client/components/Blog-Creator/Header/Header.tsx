@@ -1,16 +1,17 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import header__style from './header.module.css';
-import { useAppSelector } from 'hooks/redux-hooks';
 import { generateNewHash } from '../Forms/Title/title-slice';
-import { useSession } from 'next-auth/react';
+import { useAppDispatch } from 'hooks/redux-hooks';
 
 const Header: FC<{
   monument: string;
   subtitle: string;
   Button: JSX.Element;
 }> = ({ monument, subtitle, Button }) => {
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    generateNewHash();
+    // generate a new id everytime the user intends to write a post
+    dispatch(generateNewHash());
   }, []);
 
   return (
