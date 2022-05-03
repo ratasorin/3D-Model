@@ -28,9 +28,6 @@ const CercDeLectura = () => {
         <div className={cerc__style.posts}>
           {blogs?.map((blog) => (
             <Card
-              style={{
-                maxWidth: '25rem',
-              }}
               authorID={blog.userId}
               blogID={blog.blogId}
               description={descriptionFrom(blog.content)}
