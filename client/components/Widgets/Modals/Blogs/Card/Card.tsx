@@ -12,7 +12,7 @@ import Info from './Info/Info';
 const Card: FC<{
   golden?: boolean;
   authorID: string;
-  content: string;
+  description: string;
   likes: number;
   date: string;
   title: string;
@@ -28,7 +28,7 @@ const Card: FC<{
   blogID,
   monument,
   rawContent,
-  content,
+  description,
 }) => {
   const [author, setAuthor] = useState<User | null>(null);
 
@@ -59,6 +59,7 @@ const Card: FC<{
       ) : null}
     </>
   );
+  console.log({ description });
   return (
     <div className={card__styles.golden_distinction}>
       {Award}
@@ -68,7 +69,7 @@ const Card: FC<{
           authorID={authorID}
           monument={monument}
           blogID={blogID}
-          content={content}
+          description={description}
           rawContent={rawContent}
           title={title}
           author={author?.name || ''}

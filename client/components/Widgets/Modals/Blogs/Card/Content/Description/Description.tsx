@@ -1,12 +1,9 @@
 import { FC } from 'react';
 import description__style from './description.module.css';
 
-const Description: FC<{ content: string }> = ({ content }) => {
-  return (
-    <div className={description__style.subtitle}>
-      {content.slice(0, 150) + '...'}
-    </div>
-  );
+const Description: FC<{ description: string }> = ({ description }) => {
+  console.log(description);
+  return <div className={description__style.subtitle}>{description}</div>;
 };
 
 export default Description;

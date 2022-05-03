@@ -3,7 +3,7 @@ import Description from './Description/Description';
 import Title from './Title/Title';
 const Content: FC<{
   title: string;
-  content: string;
+  description: string;
   rawContent: string;
   author: string;
   likes: number;
@@ -11,7 +11,7 @@ const Content: FC<{
   monument: string;
   authorID: string;
 }> = ({
-  content,
+  description,
   title,
   author,
   likes,
@@ -31,7 +31,7 @@ const Content: FC<{
         likes={likes}
         blogID={blogID}
       />
-      <Description content={content} />
+      <Description description={description} />
     </>
   );
 };

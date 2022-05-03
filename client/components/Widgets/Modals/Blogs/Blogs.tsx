@@ -4,38 +4,16 @@ import blogs__styles from './blogs.module.css';
 import Dispatch from 'components/Widgets/Button/Dispatch/Dispatch';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
-import { ServerResponse } from 'types/server';
-
-import { Blogs } from '@prisma/client';
-import { openPopup } from 'store/widgets/actions/popup-actions';
-import { PopupBuilder } from 'store/widgets/widgets-actions';
-import { convertFromRaw, RawDraftContentState } from 'draft-js';
+import { useBlogs } from 'hooks/useBlogs';
+import { descriptionFrom } from 'utils/description-from-content';
+import { dateFrom } from 'utils/date';
 const Card = dynamic(() => import('./Card/Card'));
-
-const contentFrom = (rawContent: string) => {
-  return convertFromRaw(
-    JSON.parse(rawContent) as RawDraftContentState
-  ).getPlainText();
-};
 
 const Blog = () => {
   const router = useRouter();
   const { name, visible } = selectFrom<{ name: string }>('blogs-modal');
-  const [blogs, setBlogs] = useState<Blogs[] | null>([]);
-  useEffect(() => {
-    const getBlogs = async () => {
-      const response = await fetch(`/api/blogs/get-blogs/${name}`);
-      const fetchedBlogs = (await response.json()) as ServerResponse<Blogs[]>;
-      if (fetchedBlogs.error)
-        openPopup('success-popup', {
-          payload: fetchedBlogs.payload,
-          type: 'Error',
-        } as PopupBuilder);
-      else setBlogs(fetchedBlogs.payload);
-    };
-    getBlogs();
-  }, [visible]);
+  const blogs = useBlogs(name, visible);
+
   return visible ? (
     <ModalTemplate
       header={{
@@ -61,9 +39,9 @@ const Blog = () => {
               golden={index === 0}
               key={blog.blogId + blog.userId}
               authorID={blog.userId}
-              date={blog.createdAt as unknown as string}
+              date={dateFrom(blog.createdAt)}
               likes={blog.likeCount}
-              content={contentFrom(blog.content)}
+              description={descriptionFrom(blog.content)}
               title={blog.title}
               blogID={blog.blogId}
               monument={name}
