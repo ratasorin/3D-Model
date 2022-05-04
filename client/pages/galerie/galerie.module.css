@@ -1,0 +1,27 @@
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  top: 0;
+  left: 0;
+  height: 20vh;
+  width: 100vw;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-family: monospace;
+  font-weight: 700;
+}
+
+.content {
+  flex: 1;
+  background-color: blue;
+}

@@ -11,7 +11,6 @@ const Uploader: FC<{
 
   useEffect(() => {
     let subscription: Subscription;
-    console.log(trigger.current);
     trigger.current
       ? (subscription = fromEvent(trigger.current, 'click')
           .pipe(
@@ -28,7 +27,7 @@ const Uploader: FC<{
     };
   }, [trigger.current]);
 
-  const Input = (
+  return (
     <input
       type="file"
       ref={inputRef}
@@ -37,11 +36,11 @@ const Uploader: FC<{
         display: 'none',
       }}
       onChange={(e) => {
+        console.log('ON CHANGE');
         e.currentTarget.files ? handleFile(e.currentTarget.files[0]) : null;
       }}
     />
   );
-  return Input;
 };
 
 export default Uploader;

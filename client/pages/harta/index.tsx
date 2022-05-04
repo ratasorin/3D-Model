@@ -1,4 +1,4 @@
-import map__style from './map.module.css';
+import map__style from './harta.module.css';
 import { useAppSelector } from 'hooks/redux-hooks';
 import dynamic from 'next/dynamic';
 import Navbar from 'components/Navbar/Navbar';
@@ -48,7 +48,7 @@ const LazyBlog = dynamic(import('components/Widgets/Modals/Blogs/Blog/Blog'), {
   ssr: false,
 });
 
-const DynamicMap = dynamic(() => import('../components/Map/Map'), {
+const DynamicMap = dynamic(() => import('components/Map/Map'), {
   ssr: false,
   loading: () => {
     return (

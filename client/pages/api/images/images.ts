@@ -37,7 +37,7 @@ export default async function imagesHandler(
       info.filename
     );
     const id = joinPath('uploads', folder, filename);
-
+    console.log({ id });
     try {
       // console.log('THE S3 is', s3);
       const response = await s3
