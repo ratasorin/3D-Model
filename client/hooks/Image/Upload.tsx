@@ -16,6 +16,7 @@ const Uploader: FC<{
           .pipe(
             debounceTime(200),
             tap(() => {
+              console.log('CLICK');
               inputRef.current?.click();
             })
           )

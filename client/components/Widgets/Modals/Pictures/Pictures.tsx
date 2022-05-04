@@ -1,19 +1,16 @@
 import { imagesFrom } from 'lib/modal';
 import { useRef } from 'react';
-import { motion } from 'framer-motion';
-import useToggle from 'hooks/useToggle';
 import { CgCloseO } from 'react-icons/cg';
-import { MdOutlinePhotoCamera } from 'react-icons/md';
 import image_supplier__style from './pictures.module.css';
 import Submit from '../../Button/Submit/Submit';
 import ModalTemplate from '../Modals';
 import { selectFrom } from 'store/widgets/actions/modals-actions';
 import usePhotos from 'hooks/usePhotos';
 import Uploader from 'hooks/Image/Upload';
+import Button from './Button/Button';
 
 export default function Pictures() {
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const { state: show, toggle } = useToggle();
   const { visible, name } = selectFrom<{ name: string }>('picture-modal');
   const { addPhoto, removePhoto, photos } = usePhotos();
 
@@ -31,31 +28,7 @@ export default function Pictures() {
     >
       <Uploader handleFile={addPhoto} trigger={buttonRef} />
       <div className={image_supplier__style.container}>
-        <motion.button
-          layout
-          ref={buttonRef}
-          className={image_supplier__style.button}
-          onMouseEnter={toggle}
-          onMouseLeave={toggle}
-        >
-          <motion.div
-            layoutId="button__animation"
-            className={image_supplier__style.text}
-          >
-            Adauga fotografii
-          </motion.div>
-          {show ? (
-            <motion.div
-              initial={{ opacity: 0, x: 200 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -200 }}
-              className={image_supplier__style.iconDiv}
-            >
-              <MdOutlinePhotoCamera className={image_supplier__style.icon} />
-            </motion.div>
-          ) : null}
-        </motion.button>
-
+        <Button buttonRef={buttonRef} />
         <div className={image_supplier__style.preview}>
           {photos.map(({ src, file, name }) => (
             <button
