@@ -4,8 +4,8 @@ const Loading = () => {
   return (
     <div className={loadingStyles.container}>
       <ReactLoading
-        type="spin"
-        color="cyan"
+        type="spokes"
+        color="#1d2533"
         height={100}
         width={100}
       ></ReactLoading>

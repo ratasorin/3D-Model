@@ -7,12 +7,13 @@ import dynamic from 'next/dynamic';
 import { useBlogs } from 'hooks/useBlogs';
 import { descriptionFrom } from 'utils/description-from-content';
 import { dateFrom } from 'utils/date';
+import Loading from 'components/Loading/Loading';
 const Card = dynamic(() => import('./Card/Card'));
 
 const Blog = () => {
   const router = useRouter();
   const { name, visible } = selectFrom<{ name: string }>('blogs-modal');
-  const blogs = useBlogs(name, visible);
+  const { blogs, loading } = useBlogs(name, visible);
 
   return visible ? (
     <ModalTemplate
@@ -20,11 +21,11 @@ const Blog = () => {
         subtitle: 'Arhiva culturala',
         title: name,
       }}
+      useMaxHeight={true}
       modal="blogs-modal"
     >
       <div className={blogs__styles.container}>
         <div className={blogs__styles.options__container}>
-          {/* <Filter></Filter> */}
           <Dispatch
             action={() => {
               console.log('ACTION');
@@ -33,7 +34,9 @@ const Blog = () => {
             payload="Scrie o postare"
           ></Dispatch>
         </div>
-        {blogs?.length ? (
+        {loading ? (
+          <Loading />
+        ) : blogs?.length ? (
           blogs.map((blog, index) => (
             <Card
               golden={index === 0}
@@ -50,7 +53,6 @@ const Blog = () => {
           ))
         ) : (
           <div className={blogs__styles.nothing_to_see}>
-            {' '}
             Se pare ca nu au mai fost scrise bloguri despre {name}
           </div>
         )}

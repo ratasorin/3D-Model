@@ -10,8 +10,14 @@ interface ModalComponents {
     title: JSX.Element | string;
     subtitle: JSX.Element | string;
   };
+  useMaxHeight?: boolean;
 }
-const ModalTemplate: FC<ModalComponents> = ({ children, modal, header }) => {
+const ModalTemplate: FC<ModalComponents> = ({
+  children,
+  modal,
+  header,
+  useMaxHeight,
+}) => {
   const zIndex = indexOf(modal);
 
   return (
@@ -21,7 +27,11 @@ const ModalTemplate: FC<ModalComponents> = ({ children, modal, header }) => {
         zIndex,
       }}
     >
-      <div className={modal__style.container}>
+      <div
+        className={`${modal__style.container} ${
+          useMaxHeight ? modal__style.max__height : modal__style.regular__height
+        }`}
+      >
         <div className={modal__style.navigation}>
           <div className={modal__style.header}>
             <div className={modal__style.header__container}>

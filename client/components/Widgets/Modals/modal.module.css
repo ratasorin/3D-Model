@@ -3,14 +3,20 @@
 .container {
   position: relative;
   width: 30em;
-  height: auto;
-  max-height: 40rem;
   background-color: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-bottom: 2em;
   font-family: 'Roboto';
+}
+
+.max__height {
+  height: 40rem;
+}
+
+.regular__height {
+  max-height: 40rem;
 }
 
 .navigation {
@@ -91,6 +97,13 @@
 @media screen and (max-width: 500px) {
   .container {
     width: 80vw;
+  }
+
+  .regular__height {
+    height: 30rem;
+  }
+
+  .max__height {
     max-height: 30rem;
   }
 }
@@ -98,6 +111,14 @@
 @media screen and (min-width: 500px) and (max-width: 600px) {
   .container {
     width: 60vw;
+    height: 30rem;
+  }
+
+  .regular__height {
+    height: 30rem;
+  }
+
+  .max__height {
     max-height: 30rem;
   }
 }

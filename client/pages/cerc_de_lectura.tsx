@@ -1,4 +1,5 @@
 import Header from 'components/Blog-Creator/Header/Header';
+import Loading from 'components/Loading/Loading';
 import Dispatch from 'components/Widgets/Button/Dispatch/Dispatch';
 import Blog from 'components/Widgets/Modals/Blogs/Blog/Blog';
 import Card from 'components/Widgets/Modals/Blogs/Card/Card';
@@ -8,7 +9,7 @@ import { dateFrom } from 'utils/date';
 import { descriptionFrom } from 'utils/description-from-content';
 import cerc__style from './cerc-de-lectura.module.css';
 const CercDeLectura = () => {
-  const blogs = useBlogs('cerc de lectura');
+  const { blogs, loading } = useBlogs('cerc de lectura');
   const router = useRouter();
   return (
     <>
@@ -26,20 +27,24 @@ const CercDeLectura = () => {
           }
         />
         <div className={cerc__style.posts}>
-          {blogs?.map((blog) => (
-            <Card
-              authorID={blog.userId}
-              blogID={blog.blogId}
-              description={descriptionFrom(blog.content)}
-              date={dateFrom(blog.createdAt)}
-              likes={blog.likeCount}
-              monument="cerc de lectura"
-              rawContent={blog.content}
-              key={blog.content}
-              title={blog.title}
-              golden={false}
-            />
-          ))}
+          {loading ? (
+            <Loading />
+          ) : (
+            blogs?.map((blog) => (
+              <Card
+                authorID={blog.userId}
+                blogID={blog.blogId}
+                description={descriptionFrom(blog.content)}
+                date={dateFrom(blog.createdAt)}
+                likes={blog.likeCount}
+                monument="cerc de lectura"
+                rawContent={blog.content}
+                key={blog.content}
+                title={blog.title}
+                golden={false}
+              />
+            ))
+          )}
         </div>
       </div>
       <Blog />

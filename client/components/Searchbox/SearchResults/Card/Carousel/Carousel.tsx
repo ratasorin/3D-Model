@@ -5,28 +5,28 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useEffect, useState } from 'react';
 import { ServerResponse } from 'types/server';
-import type { Image } from 'types/server';
 import { openModal } from 'store/widgets/actions/modals-actions';
+import type { Image } from 'types/server';
+
+interface ProcessedImage {
+  image: HTMLImageElement;
+  filename: string;
+}
 
 const Carousel = ({ church }: { church: string }) => {
-  const [photos, setPhotos] = useState<HTMLImageElement[]>([]);
+  const [urls, setUrls] = useState<string[] | null>([]);
 
   useEffect(() => {
     async function fetchImages() {
       const response = await fetch(`/api/images/${church}`);
-      const images = (await response.json()) as ServerResponse<Image[]>;
+      console.log({ response });
+      const images = (await response.json()) as ServerResponse<string[]>;
+      console.log({ images });
       if (images.error) return [];
-      return images.payload
-        ? images.payload.map((base64Image) => {
-            const image = new Image();
-            console.log(base64Image);
-            image.src = base64Image.src;
-            return image;
-          })
-        : [];
+      return images.payload;
     }
 
-    fetchImages().then((images) => setPhotos(images));
+    fetchImages().then((urls) => setUrls(urls));
   }, []);
   const NextArrow = ({ onClick }: { onClick?: React.MouseEventHandler }) => {
     return (
@@ -63,20 +63,21 @@ const Carousel = ({ church }: { church: string }) => {
 
   return (
     <div className={carousel__style.container}>
-      {photos.length ? (
+      {urls?.length ? (
         <Slider
           {...settings}
           adaptiveHeight={true}
           className={carousel__style.slider}
         >
-          {photos.map((img, index) => (
+          {urls?.map((url, index) => (
             <div key={index} className={carousel__style.slide}>
               <img
-                src={img?.src}
+                src={url}
                 alt={'alt'}
                 onClick={() => {
+                  console.log(url);
                   openModal('image-viewer', {
-                    src: img.src,
+                    src: url,
                   });
                 }}
               />
