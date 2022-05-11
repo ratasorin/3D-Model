@@ -9,7 +9,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       username: string;
       title: string;
     };
-    console.log('TITLE IS:', title);
     const blog = JSON.parse(req.body) as {
       content: string;
       id: string;
@@ -43,6 +42,5 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       error: false,
       payload: 'Totul este perfect !',
     });
-    console.log(username, title, 'POST', parse(blog.monument));
   }
 }

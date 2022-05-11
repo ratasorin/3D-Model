@@ -16,7 +16,6 @@ const Uploader: FC<{
           .pipe(
             debounceTime(200),
             tap(() => {
-              console.log('CLICK');
               inputRef.current?.click();
             })
           )
@@ -37,7 +36,6 @@ const Uploader: FC<{
         display: 'none',
       }}
       onChange={(e) => {
-        console.log('ON CHANGE');
         e.currentTarget.files ? handleFile(e.currentTarget.files[0]) : null;
       }}
     />

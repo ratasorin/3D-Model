@@ -21,10 +21,8 @@ export const monumentsLayer = new FeatureLayer({
     title: '{NAME}',
     content: async (e: { graphic: Graphic }) => {
       const monument = e.graphic.attributes.name as string;
-      console.log(monument);
       return fetch(`/api/church-info/${monument}`).then(async (r) => {
         const response = (await r.json()) as ServerResponse<ChurchInfo>;
-        console.log('THE RESPONSE FROM THE POPUP IS:', response);
         if (response.error) {
           openPopup('success-popup', {
             payload: response.payload,

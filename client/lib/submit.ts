@@ -12,7 +12,6 @@ export const submit = <T>(
     .pipe(
       first(),
       switchMap((payload) => {
-        console.log(payload);
         return from(
           fetch(path, {
             method: 'POST',
@@ -28,7 +27,6 @@ export const submit = <T>(
         } as PopupBuilder);
         setTimeout(() => {
           closePopup('success-popup');
-          console.log('close');
         }, 4000);
       })
     )

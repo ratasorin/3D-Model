@@ -11,15 +11,12 @@ export default async function handler(
 
   const utf8Filename = Buffer.from(defaultFilename).toString('utf8');
 
-  console.log(defaultFoldername, utf8Filename);
-
   const [foldername, filename] = normalizePaths(
     defaultFoldername,
     utf8Filename
   );
 
   const id = joinPath('uploads', foldername, filename);
-  console.log('THE ID IS:', id);
 
   try {
     const stream = s3

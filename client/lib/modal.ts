@@ -20,7 +20,6 @@ export const imagesFrom = (church: string) =>
       };
     }),
     map(({ files, from }) => {
-      console.log(files, from);
       const form = new FormData();
       files.forEach((file) => form.append(from, file));
       return form;

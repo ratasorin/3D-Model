@@ -1,9 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { normalizePath } from 'utils/normalize-path';
 import prisma from 'utils/prisma';
 
 export default async function like(req: NextApiRequest, res: NextApiResponse) {
-  const { blogID, userID, monument } = req.query as {
+  const { blogID, userID } = req.query as {
     blogID: string;
     userID: string;
     monument: string;
@@ -13,9 +12,7 @@ export default async function like(req: NextApiRequest, res: NextApiResponse) {
     likes: number;
   };
 
-  console.log(blogID, userID, monument);
-
-  const updateBlog = await prisma.blogs.update({
+  await prisma.blogs.update({
     where: {
       blogId: blogID,
     },

@@ -4,26 +4,45 @@ import blogs__styles from './blogs.module.css';
 import Dispatch from 'components/Widgets/Button/Dispatch/Dispatch';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import { useBlogs } from 'hooks/useBlogs';
 import { descriptionFrom } from 'utils/description-from-content';
 import { dateFrom } from 'utils/date';
 import Loading from 'components/Loading/Loading';
 import { ServerResponse } from 'types/server';
 import { Blogs } from '@prisma/client';
-import { useEffect } from 'react';
+import { useEffect, useCallback, useState } from 'react';
+import { useAppSelector, useAppDispatch } from 'hooks/redux-hooks';
+import { setBlogsForSubject } from './blog-posts-slice';
 const Card = dynamic(() => import('./Card/Card'));
 
 const Blog = () => {
   const router = useRouter();
   const { name, visible } = selectFrom<{ name: string }>('blogs-modal');
-  const { blogs, loading, trigger } = useBlogs(name, async () => {
+  const blogs = useAppSelector(({ blogPosts }) => blogPosts[name]);
+  const fetchBlogs = useCallback(async () => {
     const response = await fetch(`/api/blogs/get-blogs/${name}`);
     return (await response.json()) as ServerResponse<Blogs[]>;
-  });
+  }, [name]);
 
+  const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    if (visible) trigger(true);
-  }, [visible]);
+    const useBlogs = async () => {
+      if (!blogs) {
+        setLoading(true);
+        const response = await fetchBlogs();
+        if (response.error) return;
+        dispatch(
+          setBlogsForSubject({
+            blogs: response.payload,
+            subject: name,
+          })
+        );
+        setLoading(false);
+      }
+    };
+
+    useBlogs();
+  }, [name, blogs, visible]);
 
   return visible ? (
     <ModalTemplate
@@ -38,7 +57,6 @@ const Blog = () => {
         <div className={blogs__styles.options__container}>
           <Dispatch
             action={() => {
-              console.log('ACTION');
               router.push(`/create-blog/${name}`);
             }}
             payload="Scrie o postare"

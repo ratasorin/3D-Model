@@ -5,8 +5,7 @@ const run = async () => {
 };
 
 run()
-  .catch((e) => {
-    console.log(e);
+  .catch(() => {
     process.exit(1);
   })
   .finally(() => prisma.$disconnect());

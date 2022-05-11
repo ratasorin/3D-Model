@@ -11,14 +11,15 @@ import ModalTemplate from '../../Modals';
 import { Blog as BlogType } from './blog-slice';
 import blog__style from './blog.module.css';
 import { useSession } from 'next-auth/react';
-import { useAppDispatch } from 'hooks/redux-hooks';
-import { alterBlogsForSubject } from '../blog-posts-slice';
+import { useAppDispatch, useAppSelector } from 'hooks/redux-hooks';
+import { setBlogsForSubject } from '../blog-posts-slice';
 
 const Blog = () => {
   const { visible, author, content, title, blogID, authorID, monument } =
     selectFrom<BlogType>('blog-modal');
   const user = useSession().data?.user;
   const dispatch = useAppDispatch();
+  const blogs = useAppSelector(({ blogPosts }) => blogPosts);
   return visible ? (
     <ModalTemplate
       header={{
@@ -33,13 +34,14 @@ const Blog = () => {
             <Dispatch
               action={() => {
                 closeModal('blog-modal');
+                const blogsAfterDeletion =
+                  blogs[monument]?.filter((blog) => blog.blogId !== blogID) ||
+                  null;
+                console.log({ blogs: blogsAfterDeletion });
                 dispatch(
-                  alterBlogsForSubject({
+                  setBlogsForSubject({
                     subject: monument,
-                    modifier: (blogs) =>
-                      blogs
-                        ? blogs.filter((blog) => blog.blogId !== blogID)
-                        : null,
+                    blogs: blogsAfterDeletion,
                   })
                 );
                 fetch(`/api/blogs/blog/${authorID}/${monument}/${blogID}`);

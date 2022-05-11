@@ -1,9 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import parse from 'utils/normalize-path';
 import prisma from 'utils/prisma';
 
 export default async function like(req: NextApiRequest, res: NextApiResponse) {
-  const { blogID, userID, monument } = req.query as {
+  const { blogID, userID } = req.query as {
     blogID: string;
     userID: string;
     monument: string;
@@ -14,7 +13,6 @@ export default async function like(req: NextApiRequest, res: NextApiResponse) {
   };
 
   try {
-    console.log(blogID, userID, monument);
     await prisma.blogs.update({
       where: {
         blogId: blogID,
@@ -33,7 +31,6 @@ export default async function like(req: NextApiRequest, res: NextApiResponse) {
     });
     res.send('ok');
   } catch (e) {
-    console.log('NU EXISTA LEGATURA IN BAZA DE DATE');
     res.send({
       error: false,
       message: "YOU DIDN'T LIKE THIS TO BEGIN WITH",

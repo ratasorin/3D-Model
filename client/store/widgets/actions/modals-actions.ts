@@ -8,7 +8,7 @@ export const openModal = (
   modal: supportedModals,
   payload?: supportedModalActions
 ) => {
-  console.log(store.dispatch(addWidget(modal)));
+  store.dispatch(addWidget(modal));
   store.dispatch({
     type: `${modal}/open` as const,
     payload,
@@ -16,7 +16,7 @@ export const openModal = (
 };
 
 export const closeModal = (modal: supportedModals) => {
-  console.log(store.dispatch(removeWidget(modal)));
+  store.dispatch(removeWidget(modal));
   store.dispatch({
     type: `${modal}/close` as const,
   });

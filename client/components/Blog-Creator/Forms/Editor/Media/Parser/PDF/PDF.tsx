@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { openModal } from 'store/widgets/actions/modals-actions';
 import pdf__style from './pdf.module.css';
@@ -7,7 +7,6 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 const PDF: FC<{ src: string }> = ({ src }) => {
   const [pages, setNumPages] = useState<number>(0);
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
-    console.log({ numPages });
     setNumPages(numPages);
     setWidth(documentRef.current?.clientWidth);
   }
@@ -24,7 +23,6 @@ const PDF: FC<{ src: string }> = ({ src }) => {
             width={width}
             key={index}
             onClick={() => {
-              console.log(index + 1, src);
               openModal('pdf-viewer', { index: index + 1, src });
             }}
           />

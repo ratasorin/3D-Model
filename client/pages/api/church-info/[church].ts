@@ -25,7 +25,6 @@ const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
         payload: churchInfo,
       } as SuccessResponse<ChurchInfo>);
     } catch (e) {
-      console.log(e);
       res.send({
         error: true,
         payload: 'Ups! Ceva nu a mers, incercati din nou mai tarziu',
@@ -33,14 +32,12 @@ const infoForChurch = async (req: NextApiRequest, res: NextApiResponse) => {
     }
   } else {
     const churchName = req.query.church as string;
-    console.log(churchName);
     try {
       const churchInfo = await prisma.churchInfo.findFirst({
         where: {
           churchName,
         },
       });
-      console.log(churchInfo);
       if (churchInfo)
         res.send({
           error: false,

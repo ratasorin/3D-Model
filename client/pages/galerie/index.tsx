@@ -36,7 +36,6 @@ const Galerie = () => {
             <Button buttonRef={buttonRef} />
             <Uploader
               handleFile={(file) => {
-                console.log({ file });
                 const form = new FormData();
                 form.append('galerie', file, file.name);
                 fetch(`/api/images/images`, {
@@ -54,7 +53,6 @@ const Galerie = () => {
                   src={url}
                   alt="imagine"
                   onClick={() => {
-                    console.log(url);
                     openModal('image-viewer', {
                       src: url,
                     });

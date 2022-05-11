@@ -28,31 +28,20 @@ export default async function imagesHandler(
       standardizedFilename
     );
     const id = joinPath('uploads', folder, filename);
-    console.log({ id });
     try {
-      // console.log('THE S3 is', s3);
       const response = await s3
         .upload({
           Bucket,
           Body: stream,
           Key: id,
         })
-        .promise()
-        .then((e) => {
-          console.log('THE RESPONSE IS:', e);
-          return e;
-        })
-        .catch((e) => {
-          console.log('THE ERROR IS:', e);
-          return e;
-        });
-      console.log('THE RESPONSE IS:', response);
+        .promise();
+
       res.send({
         error: false,
         payload: { data: response, mimetype: info.mimeType },
       } as SuccessResponse<UploadInfo>);
     } catch (e) {
-      console.log('ERROR IS:', e);
       res.send({
         error: true,
         payload:

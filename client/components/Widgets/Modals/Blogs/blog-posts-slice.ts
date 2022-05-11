@@ -13,30 +13,9 @@ const blogPostsSlice = createSlice({
         blogs: Blogs[] | null;
       }>
     ) {
-      if (!state[action.payload.subject]) return state;
       return {
         ...state,
         [action.payload.subject]: action.payload.blogs,
-      };
-    },
-
-    alterBlogsForSubject(
-      state,
-      action: PayloadAction<{
-        subject: string;
-        modifier: (blogs: Blogs[] | null) => Blogs[] | null;
-      }>
-    ) {
-      console.log(
-        'NEW STATE:',
-        action.payload.modifier(state[action.payload.subject])
-      );
-
-      return {
-        ...state,
-        [action.payload.subject]: action.payload.modifier(
-          state[action.payload.subject]
-        ),
       };
     },
   },
@@ -50,5 +29,4 @@ export const getBlogs = (subject: string) => {
 
 export default blogPostsSlice.reducer;
 export const { name } = blogPostsSlice;
-export const { alterBlogsForSubject, setBlogsForSubject } =
-  blogPostsSlice.actions;
+export const { setBlogsForSubject } = blogPostsSlice.actions;

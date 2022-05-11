@@ -61,7 +61,6 @@ const Card: FC<{
       ) : null}
     </>
   );
-  console.log({ description });
   return (
     <div className={card__styles.golden_distinction}>
       {Award}

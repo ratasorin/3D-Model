@@ -12,7 +12,6 @@ const Field: FC<{
 }> = ({ children, id, name }) => {
   const monumentInfo = useGetChurchInfoQuery(name).currentData
     ?.payload as ChurchInfo;
-  console.log(name);
   const user = useSession().data?.user;
   const dispatch = useAppDispatch();
   const textareaRef = useRef<HTMLTextAreaElement>(null);

@@ -34,9 +34,6 @@ const PDF = () => {
     selectFrom<{ src: string; index: number }>('pdf-viewer');
   const zIndex = indexOf('pdf-viewer');
   const documentRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    console.log({ visible });
-  }, [visible]);
   useOutsideClick(documentRef, () => {
     closeModal('pdf-viewer');
   });

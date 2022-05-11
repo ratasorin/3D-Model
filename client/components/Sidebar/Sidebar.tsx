@@ -10,7 +10,6 @@ const Sidebar: FC<{
 }> = ({ name }) => {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const openSidebar = () => {
-    console.log(sidebarRef.current?.classList);
     sidebarRef.current?.classList.add(sidebar__styles.open);
   };
   const router = useRouter();

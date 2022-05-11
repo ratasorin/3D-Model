@@ -19,7 +19,6 @@ export default async function getBlogs(
         likeCount: 'desc',
       },
     });
-    console.log(blogs);
 
     res.send({
       error: false,

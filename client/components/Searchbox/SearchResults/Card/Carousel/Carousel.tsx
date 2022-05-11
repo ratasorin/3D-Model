@@ -6,12 +6,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import { useEffect, useState } from 'react';
 import { ServerResponse } from 'types/server';
 import { openModal } from 'store/widgets/actions/modals-actions';
-import type { Image } from 'types/server';
-
-interface ProcessedImage {
-  image: HTMLImageElement;
-  filename: string;
-}
 
 const Carousel = ({ church }: { church: string }) => {
   const [urls, setUrls] = useState<string[] | null>([]);
@@ -19,9 +13,7 @@ const Carousel = ({ church }: { church: string }) => {
   useEffect(() => {
     async function fetchImages() {
       const response = await fetch(`/api/images/${church}`);
-      console.log({ response });
       const images = (await response.json()) as ServerResponse<string[]>;
-      console.log({ images });
       if (images.error) return [];
       return images.payload;
     }
@@ -75,7 +67,6 @@ const Carousel = ({ church }: { church: string }) => {
                 src={url}
                 alt={'alt'}
                 onClick={() => {
-                  console.log(url);
                   openModal('image-viewer', {
                     src: url,
                   });

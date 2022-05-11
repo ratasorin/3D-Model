@@ -1,10 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import {
-  ErrorResponse,
-  Image,
-  ServerResponse,
-  SuccessResponse,
-} from 'types/server';
+import { ErrorResponse, ServerResponse } from 'types/server';
 import normalizePaths from 'utils/normalize-path';
 import s3, { Bucket, joinPath } from '../aws/s3';
 
@@ -25,7 +20,6 @@ export default async function handler(
       },
       async (err, data) => {
         if (err) {
-          console.log('THE ERROR IS:', err);
           res.send({
             error: true,
             payload: err.message,

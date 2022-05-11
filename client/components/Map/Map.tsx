@@ -27,7 +27,6 @@ const MapP: NextPage = () => {
     coordinates
       .pipe(
         tap(([lat, long]) => {
-          console.log(lat, long);
           view
             ?.goTo({
               center: [long, lat],

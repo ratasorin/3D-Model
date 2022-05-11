@@ -5,6 +5,5 @@ export const descriptionFrom = (content: string) => {
     convertFromRaw(JSON.parse(content) as RawDraftContentState)
       .getPlainText()
       .slice(0, 150) + '...';
-  console.log(description);
   return description;
 };
