@@ -18,6 +18,13 @@ const blogPostsSlice = createSlice({
         [action.payload.subject]: action.payload.blogs,
       };
     },
+    invalidateCache(state, action: PayloadAction<string>) {
+      console.log(action.payload);
+      return {
+        ...state,
+        [action.payload]: null,
+      };
+    },
   },
 });
 
@@ -29,4 +36,4 @@ export const getBlogs = (subject: string) => {
 
 export default blogPostsSlice.reducer;
 export const { name } = blogPostsSlice;
-export const { setBlogsForSubject } = blogPostsSlice.actions;
+export const { setBlogsForSubject, invalidateCache } = blogPostsSlice.actions;

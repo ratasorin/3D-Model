@@ -13,8 +13,9 @@ import { editorState$ } from 'components/Blog-Creator/Forms/Editor/Editor';
 import { map } from 'rxjs';
 import { convertToRaw } from 'draft-js';
 import { useEffect, useState } from 'react';
-import { useAppSelector } from 'hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from 'hooks/redux-hooks';
 import { useSession } from 'next-auth/react';
+import { invalidateCache } from 'components/Widgets/Modals/Blogs/blog-posts-slice';
 
 const makePost = (blogID: string, monument: string) => {
   return editorState$.pipe(
@@ -41,6 +42,7 @@ const Monument = () => {
     setPath(`/api/blogs/${user?.name}/${title.title || title.postHash}`);
   }, [title.title, user?.name]);
   const monument = (router.query.monument as string) || '';
+  const dispatch = useAppDispatch();
   return (
     <div className={monument_creator__style.fullpage}>
       <Tools />
@@ -53,6 +55,10 @@ const Monument = () => {
             data={makePost(title.postHash, monument)}
             path={path}
             stringify={true}
+            then={() => {
+              dispatch(invalidateCache(monument.toLocaleLowerCase()));
+              router.push('/');
+            }}
           ></Submit>
         }
       />

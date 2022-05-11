@@ -1,12 +1,12 @@
-import { catchError, first, from, Observable, switchMap } from 'rxjs';
-// import { useSession } from 'next-auth/react';
+import { catchError, first, from, Observable, switchMap, tap } from 'rxjs';
 import { closePopup, openPopup } from 'store/widgets/actions/popup-actions';
 import { PopupBuilder } from 'store/widgets/widgets-actions';
 
 export const submit = <T>(
   data: Observable<T>,
   path: string,
-  stringify: boolean
+  stringify: boolean,
+  then?: (response: Response) => unknown
 ) =>
   data
     .pipe(
@@ -18,6 +18,9 @@ export const submit = <T>(
             body: (stringify ? JSON.stringify(payload) : payload) as BodyInit,
           })
         );
+      }),
+      tap((r) => {
+        if (then) then(r);
       }),
       catchError(async (err: Error) => {
         closePopup('success-popup');

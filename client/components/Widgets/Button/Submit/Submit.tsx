@@ -18,10 +18,11 @@ const Submit: FC<{
   data: Observable<unknown>;
   path: string;
   stringify: boolean;
-}> = ({ payload, data, path, stringify }) => {
+  then?: (response?: Response) => unknown;
+}> = ({ payload, data, path, stringify, then }) => {
   const user = useSession().data?.user;
   const callback = useCallback(() => {
-    if (user) submit(data, path, stringify);
+    if (user) submit(data, path, stringify, then);
     else openModal('authenticate-modal');
   }, [user, path]);
 

@@ -25,6 +25,7 @@ const CercDeLectura = () => {
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
+    console.log({ blogs });
     const useBlogs = async () => {
       if (!blogs) {
         setLoading(true);
