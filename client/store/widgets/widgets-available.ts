@@ -7,6 +7,7 @@ import { name as blogsName } from 'components/Widgets/Modals/Blogs/blogs-slice';
 import { name as simplePopupName } from 'components/Widgets/Popup/Tools/tools-slice';
 import { name as blogName } from 'components/Widgets/Modals/Blogs/Blog/blog-slice';
 import { name as imageName } from 'components/Widgets/Modals/Image/image-slice';
+import { name as pdfName } from 'components/Widgets/Modals/PDF/pdf-slice';
 
 const modals = [
   modifyModalName,
@@ -16,6 +17,7 @@ const modals = [
   blogsName,
   blogName,
   imageName,
+  pdfName,
 ] as const;
 
 const popups = [popupName, simplePopupName] as const;

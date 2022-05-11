@@ -8,7 +8,7 @@ generator client {
 datasource db {
   provider          = "postgresql"
   url               = env("DATABASE_URL")
-  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model Account {
@@ -68,12 +68,10 @@ model ChurchInfo {
 }
 
 model Like {
-  user          User   @relation(fields: [userId], references: [id])
-  userId        String
-  blogs         Blogs  @relation(fields: [blogsBlogId, blogsUserId, blogsMonument], references: [blogId, userId, monument])
-  blogsBlogId   String
-  blogsUserId   String
-  blogsMonument String
+  user        User   @relation(fields: [userId], references: [id])
+  userId      String
+  blogs       Blogs  @relation(fields: [blogsBlogId], references: [blogId])
+  blogsBlogId String
 
   @@id([userId, blogsBlogId])
 }
@@ -84,10 +82,8 @@ model Blogs {
   content   String
   title     String
   createdAt DateTime @default(now())
-  blogId    String
+  blogId    String   @id
   monument  String
   likes     Like[]
   likeCount Int      @default(0)
-
-  @@id([blogId, userId, monument])
 }

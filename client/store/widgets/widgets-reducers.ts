@@ -23,6 +23,10 @@ import imageReducer, {
   name as imageName,
 } from 'components/Widgets/Modals/Image/image-slice';
 
+import pdfReducer, {
+  name as pdfName,
+} from 'components/Widgets/Modals/PDF/pdf-slice';
+
 export const widgets = {
   [modifyModalReducerName]: modifyModalReducer,
   [infoModalReducerName]: infoModalReducer,
@@ -31,6 +35,7 @@ export const widgets = {
   [blogsModalReducerName]: blogsModalReducer,
   [blogModalReducerName]: blogModalReducer,
   [imageName]: imageReducer,
+  [pdfName]: pdfReducer,
   popupReducer,
   simplePopupReducer,
   stackReducer,

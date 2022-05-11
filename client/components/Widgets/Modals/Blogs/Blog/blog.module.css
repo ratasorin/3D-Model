@@ -1,9 +1,10 @@
 .container {
-  max-width: 100%;
+  width: 100%;
   font-size: 1.3em;
 }
 
 .button_div__container {
+  width: 100%;
   padding: 2em;
   overflow-y: auto;
 }

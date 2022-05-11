@@ -1,4 +1,5 @@
 import { AtomicBlockUtils, EditorState } from 'draft-js';
+import { UploadInfo } from 'types/server';
 
 const srcFromFile = (file: File) =>
   new Promise<string>((resolve, reject) => {
@@ -48,9 +49,13 @@ export async function* createMedia(
   const { url } = await fetch('/api/images/images', {
     method: 'POST',
     body: form,
-  }).then(() => ({
-    url: `/api/images/${base_url}/${file.name}`,
-  }));
+  }).then(async (response) => {
+    const { mimetype } = (await response.json()) as UploadInfo;
+    return {
+      url: `/api/images/${base_url}/${file.name}`,
+      mimetype,
+    };
+  });
 
   const renewedEntity = stateWithAtomicBlock
     .getCurrentContent()

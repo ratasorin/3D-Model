@@ -16,8 +16,6 @@ export default async function hasLiked(
   const hasLiked = !!(await prisma.like.findFirst({
     where: {
       blogsBlogId: blogID,
-      userId: userID,
-      blogsMonument: parse(monument)[0],
     },
   }));
 

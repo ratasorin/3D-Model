@@ -17,11 +17,7 @@ export default async function like(req: NextApiRequest, res: NextApiResponse) {
 
   const updateBlog = await prisma.blogs.update({
     where: {
-      blogId_userId_monument: {
-        blogId: blogID,
-        monument: normalizePath(monument),
-        userId: userID,
-      },
+      blogId: blogID,
     },
     data: {
       likeCount: likes,

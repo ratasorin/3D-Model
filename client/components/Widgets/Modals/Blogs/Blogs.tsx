@@ -8,12 +8,22 @@ import { useBlogs } from 'hooks/useBlogs';
 import { descriptionFrom } from 'utils/description-from-content';
 import { dateFrom } from 'utils/date';
 import Loading from 'components/Loading/Loading';
+import { ServerResponse } from 'types/server';
+import { Blogs } from '@prisma/client';
+import { useEffect } from 'react';
 const Card = dynamic(() => import('./Card/Card'));
 
 const Blog = () => {
   const router = useRouter();
   const { name, visible } = selectFrom<{ name: string }>('blogs-modal');
-  const { blogs, loading } = useBlogs(name, visible);
+  const { blogs, loading, trigger } = useBlogs(name, async () => {
+    const response = await fetch(`/api/blogs/get-blogs/${name}`);
+    return (await response.json()) as ServerResponse<Blogs[]>;
+  });
+
+  useEffect(() => {
+    if (visible) trigger(true);
+  }, [visible]);
 
   return visible ? (
     <ModalTemplate

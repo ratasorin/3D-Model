@@ -1,3 +1,10 @@
+import { ManagedUpload } from 'aws-sdk/clients/s3';
+
+export interface UploadInfo {
+  data: ManagedUpload.SendData;
+  mimetype: string;
+}
+
 export interface SuccessResponse<T> {
   error: false;
   payload: T | null;

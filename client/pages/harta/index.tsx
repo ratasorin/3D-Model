@@ -48,6 +48,10 @@ const LazyBlog = dynamic(import('components/Widgets/Modals/Blogs/Blog/Blog'), {
   ssr: false,
 });
 
+const LazyPDF = dynamic(import('components/Widgets/Modals/PDF/PDF'), {
+  ssr: false,
+});
+
 const DynamicMap = dynamic(() => import('components/Map/Map'), {
   ssr: false,
   loading: () => {
@@ -93,6 +97,7 @@ const Main = () => {
       <LazyAuthenticate />
       <LazyBlog />
       <LazyImages />
+      <LazyPDF />
       {searchVisible ? (
         <div className={map__style.app}>
           <Searchbox />

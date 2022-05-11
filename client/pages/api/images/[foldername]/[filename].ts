@@ -8,24 +8,26 @@ export default async function handler(
 ) {
   const { foldername: defaultFoldername, filename: defaultFilename } =
     req.query as { [key: string]: string };
-  console.log(defaultFoldername, defaultFilename);
+
+  const utf8Filename = Buffer.from(defaultFilename).toString('utf8');
+
+  console.log(defaultFoldername, utf8Filename);
 
   const [foldername, filename] = normalizePaths(
     defaultFoldername,
-    defaultFilename
+    utf8Filename
   );
 
   const id = joinPath('uploads', foldername, filename);
   console.log('THE ID IS:', id);
 
-  const stream = s3
-    .getObject({
-      Key: id,
-      Bucket,
-    })
-    .createReadStream();
   try {
-    res.setHeader('Content-Type', 'image/jpeg');
+    const stream = s3
+      .getObject({
+        Key: id,
+        Bucket,
+      })
+      .createReadStream();
     stream.pipe(res);
   } catch (e) {
     res.json({

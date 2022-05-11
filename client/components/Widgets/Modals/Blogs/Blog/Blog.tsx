@@ -6,16 +6,19 @@ import {
   EditorState,
 } from 'draft-js';
 import Dispatch from 'components/Widgets/Button/Dispatch/Dispatch';
-import { selectFrom } from 'store/widgets/actions/modals-actions';
+import { closeModal, selectFrom } from 'store/widgets/actions/modals-actions';
 import ModalTemplate from '../../Modals';
 import { Blog as BlogType } from './blog-slice';
 import blog__style from './blog.module.css';
 import { useSession } from 'next-auth/react';
+import { useAppDispatch } from 'hooks/redux-hooks';
+import { alterBlogsForSubject } from '../blog-posts-slice';
 
 const Blog = () => {
   const { visible, author, content, title, blogID, authorID, monument } =
     selectFrom<BlogType>('blog-modal');
   const user = useSession().data?.user;
+  const dispatch = useAppDispatch();
   return visible ? (
     <ModalTemplate
       header={{
@@ -29,6 +32,16 @@ const Blog = () => {
           <div className={blog__style.button__container}>
             <Dispatch
               action={() => {
+                closeModal('blog-modal');
+                dispatch(
+                  alterBlogsForSubject({
+                    subject: monument,
+                    modifier: (blogs) =>
+                      blogs
+                        ? blogs.filter((blog) => blog.blogId !== blogID)
+                        : null,
+                  })
+                );
                 fetch(`/api/blogs/blog/${authorID}/${monument}/${blogID}`);
               }}
               payload="Sterge postarea"

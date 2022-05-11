@@ -1,4 +1,6 @@
 .editor {
+  width: 100%;
+  overflow-x: hidden;
   margin-top: 3em;
   font-size: 24px;
 }

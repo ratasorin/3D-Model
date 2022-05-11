@@ -9,13 +9,13 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   const monument = req.query.monument as string;
   const userID = req.query.userID as string;
   console.log(blogID, normalizePath(monument), userID);
-  await prisma.blogs.delete({
-    where: {
-      blogId_userId_monument: {
+  try {
+    await prisma.blogs.delete({
+      where: {
         blogId: blogID,
-        monument: normalizePath(monument),
-        userId: userID,
       },
-    },
-  });
+    });
+  } catch (e) {
+    console.log(e);
+  }
 }

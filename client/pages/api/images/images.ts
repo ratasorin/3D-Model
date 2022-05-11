@@ -1,20 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import busboy from 'busboy';
-import { ErrorResponse, SuccessResponse } from 'types/server';
+import { ErrorResponse, SuccessResponse, UploadInfo } from 'types/server';
 import normalizePaths from 'utils/normalize-path';
-import { ManagedUpload } from 'aws-sdk/clients/s3';
 import s3, { Bucket, joinPath } from './aws/s3';
-export interface FileUploadError {
-  ok: false;
-  error: string;
-  file: string;
-}
-
-export interface FileUploadSuccess {
-  ok: true;
-  message: string;
-  file: undefined;
-}
 
 export const config = {
   api: {
@@ -32,9 +20,12 @@ export default async function imagesHandler(
 
   busBoyParser.on('file', async (name, stream, info) => {
     const standardizedFoldername = Buffer.from(name, 'latin1').toString('utf8');
+    const standardizedFilename = Buffer.from(info.filename, 'latin1').toString(
+      'utf8'
+    );
     const [folder, filename] = normalizePaths(
       standardizedFoldername,
-      info.filename
+      standardizedFilename
     );
     const id = joinPath('uploads', folder, filename);
     console.log({ id });
@@ -58,8 +49,8 @@ export default async function imagesHandler(
       console.log('THE RESPONSE IS:', response);
       res.send({
         error: false,
-        payload: response,
-      } as SuccessResponse<ManagedUpload.SendData>);
+        payload: { data: response, mimetype: info.mimeType },
+      } as SuccessResponse<UploadInfo>);
     } catch (e) {
       console.log('ERROR IS:', e);
       res.send({
