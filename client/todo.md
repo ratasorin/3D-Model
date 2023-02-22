@@ -1,0 +1,1 @@
+1. Get the correct environment variables for the app (nextauth, prisma, s3, etc.)
